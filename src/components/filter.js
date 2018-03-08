@@ -1,17 +1,16 @@
 import React from 'react';
 
 export default function Filter(props) {
-    const options = props.options;
-    let optionList;
+    let options = props.options;
     if (options) {
-        optionList = options.map((option, index) => {
-            <option key={index} value={option.value}>{option.label}</option>
+        options = options.map((option, index) => {
+            return(<option key={index} value={option.value}>{option.label}</option>);
         });
     }
 
     return (
         <select name={props.name} id={props.name}>
-            {optionList}
+            {options}
         </select>
     )
 }
