@@ -2,6 +2,7 @@ import React from 'react';
 import {shallow} from 'enzyme';
 
 import TabHeader from '../components/tabheader';
+import Filter from '../components/filter';
 
 describe('TabHeader', () => {
     it('should render without crashing', () => {
@@ -22,12 +23,12 @@ describe('TabHeader', () => {
         });
     });
 
-    it('should render filters, if supplied', () => {
-        const filters = ['test1', 'test2', 'test3'];
-        // TODO: rewrite once filter component is built
+    it('should create filters, if supplied', () => {
+        const filters = [{name:'test1'}, {name:'test2'}, {name:'test3'}];
         const wrapper = shallow(<TabHeader filters={filters}/>);
         filters.forEach(filter => {
-            expect(wrapper.contains(filter)).toEqual(true);
+            expect(wrapper.contains(<Filter key={filter.name}
+                                            name={filter.name} id={filter.name}/>)).toEqual(true);
         });
     });
 });
