@@ -30,4 +30,6 @@ describe('StatusUpdater', () => {
         const wrapper = shallow(<StatusUpdater options={options} selected={selected}/>);
         expect(wrapper.find('select').prop('value')).toEqual(selected);
     });
+
+    // TODO: refactor to automatically populate options according to a type attribute
 });
