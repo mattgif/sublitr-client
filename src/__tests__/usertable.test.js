@@ -2,7 +2,7 @@ import React from 'react';
 import {shallow} from 'enzyme';
 
 import UserTable from '../components/usertable';
-import UserRow from '../components/userrow';
+import UserRow from "../components/userrow";
 
 describe('UserTable', ()=> {
     it('should render without crashing', ()=> {
@@ -40,12 +40,9 @@ describe('UserTable', ()=> {
            }
        ];
        let wrapper = shallow(<UserTable users={users}/>);
-       expect(wrapper.find('<UserRow>')).toEqual(users.length);
+       console.log(wrapper.debug());
        users.forEach(user => {
-           expect(wrapper.contains(<td>{user.first}</td>)).toEqual(true);
-           expect(wrapper.contains(<td>{user.last}</td>)).toEqual(true);
-           expect(wrapper.contains(<td>{user.username}</td>)).toEqual(true);
-           expect(wrapper.contains(<input name="editor" type="checkbox" checked={user.editor}/>)).toEqual(true);
+           expect(wrapper.contains(<UserRow user={user}/>)).toEqual(true);
        })
     });
 });
