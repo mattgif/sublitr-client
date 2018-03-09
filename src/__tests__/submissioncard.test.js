@@ -16,13 +16,15 @@ describe('SubmissionCard', () => {
     });
 
     it('should include publication & submission names', () => {
-        const publication = 'Journal of Foobar';
-        const title = 'Bizzbang, and other poems';
-        const wrapper = shallow(<SubmissionCard publication={publication} title={title}/>);
+        const submissionInfo = {
+            title: 'Bizzbang, and other poems',
+            publication: 'Journal of Foobar'
+        };
+        const wrapper = shallow(<SubmissionCard submissionInfo={submissionInfo}/>);
         expect(wrapper.contains(<div className='submissioncard__publication'>
-            <p>{publication}</p></div>)).toEqual(true);
+            <p>{submissionInfo.publication}</p></div>)).toEqual(true);
         expect(wrapper.contains(<div className='submissioncard__title'>
-            <p>{title}</p></div>)).toEqual(true);
+            <p>{submissionInfo.title}</p></div>)).toEqual(true);
     });
 
     it('should list status details if it is expanded', () => {
