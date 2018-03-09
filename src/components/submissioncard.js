@@ -60,6 +60,7 @@ export default function SubmissionCard(props) {
                     <li>Submitted: <time>{props.status.submitted}</time></li>
                     <li>Last action: <time>{props.status.lastAction}</time></li>
                 </ul>
+                <button className="delete">Delete submission?</button>
             </div>
         )
     }
@@ -73,5 +74,6 @@ export default function SubmissionCard(props) {
 }
 
 SubmissionCard.defaultProps = {
-    submissionInfo: {}
+    submissionInfo: {},
+    status: {}
 };

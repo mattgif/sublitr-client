@@ -53,7 +53,10 @@ describe('SubmissionCard', () => {
         expect(wrapper.contains(<li>Status: {status.userLongName}</li>)).toEqual(false);
     });
 
-    // TODO: check for delete button on user view
+    it('should display a delete button', () => {
+        const wrapper = shallow(<SubmissionCard expanded={true}/>);
+        expect(wrapper.find('.delete')).toHaveLength(1);
+    });
 
     it ('should display author if user is an editor', () => {
         const status = {

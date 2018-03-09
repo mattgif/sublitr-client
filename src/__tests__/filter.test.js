@@ -22,5 +22,7 @@ describe('Filter', () => {
         ];
         const wrapper = shallow(<Filter name={name} options={options}/>);
         expect(wrapper.find('option')).toHaveLength(options.length);
-    })
+    });
+
+    // TODO: Multiple selector
 });

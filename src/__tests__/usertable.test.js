@@ -40,7 +40,6 @@ describe('UserTable', ()=> {
            }
        ];
        let wrapper = shallow(<UserTable users={users}/>);
-       console.log(wrapper.debug());
        users.forEach(user => {
            expect(wrapper.contains(<UserRow user={user}/>)).toEqual(true);
        })

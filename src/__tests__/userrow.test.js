@@ -8,7 +8,7 @@ describe('UserRow', () => {
        shallow(<UserRow/>);
     });
 
-    it('should be a tr and have td for users\' names, usernames', () => {
+    it('should be a tr and have td for users\' names, usernames, and a delete button', () => {
         const user = {
             first: 'Rene',
             last: 'Descartes',
@@ -18,6 +18,7 @@ describe('UserRow', () => {
         expect(wrapper.find('tr')).toHaveLength(1);
         for (let field in user ) {
             expect(wrapper.contains(<td>{user[field]}</td>)).toEqual(true);
+            expect(wrapper.find('.delete')).toHaveLength(1);
         }
     });
 
