@@ -5,35 +5,23 @@ import Sidebar from '../components/sidebar';
 import PageHeader from "../components/pageheader";
 import StatusUpdater from "../components/statusupdater";
 
-const submissionInfo = {
-    publication: 'The Journal of Component Testing',
-    title: 'Red, green, refactor',
-    author: 'D. Lightful'
-
-};
-
-const status = {
-    decision: 'pending',
-    userLongName: 'Pending Review',
-    submitted: '2017-11-15',
-    lastAction: '2017-12-15',
-    recommendation: 'underReview'
-};
-
 describe('Sidebar', () => {
     it('should render without crashing', () => {
         shallow(<Sidebar/>)
     });
 
-    it('should have a header with supplied info', () => {
-        const wrapper = shallow(<Sidebar submissionInfo={submissionInfo}/>);
-        expect(wrapper.contains(<PageHeader title={submissionInfo.title} subtitle={submissionInfo.author}/>)).toEqual(true);
-    });
+    describe('header, status, and comment section', () => {
+        const wrapper = shallow(<Sidebar/>);
+        it('should render a page header', () => {
+            expect(wrapper.find('PageHeader')).toHaveLength(1);
+        });
+        it('should render the status section', () => {
+            expect(wrapper.find('StatusUpdater')).toHaveLength(2);
+        });
 
-    it('should have a status section with two status updaters with correct data', () => {
-        const wrapper = shallow(<Sidebar submissionInfo={submissionInfo} status={status}/>);
-        expect(wrapper.contains(<StatusUpdater selected={status.decision}/>));
-        expect(wrapper.contains(<StatusUpdater selected={status.recommendation}/>));
+        it('should render the comments section', ()=> {
+            expect(wrapper.find('CommentForm')).toHaveLength(1);
+            expect(wrapper.find('CommentList')).toHaveLength(1);
+        });
     });
-
 });
