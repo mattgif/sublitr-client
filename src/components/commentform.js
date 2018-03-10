@@ -2,6 +2,10 @@ import React from 'react';
 
 export default function CommentForm(props) {
     return(
-        <div></div>
+        <form>
+            <h4>Comment:</h4>
+            <textarea></textarea>
+            <button type="submit">Submit</button>
+        </form>
     )
 }
