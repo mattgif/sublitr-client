@@ -2,6 +2,6 @@ import React from 'react';
 
 export default function CommentList(props) {
     return (
-        <div></div>
+        <ul></ul>
     )
 }
