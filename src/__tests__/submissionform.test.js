@@ -20,8 +20,8 @@ describe('SubmissionForm', () => {
            expect(wrapper.find('fieldset')).toHaveLength(3);
        });
 
-       it('should contain a text input for the title', () => {
-           expect(wrapper.find('input[type="text"]')).toHaveLength(1)
+       it('should contain a MaterialInput the title', () => {
+           expect(wrapper.find('MaterialInput')).toHaveLength(1)
        });
 
        it('should contain a select for publication', () => {

@@ -1,5 +1,6 @@
 import React from 'react';
 import PageHeader from "./pageheader";
+import MaterialInput from "./materialinput";
 
 export default function SubmissionForm(props) {
     return (
@@ -8,8 +9,7 @@ export default function SubmissionForm(props) {
             <form>
                 <fieldset>
                     <legend>Submission Info</legend>
-                    <label for="title">Submission title</label>
-                    <input type="text" id="title" name="title" required/>
+                    <MaterialInput/>
                     <label for="publication">Submit to which publication?</label>
                     <select name="publication" id="publication" required>
                         <option disabled>Choose a publication</option>
