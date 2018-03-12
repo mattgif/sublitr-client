@@ -8,42 +8,28 @@ export default function SubmissionCard(props) {
             return (
                 <Router>
                     <div>
-                        <div className={props.status ? props.status.decision : ''}></div>
-                        <div className='submissioncard__publication'><p>{props.submissionInfo.publication}</p></div>
-                        <div className='submissioncard__title'><p>{props.submissionInfo.title}</p></div>
-                        <div className='submissioncard__author'><p>{props.submissionInfo.author}</p></div>
-                        <StatusUpdater options={[
-                            {value: 'pending', label: 'No decision'},
-                            {value: 'revise', label: 'R&R'},
-                            {value: 'accepted', label: 'Accepted'},
-                            {value: 'declined', label: 'Declined'}
-                            ]}
-                            selected={props.status.decision}/>
-                        <StatusUpdater options={[
-                            {value: 'none', label: 'Not Reviewed'},
-                            {value: 'underReview', label: 'Under Review'},
-                            {value: 'accept', label: 'Accept'},
-                            {value: 'revise', label: 'Revise & Resubmit'},
-                            {value: 'maybe', label: 'Maybe'},
-                            {value: 'decline', label: 'Decline'}
-                            ]}
-                        />
+                        <div className={props.submission.reviewerInfo.decision}></div>
+                        <div className='submissioncard__publication'><p>{props.submission.publication}</p></div>
+                        <div className='submissioncard__title'><p>{props.submission.title}</p></div>
+                        <div className='submissioncard__author'><p>{props.submission.author}</p></div>
+                        <StatusUpdater type="decision" selected={props.submission.reviewerInfo.decision}/>
+                        <StatusUpdater type="recommendation" selected={props.submission.reviewerInfo.recommendation}/>
                         <ul>
-                            <li>Status: {props.status.userLongName}</li>
-                            <li>Submitted: <time>{props.status.submitted}</time></li>
-                            <li>Last action: <time>{props.status.lastAction}</time></li>
+                            <li>Decision: {props.submission.reviewerInfo.decision}</li>
+                            <li>Submitted: <time>{props.submission.submitted}</time></li>
+                            <li>Last action: <time>{props.submission.reviewerInfo.lastAction}</time></li>
                         </ul>
-                        <Link to={props.submissionInfo.reviewLink}>View submission</Link>
+                        <Link to={props.submission.url}>View submission</Link>
                     </div>
                 </Router>
             )
         }
         return (
             <div>
-                <div className={props.status ? props.status.decision : ''}></div>
-                <div className='submissioncard__publication'><p>{props.submissionInfo.publication}</p></div>
-                <div className='submissioncard__title'><p>{props.submissionInfo.title}</p></div>
-                <div className='submissioncard__author'><p>{props.submissionInfo.author}</p></div>
+                <div className={props.submission.reviewerInfo.decision}></div>
+                <div className='submissioncard__publication'><p>{props.submission.publication}</p></div>
+                <div className='submissioncard__title'><p>{props.submission.title}</p></div>
+                <div className='submissioncard__author'><p>{props.submission.author}</p></div>
             </div>
         )
 
@@ -52,13 +38,12 @@ export default function SubmissionCard(props) {
     if (props.expanded) {
         return (
             <div>
-                <div className={props.status ? props.status.decision : ''}></div>
-                <div className='submissioncard__publication'><p>{props.submissionInfo.publication}</p></div>
-                <div className='submissioncard__title'><p>{props.submissionInfo.title}</p></div>
+                <div className={props.submission.status}></div>
+                <div className='submissioncard__publication'><p>{props.submission.publication}</p></div>
+                <div className='submissioncard__title'><p>{props.submission.title}</p></div>
                 <ul>
-                    <li>Status: {props.status.userLongName}</li>
-                    <li>Submitted: <time>{props.status.submitted}</time></li>
-                    <li>Last action: <time>{props.status.lastAction}</time></li>
+                    <li>Status: {props.submission.status}</li>
+                    <li>Submitted: <time>{props.submission.submitted}</time></li>
                 </ul>
                 <button className="delete">Delete submission?</button>
             </div>
@@ -66,14 +51,25 @@ export default function SubmissionCard(props) {
     }
     return (
         <div>
-            <div className={props.status ? props.status.decision : ''}></div>
-            <div className='submissioncard__publication'><p>{props.submissionInfo.publication}</p></div>
-            <div className='submissioncard__title'><p>{props.submissionInfo.title}</p></div>
+            <div className={props.submission.status}></div>
+            <div className='submissioncard__publication'><p>{props.submission.publication}</p></div>
+            <div className='submissioncard__title'><p>{props.submission.title}</p></div>
         </div>
     )
 }
 
 SubmissionCard.defaultProps = {
-    submissionInfo: {},
-    status: {}
+    submission: {
+        title: '',
+        author: '',
+        submitted: '',
+        publication: '',
+        status: '',
+        url: '',
+        reviewerInfo: {
+            decision: '',
+            recommendation: '',
+            lastAction: ''
+        }
+    },
 };

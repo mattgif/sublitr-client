@@ -8,28 +8,63 @@ describe('StatusUpdater', () => {
         shallow(<StatusUpdater/>);
     });
 
-    it('should contain all of the supplied options', () => {
-       const options = [
-           {value: 'pending', label: 'ND'},
-           {value: 'revise', label: 'R&R'},
-           {value: 'accepted', label: 'A'},
-           {value: 'declined', label: 'D'}
-       ];
-       const wrapper = shallow(<StatusUpdater options={options}/>);
-       expect(wrapper.find('option')).toHaveLength(options.length);
-    });
-
-    it('should select the correct option', () => {
-        const options = [
-            {value: 'pending', label: 'ND'},
-            {value: 'revise', label: 'R&R'},
-            {value: 'accepted', label: 'A'},
-            {value: 'declined', label: 'D'}
+    it('should display decision options if given type "decision"', () => {
+        const decisions = [
+            {
+                short: 'pending',
+                long: 'No decision'
+            },
+            {
+                short: 'revise',
+                long: 'Revise & resubmit'
+            },
+            {
+                short: 'accepted',
+                long: 'Accepted'
+            },
+            {
+                short: 'declined',
+                long: 'Declined'
+            }
         ];
-        const selected = 'pending';
-        const wrapper = shallow(<StatusUpdater options={options} selected={selected}/>);
-        expect(wrapper.find('select').prop('value')).toEqual(selected);
+        const wrapper = shallow(<StatusUpdater type="decision"/>);
+        expect(wrapper.find('option')).toHaveLength(decisions.length);
+        decisions.forEach(decision => {
+            expect(wrapper.contains(<option value={decision.short}>{decision.long}</option>)).toEqual(true);
+        })
     });
 
-    // TODO: refactor to automatically populate options according to a type attribute
+    it('should display recommendation options if given type "recommendation"', () => {
+        const recommendations = [
+            {
+                short: 'none',
+                long: 'Not reviewed'
+            },
+            {
+                short: 'underReview',
+                long: 'Under review'
+            },
+            {
+                short: 'accept',
+                long: 'Accept'
+            },
+            {
+                short: 'revise',
+                long: 'Revise & Resubmit'
+            },
+            {
+                short: 'consider',
+                long: 'Consider'
+            },
+            {
+                short: 'decline',
+                long: 'Decline'
+            }
+        ];
+        const wrapper = shallow(<StatusUpdater type="recommendation"/>);
+        expect(wrapper.find('option')).toHaveLength(recommendations.length);
+        recommendations.forEach(recommendation=> {
+            expect(wrapper.contains(<option value={recommendation.short}>{recommendation.long}</option>)).toEqual(true);
+        })
+    });
 });

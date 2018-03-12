@@ -13,7 +13,7 @@ export default function TabUsers(props) {
                 <option value="regular">Non-editors</option>
             </select>
 
-            <UserTable/>
+            <UserTable users={props.users}/>
         </section>
     )
 }
