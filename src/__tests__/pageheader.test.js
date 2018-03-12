@@ -7,10 +7,15 @@ describe('PageHeader', () => {
         shallow(<PageHeader/>);
     });
 
-    it('should have a header element with h1 title', () => {
+    it('should be a header', () => {
+        const wrapper = shallow(<PageHeader/>);
+        expect(wrapper.find('header')).toHaveLength(1);
+    });
+
+    it('should have an h1 title', () => {
         const title = 'Foo';
         const wrapper = shallow(<PageHeader title={title} />);
-        expect(wrapper.contains(<header><h1>{title}</h1></header>)).toEqual(true);
+        expect(wrapper.contains(<h1>{title}</h1>)).toEqual(true);
     });
 
     it('should have a subtitle, if provided', () => {

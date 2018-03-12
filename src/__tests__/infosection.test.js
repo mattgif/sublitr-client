@@ -13,4 +13,10 @@ describe('InfoSection', () => {
        const wrapper = shallow(<InfoSection sectionTitle={sectionTitle}/>);
        expect(wrapper.contains(<h3>{sectionTitle}</h3>)).toEqual(true);
    });
+
+   it('should have a div that displays the section body', () => {
+       const body = "<div className='test__section>Test</div>";
+       const wrapper = shallow(<InfoSection body={body}/>);
+       expect(wrapper.contains(body)).toEqual(true);
+   })
 });

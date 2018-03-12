@@ -4,7 +4,6 @@ import MaterialInput from "./materialinput";
 export default function RegistrationForm(props) {
     return (
         <form>
-            {props.description}
             <MaterialInput label="First Name" field="firstName"/>
             <MaterialInput label="Last Name" field="lastName"/>
             <MaterialInput type="email" label="Email" field="email"/>
