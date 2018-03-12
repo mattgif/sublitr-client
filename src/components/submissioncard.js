@@ -1,59 +1,64 @@
 import React from 'react';
 import {BrowserRouter as Router, Link} from 'react-router-dom';
 import StatusUpdater from '../components/statusupdater';
+import './submissioncard.css';
 
 export default function SubmissionCard(props) {
     if (props.editor) {
-        if (props.expanded) {
+        const expanded = (reviewerInfo) => {
             return (
-                <Router>
+                <div className="additional">
                     <div>
-                        <div className={props.submission.reviewerInfo.decision}></div>
-                        <div className='submissioncard__publication'><p>{props.submission.publication}</p></div>
-                        <div className='submissioncard__title'><p>{props.submission.title}</p></div>
-                        <div className='submissioncard__author'><p>{props.submission.author}</p></div>
-                        <StatusUpdater type="decision" selected={props.submission.reviewerInfo.decision}/>
-                        <StatusUpdater type="recommendation" selected={props.submission.reviewerInfo.recommendation}/>
-                        <ul>
-                            <li>Decision: {props.submission.reviewerInfo.decision}</li>
-                            <li>Submitted: <time>{props.submission.submitted}</time></li>
-                            <li>Last action: <time>{props.submission.reviewerInfo.lastAction}</time></li>
-                        </ul>
-                        <Link to={props.submission.url}>View submission</Link>
+                        <p>Decision:</p>
+                        <StatusUpdater type="decision" selected={reviewerInfo.decision}/>
                     </div>
-                </Router>
-            )
-        }
-        return (
-            <div>
-                <div className={props.submission.reviewerInfo.decision}></div>
-                <div className='submissioncard__publication'><p>{props.submission.publication}</p></div>
-                <div className='submissioncard__title'><p>{props.submission.title}</p></div>
-                <div className='submissioncard__author'><p>{props.submission.author}</p></div>
-            </div>
-        )
+                    <div>
+                        <p>Recommendation:</p>
+                        <StatusUpdater type="recommendation" selected={reviewerInfo.recommendation}/>
+                    </div>
 
+                    <li>Last action: <time>{reviewerInfo.lastAction}</time></li>
+
+                    <Link to={props.submission.url}>View submission</Link>
+                </div>
+            )
+        };
+        const statusClass = `circle ${props.submission.reviewerInfo.decision}`;
+        return (
+            <Router>
+                <div className={props.expanded ? "card expanded" : "card"}>
+                    <div className={statusClass}></div>
+                    <div>
+                        <div className='publication'><p>{props.submission.publication}</p></div>
+                        <div className='title'><p>{props.submission.title}</p></div>
+                        <div className='author'><p>{props.submission.author}</p></div>
+                    </div>
+                    {props.expanded ? expanded(props.submission.reviewerInfo) : ''}
+                </div>
+            </Router>
+        )
     }
 
-    if (props.expanded) {
+    const expanded = () => {
         return (
-            <div>
-                <div className={props.submission.status}></div>
-                <div className='submissioncard__publication'><p>{props.submission.publication}</p></div>
-                <div className='submissioncard__title'><p>{props.submission.title}</p></div>
+            <div className="additional">
                 <ul>
                     <li>Status: {props.submission.status}</li>
                     <li>Submitted: <time>{props.submission.submitted}</time></li>
                 </ul>
-                <button className="delete">Delete submission?</button>
+                <button className="delete">Delete</button>
             </div>
         )
-    }
+    };
+    const statusClass = `circle ${props.submission.status}`;
     return (
-        <div>
-            <div className={props.submission.status}></div>
-            <div className='submissioncard__publication'><p>{props.submission.publication}</p></div>
-            <div className='submissioncard__title'><p>{props.submission.title}</p></div>
+        <div className={props.expanded ? "card expanded" : "card"}>
+            <div className={statusClass}></div>
+            <div>
+                <div className='publication'><p>{props.submission.publication}</p></div>
+                <div className='title'><p>{props.submission.title}</p></div>
+            </div>
+            {props.expanded ? expanded() : ''}
         </div>
     )
 }

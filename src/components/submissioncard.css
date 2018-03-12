@@ -1,0 +1,72 @@
+.card {
+    border: 1px solid #333;
+    border-radius: 3px;
+    margin-bottom: 10px;
+    padding: 5px 10px;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.card.expanded {
+    align-items: flex-start;
+}
+
+.card p {
+    margin: 0 20px;
+}
+
+.card .publication {
+    font-style: italic;
+}
+
+.card .circle {
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    line-height: 30px;
+}
+
+.card .declined {
+    background-color: firebrick;
+}
+
+.card .accepted {
+    background-color: green;
+}
+
+.card .pending {
+    background-color: dimgray;
+}
+
+.card .revise {
+    background-color: moccasin;
+}
+
+.card StatusUpdater {
+    width: 100%;
+    border: 1px solid #ddd;
+    background: #ddd;
+    padding: 10px;
+    border-radius: 4px;
+    display: inline-block;
+}
+
+.card .title {
+    font-weight: bold;
+}
+
+.card .additional {
+    width: 100%;
+    margin-top: 15px;
+    padding: 20px;
+    border: 1px solid #333;
+    border-radius: 3px;
+    background-color: #aaa;
+}
+
+.card .additional p {
+    display: inline-block;
+    margin: 0 15px 0 0;
+}

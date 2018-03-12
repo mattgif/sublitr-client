@@ -31,9 +31,9 @@ describe('SubmissionCard', () => {
 
     it('should include publication & submission names', () => {
         const wrapper = shallow(<SubmissionCard submission={submission}/>);
-        expect(wrapper.contains(<div className='submissioncard__publication'>
+        expect(wrapper.contains(<div className='publication'>
             <p>{submission.publication}</p></div>)).toEqual(true);
-        expect(wrapper.contains(<div className='submissioncard__title'>
+        expect(wrapper.contains(<div className='title'>
             <p>{submission.title}</p></div>)).toEqual(true);
     });
 
@@ -49,21 +49,5 @@ describe('SubmissionCard', () => {
         expect(wrapper.contains(<time>{submission.submitted}</time>)).toEqual(false);
         expect(wrapper.contains(<li>Status: {submission.status}</li>)).toEqual(false);
         expect(wrapper.find('.delete')).toHaveLength(0);
-    });
-
-    it ('should display author if user is an editor', () => {
-        const wrapper = shallow(<SubmissionCard submission={submission} editor={true} />);
-        expect(wrapper.contains(<div className='submissioncard__author'><p>{submission.author}</p></div>)).toEqual(true)
-    });
-
-    it ('should NOT display author if user is NOT an editor', () => {
-        const wrapper = shallow(<SubmissionCard submission={submission} />);
-        expect(wrapper.contains(<div className='submissioncard__author'>{submission.author}</div>)).toEqual(false)
-    });
-
-    it('should display editor menu if expanded and user is an editor', () => {
-        const wrapper = mount(<SubmissionCard submission={submission} editor={true} expanded={true}/>);
-        expect(wrapper.contains(<Link to={submission.url}>View submission</Link>)).toEqual(true);
-        expect(wrapper.find('StatusUpdater')).toHaveLength(2);
     });
 });

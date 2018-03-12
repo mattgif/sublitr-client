@@ -1,0 +1,9 @@
+.submissionList {
+    list-style: none;
+    text-align: left;
+    padding-left: 0;
+}
+
+.submissionList li {
+    width: 100%;
+}
