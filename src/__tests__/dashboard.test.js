@@ -19,14 +19,29 @@ describe('Dashboard', () => {
         expect(wrapper.find('TabList')).toHaveLength(1);
     });
 
-    it('should contain TabContent', () => {
-        const wrapper = shallow(<Dashboard/>);
-        expect(wrapper.find('TabContent')).toHaveLength(1);
+    describe('submissions tab', () => {
+        it('should display the submissions tab by default', () => {
+            const wrapper = shallow(<Dashboard/>);
+            expect(wrapper.find('TabSubmissions')).toHaveLength(1);
+        });
+
+        it('should display the submissions tab when submissions is selected', () =>  {
+            const wrapper = shallow(<Dashboard active="submissions"/>);
+            expect(wrapper.find('TabSubmissions')).toHaveLength(1);
+        })
     });
 
-    it('should display the submissions tab by default', () => {
-        const wrapper = shallow(<Dashboard/>);
-        expect(wrapper.find('TabList').prop('active')).toEqual('submissions');
-        expect(wrapper.find('TabContent').prop('active')).toEqual('submissions');
+    describe('review tab', () => {
+        const wrapper = shallow(<Dashboard active='review'/>);
+        it('should display the review tab if review is active', () => {
+            expect(wrapper.find('TabReview')).toHaveLength(1);
+        })
     });
+
+    describe('users tab', () => {
+        const wrapper = shallow(<Dashboard active='users'/>);
+        it('should display the user tab if users is active', () => {
+            expect(wrapper.find('TabUsers')).toHaveLength(1);
+        });
+    })
 });
