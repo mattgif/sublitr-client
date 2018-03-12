@@ -7,21 +7,17 @@ import Dashboard from "./components/dashboard";
 class App extends Component {
 
     render() {
-        {if (this.props.user) {
-            return (
-                <div className="App">
-                    <Navbar/>
-                    <Dashboard user={this.props.user}/>
-                </div>
-            );
-        } else {
-            return (
+        if (this.props.user) return (
+            <div className="App">
+                <Navbar/>
+                <Dashboard user={this.props.user}/>
+            </div>
+        ); else return (
                 <div className="App">
                     <Navbar/>
                     <Landing/>
                 </div>
-            );
-        }}
+        );
     }
 }
 

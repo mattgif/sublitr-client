@@ -28,10 +28,10 @@ export default function TabContent(props) {
                         <option value="all" selected>All</option>
                         <option value="none">Not reviewed</option>
                         <option value="underReview">Under review</option>
-                        <option value="accept">Recommend Accept</option>
-                        <option value="revise">Recommend R&amp;R</option>
+                        <option value="accept">Accept</option>
+                        <option value="revise">R&amp;R</option>
                         <option value="consider">Consider</option>
-                        <option value="decline">Recommend Decline</option>
+                        <option value="decline">Decline</option>
                     </select>
 
                     <label htmlFor="publicationFilter">Publication</label>
@@ -43,41 +43,47 @@ export default function TabContent(props) {
                 </section>
             </Router>
         )
-    } else if (props.active === 'users') {
+    }
+
+    if (props.active === 'users') {
         return (
             <Router>
                 <section>
                     <h2>Users</h2>
-                    <Link to='#'>+ New submission</Link>
+
                     <label htmlFor="userFilter">User roles</label>
                     <select className="filter" name="userFilter" id="userFilter">
                         <option value="all" selected>All users</option>
                         <option value="editors">Editors</option>
                         <option value="regular">Non-editors</option>
                     </select>
+
                     <UserTable/>
                 </section>
             </Router>
         )
-    } else {
-        return (
-            <Router>
-                <section>
-                    <h2>My submissions</h2>
-                    <Link to='#'>+ New submission</Link>
-                    <label htmlFor="submissionFilter">Status</label>
-                    <select className="filter" name="submissionFilter" id="submissionFilter">
-                        <option value="all">All submissions</option>
-                        <option value="pending">Pending review</option>
-                        <option value="revise">Revise &amp; Resubmit</option>
-                        <option value="accepted">Accepted</option>
-                        <option value="declined">Declined</option>
-                    </select>
-                    <SubmissionList/>
-                </section>
-            </Router>
-        )
     }
+    
+    return (
+        <Router>
+            <section>
+                <h2>My submissions</h2>
+
+                <Link to='#'>+ New submission</Link>
+
+                <label htmlFor="submissionFilter">Status</label>
+                <select className="filter" name="submissionFilter" id="submissionFilter">
+                    <option value="all">All submissions</option>
+                    <option value="pending">Pending review</option>
+                    <option value="revise">Revise &amp; Resubmit</option>
+                    <option value="accepted">Accepted</option>
+                    <option value="declined">Declined</option>
+                </select>
+
+                <SubmissionList/>
+            </section>
+        </Router>
+    )
 }
 
 TabContent.defaultProps = {
