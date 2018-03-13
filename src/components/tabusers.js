@@ -1,7 +1,8 @@
 import React from 'react';
+import {connect} from 'react-redux';
 import UserTable from "./usertable";
 
-export default function TabUsers(props) {
+export function TabUsers(props) {
     return(
         <section>
             <h2>Users</h2>
@@ -18,14 +19,9 @@ export default function TabUsers(props) {
     )
 }
 
-TabUsers.defaultProps = {
-    filterValues: {
-        userFilter: "all"
-    },
-    users: [
-        {first: "Abe", last: "Abrams", email: "aabrams@example.com", editor: false},
-        {first: "Betty", last: "Brown", email: "bbrown@example.com", editor: true},
-        {first: "Charlie", last: "Chaplin", email: "cchaps@example.com", editor: true},
-        {first: "Debbie", last: "Douglas", email: "ddougs@example.com", editor: false},
-    ]
-};
+const mapStateToProps = state => ({
+    filterValues: state.filterValues,
+    users: state.users
+});
+
+export default connect(mapStateToProps)(TabUsers)

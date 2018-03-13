@@ -14,9 +14,9 @@ export default function UserRow(props) {
 
 UserRow.defaultProps = {
     user: {
-        first: 'First',
-        last: 'Last',
-        username: 'username',
+        first: '',
+        last: '',
+        username: '',
         editor: false
     }
 };

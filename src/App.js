@@ -1,12 +1,13 @@
 import React from 'react';
 import {BrowserRouter as Router, Route} from 'react-router-dom';
+import {connect} from 'react-redux';
 import './App.css';
 import Navbar from "./components/navbar";
 import Landing from "./components/landing";
 import Dashboard from "./components/dashboard";
 import DocViewer from "./components/docviewer";
 
-export default function App(props) {
+export function App(props) {
     if (props.user) return (
         <Router>
             <div className="App">
@@ -23,6 +24,8 @@ export default function App(props) {
     );
 }
 
-App.defaultProps = {
-    user: {first: 'Ima', last: 'Maginary'}
-};
+const mapStateToProps = state => ({
+    user: state.user
+});
+
+export default connect(mapStateToProps)(App);

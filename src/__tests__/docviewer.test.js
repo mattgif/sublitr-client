@@ -28,9 +28,5 @@ describe('DocViewer', () => {
         it('should have a Document element', () => {
             expect(wrapper.find('Document')).toHaveLength(1);
         });
-
-        it('should have a Page element', () => {
-            expect(wrapper.find('Page')).toHaveLength(1);
-        });
     });
 });

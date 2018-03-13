@@ -2,9 +2,10 @@ import React from 'react';
 import SidebarToggle from "./sidebartoggle";
 import Sidebar from "./sidebar";
 import PageHeader from "./pageheader";
-import { Document, Page } from 'react-pdf';
+import { Document } from 'react-pdf';
+import {connect} from 'react-redux';
 
-export default function DocViewer(props) {
+export function DocViewer(props) {
     return (
         <div>
             <SidebarToggle/>
@@ -17,19 +18,8 @@ export default function DocViewer(props) {
     )
 }
 
-DocViewer.defaultProps = {
-    submission: {
-        title: 'Demo title 1',
-        author: 'Rea Roos',
-        submitted: '2018-01-01',
-        publication: 'Journal 1',
-        status: 'pending',
-        url: '#',
-        file: "../dummy/test_pdf.pdf",
-        reviewerInfo: {
-            decision: 'pending',
-            recommendation: 'none',
-            lastAction: '2018-01-01'
-        }
-    },
-}
+const mapStateToProps = state => ({
+    submission: state.activeSubmission
+});
+
+export default connect(mapStateToProps)(DocViewer);

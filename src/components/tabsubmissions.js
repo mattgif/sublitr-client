@@ -1,9 +1,10 @@
 import React from 'react';
 import {BrowserRouter as Router, Link} from 'react-router-dom';
+import {connect} from 'react-redux';
 import SubmissionList from "./submissionlist";
 import './tabsubmissions.css';
 
-export default function TabSubmissions(props) {
+export function TabSubmissions(props) {
     return(
         <Router>
             <section className="tabSubmissions">
@@ -28,88 +29,10 @@ export default function TabSubmissions(props) {
     )
 }
 
-TabSubmissions.defaultProps = {
-    filterValues: {
-        submissionFilter: "all"
-    },
-    submissions: [
-        {
-            title: 'Demo title 1',
-            author: 'Rea Roos',
-            submitted: '2018-01-01',
-            publication: 'Journal 1',
-            status: 'pending',
-            url: '#',
-            reviewerInfo: {
-                decision: 'pending',
-                recommendation: 'none',
-                lastAction: '2018-01-01'
-            }
-        },
-        {
-            title: 'Demo title 2',
-            author: 'Kylie Keegan',
-            submitted: '2018-01-01',
-            publication: 'Journal 1',
-            status: 'declined',
-            url: '#',
-            reviewerInfo: {
-                decision: 'declined',
-                recommendation: 'decline',
-                lastAction: '2018-01-01'
-            }
-        },
-        {
-            title: 'Demo title 3',
-            author: 'Emanuel Eisenstein',
-            submitted: '2018-01-01',
-            publication: 'Magazine 1',
-            status: 'declined',
-            url: '#',
-            reviewerInfo: {
-                decision: 'declined',
-                recommendation: 'consider',
-                lastAction: '2018-01-01'
-            }
-        },
-        {
-            title: 'Demo title 4',
-            author: 'Emanuel Eisenstein',
-            submitted: '2018-01-01',
-            publication: 'Journal 2',
-            status: 'accepted',
-            url: '#',
-            reviewerInfo: {
-                decision: 'accepted',
-                recommendation: 'accept',
-                lastAction: '2018-01-01'
-            }
-        },
-        {
-            title: 'Demo title 5',
-            author: 'Donna Delapaz',
-            submitted: '2018-01-01',
-            publication: 'Magazine 1',
-            status: 'revise',
-            url: '#',
-            reviewerInfo: {
-                decision: 'revise',
-                recommendation: 'revise',
-                lastAction: '2018-01-01'
-            }
-        },
-        {
-            title: 'Demo title ',
-            author: 'Ashanti Ables',
-            submitted: '2018-01-01',
-            publication: 'Magazine 2',
-            status: 'pending',
-            url: '#',
-            reviewerInfo: {
-                decision: 'pending',
-                recommendation: 'underReview',
-                lastAction: '2018-01-01'
-            }
-        },
-    ]
-};
+const mapStateToProps = state => ({
+    publications: state.publications,
+    filterValues: state.filterValues,
+    submissions: state.submissions
+});
+
+export default connect(mapStateToProps)(TabSubmissions)

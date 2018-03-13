@@ -1,11 +1,12 @@
 import React from 'react';
+import {connect} from 'react-redux';
 import PageHeader from "./pageheader";
 import TabList from "./tablist";
 import TabReview from "./tabreview";
 import TabUsers from "./tabusers";
 import TabSubmissions from "./tabsubmissions";
 
-export default function Dashboard(props) {
+export function Dashboard(props) {
     let name;
     if (props.user) {
         name = props.user.first + ' ' + props.user.last;
@@ -25,6 +26,8 @@ export default function Dashboard(props) {
     )
 }
 
-Dashboard.defaultProps = {
-    active: 'submissions'
-};
+const mapStateToProps = state => ({
+    active: state.dashboard.activeTab
+});
+
+export default connect(mapStateToProps)(Dashboard);

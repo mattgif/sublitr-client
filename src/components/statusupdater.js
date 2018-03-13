@@ -1,6 +1,7 @@
 import React from 'react';
+import {connect} from 'react-redux';
 
-export default function StatusUpdater(props) {
+export function StatusUpdater(props) {
     const options = props.statusLists[props.type];
     return (
         <select value={props.selected}>
@@ -13,50 +14,10 @@ export default function StatusUpdater(props) {
 
 StatusUpdater.defaultProps = {
     type: 'decision',
-    statusLists: {
-        decision: [
-            {
-                short: 'pending',
-                long: 'No decision'
-            },
-            {
-                short: 'revise',
-                long: 'Revise & resubmit'
-            },
-            {
-                short: 'accepted',
-                long: 'Accepted'
-            },
-            {
-                short: 'declined',
-                long: 'Declined'
-            }
-        ],
-        recommendation: [
-            {
-                short: 'none',
-                long: 'Not reviewed'
-            },
-            {
-                short: 'underReview',
-                long: 'Under review'
-            },
-            {
-                short: 'accept',
-                long: 'Accept'
-            },
-            {
-                short: 'revise',
-                long: 'Revise & Resubmit'
-            },
-            {
-                short: 'consider',
-                long: 'Consider'
-            },
-            {
-                short: 'decline',
-                long: 'Decline'
-            }
-        ]
-    }
 };
+
+const mapStateToProps = state => ({
+    statusLists: state.statusLists
+});
+
+export default connect(mapStateToProps)(StatusUpdater)
