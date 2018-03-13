@@ -1,0 +1,20 @@
+.comments__card {
+    border-radius: 2px;
+    padding: 5px;
+    margin: 8px;
+}
+
+.comments__footer * {
+    display: inline-block;
+    font-weight: bold;
+}
+
+.comments__footer {
+    margin-top: 15px;
+    display: flex;
+    position: relative;
+}
+
+.comments__date {
+    margin-left: auto;
+}

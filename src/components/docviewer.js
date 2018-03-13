@@ -9,7 +9,7 @@ export function DocViewer(props) {
     return (
         <div>
             <SidebarToggle/>
-            <Sidebar/>
+            {props.showSidebar ? <Sidebar/> : ''}
             <PageHeader/>
             <main>
                 <Document file={props.submission.file}></Document>
@@ -19,7 +19,8 @@ export function DocViewer(props) {
 }
 
 const mapStateToProps = state => ({
-    submission: state.activeSubmission
+    submission: state.activeSubmission,
+    showSidebar: state.showSidebar
 });
 
 export default connect(mapStateToProps)(DocViewer);

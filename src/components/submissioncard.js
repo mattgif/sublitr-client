@@ -1,5 +1,5 @@
 import React from 'react';
-import {BrowserRouter as Router, Link} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import StatusUpdater from '../components/statusupdater';
 import './submissioncard.css';
 
@@ -25,17 +25,15 @@ export default function SubmissionCard(props) {
         };
         const statusClass = `circle ${props.submission.reviewerInfo.decision}`;
         return (
-            <Router>
-                <div className={props.expanded ? "card expanded" : "card"}>
-                    <div className={statusClass}></div>
-                    <div>
-                        <div className='publication'><p>{props.submission.publication}</p></div>
-                        <div className='title'><p>{props.submission.title}</p></div>
-                        <div className='author'><p>{props.submission.author}</p></div>
-                    </div>
-                    {props.expanded ? expanded(props.submission.reviewerInfo) : ''}
+            <div className={props.expanded ? "card expanded" : "card"}>
+                <div className={statusClass}></div>
+                <div>
+                    <div className='publication'><p>{props.submission.publication}</p></div>
+                    <div className='title'><p>{props.submission.title}</p></div>
+                    <div className='author'><p>{props.submission.author}</p></div>
                 </div>
-            </Router>
+                {props.expanded ? expanded(props.submission.reviewerInfo) : ''}
+            </div>
         )
     }
 

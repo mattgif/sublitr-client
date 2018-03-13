@@ -1,0 +1,24 @@
+.sidebar {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    max-width: 400px;
+    top: 40px;
+    background-color: #ddd;
+    z-index: 2;
+    overflow-y: scroll;
+    padding-bottom: 50px;
+}
+
+.sidebar > * {
+    margin: 0;
+    padding: 15px;
+}
+
+.sidebar section:nth-child(odd) {
+    background-color: white;
+}
+
+.sidebar label {
+    display: block;
+}

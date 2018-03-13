@@ -1,6 +1,6 @@
 export const testingState = {
     user: {first: "Betty", last: "Brown", email: "bbrown@example.com", editor: true},
-    dashboard: {activeTab: 'users'},
+    dashboard: {activeTab: 'submissions'},
     activeSubmission: {
         title: 'Title of Submission',
         author: 'Rea Roos',
@@ -12,7 +12,12 @@ export const testingState = {
         reviewerInfo: {
             decision: 'pending',
             recommendation: 'none',
-            lastAction: '2018-01-01'
+            lastAction: '2018-01-01',
+            comments: [
+                {name: 'Betty Brown', date: '2018-03-04 21:12', text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur, dolorem doloremque doloribus eius eos error fugit id, inventore minus nam nobis porro possimus repellat repellendus repudiandae rerum suscipit velit veritatis?'},
+                {name: 'Abe Abrams', date: '2018-03-03 08:30', text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur, dolorem doloremque doloribus eius eos error fugit id, inventore minus nam nobis porro possimus repellat repellendus repudiandae rerum suscipit velit veritatis?'},
+                {name: 'Debbie Douglas', date: '2018-03-03 08:00', text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur, dolorem doloremque doloribus eius eos error fugit id, inventore minus nam nobis porro possimus repellat repellendus repudiandae rerum suscipit velit veritatis?'}
+            ]
         }
     },
     statusLists: {
@@ -164,5 +169,6 @@ export const testingState = {
         {first: "Betty", last: "Brown", email: "bbrown@example.com", editor: true},
         {first: "Charlie", last: "Chaplin", email: "cchaps@example.com", editor: true},
         {first: "Debbie", last: "Douglas", email: "ddougs@example.com", editor: false},
-    ]
+    ],
+    showSidebar: false
 };

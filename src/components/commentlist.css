@@ -1,0 +1,12 @@
+.comments__list {
+    list-style: none;
+    padding-left: 0;
+}
+
+.comments__list li:nth-child(even) {
+    background-color: #ccc;
+}
+
+.comments__list li:nth-child(odd) {
+    background-color: #aaa;
+}

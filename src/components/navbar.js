@@ -1,12 +1,11 @@
 import React from 'react';
-import {BrowserRouter as Router, Link} from 'react-router-dom';
+import {Link} from 'react-router-dom';
+import './navbar.css'
 
 export default function Navbar(props) {
     return (
-        <nav>
-            <Router>
-                <Link to='#'/>
-            </Router>
+        <nav className="navbar">
+            <Link to='#'/>
             <button>Log in</button>
         </nav>
     )

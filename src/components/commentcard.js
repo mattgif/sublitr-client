@@ -1,12 +1,16 @@
 import React from 'react'
+import './commentcard.css';
 
 export default function CommentCard(props) {
+    const comment = props.comment;
     return (
-        <li>
-            <div className="comments__body"></div>
+        <li className="comments__card">
+            <div className="comments__body">
+                {comment.text}
+            </div>
             <div className="comments__footer">
-                <div></div>
-                <div></div>
+                <div classname="comments__name">{comment.name}</div>
+                <div className="comments__date">{comment.date}</div>
             </div>
         </li>
     )
