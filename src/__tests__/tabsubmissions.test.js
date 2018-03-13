@@ -3,7 +3,7 @@ import {shallow} from 'enzyme';
 
 import TabSubmissions from '../components/tabsubmissions';
 
-describe('TabSubmissions', () => {
+describe.skip('TabSubmissions', () => {
     it('should render without crashing', () => {
         shallow(<TabSubmissions/>)
     });

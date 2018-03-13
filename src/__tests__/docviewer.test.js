@@ -3,7 +3,7 @@ import {shallow} from 'enzyme';
 
 import DocViewer from '../components/docviewer';
 
-describe('DocViewer', () => {
+describe.skip('DocViewer', () => {
     it('should render without crashing', () => {
         shallow(<DocViewer/>);
     });
@@ -23,7 +23,7 @@ describe('DocViewer', () => {
         expect(wrapper.find('PageHeader')).toHaveLength(1);
     });
 
-    describe('react-pdf', () => {
+    describe.skip('react-pdf', () => {
         let wrapper = shallow(<DocViewer/>);
         it('should have a Document element', () => {
             expect(wrapper.find('Document')).toHaveLength(1);

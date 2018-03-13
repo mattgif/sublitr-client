@@ -3,7 +3,7 @@ import {shallow} from 'enzyme';
 
 import CommentList from '../components/commentlist';
 
-describe('CommentList', () => {
+describe.skip('CommentList', () => {
    it('should render without crashing', () => {
        shallow(<CommentList/>)
    });

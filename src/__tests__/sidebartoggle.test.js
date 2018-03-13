@@ -3,7 +3,7 @@ import {shallow} from 'enzyme';
 
 import SidebarToggle from '../components/sidebartoggle';
 
-describe('SidebarToggle', () => {
+describe.skip('SidebarToggle', () => {
     it('should render without crashing', () => {
         shallow(<SidebarToggle/>)
     });

@@ -3,7 +3,7 @@ import {shallow} from 'enzyme';
 
 import Landing from '../components/landing';
 
-describe('Landing page', () => {
+describe.skip('Landing page', () => {
     it('should render without crashing', () => {
         shallow(<Landing/>)
     });

@@ -3,7 +3,7 @@ import {shallow} from 'enzyme';
 
 import Navbar from '../components/navbar';
 
-describe('Navbar', () => {
+describe.skip('Navbar', () => {
     it('should render without crashing', () => {
         shallow(<Navbar/>);
     });

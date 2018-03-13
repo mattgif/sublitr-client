@@ -3,7 +3,7 @@ import {shallow} from 'enzyme';
 import RegistrationForm from '../components/registrationform';
 import MaterialInput from "../components/materialinput";
 
-describe('RegistrationForm', () => {
+describe.skip('RegistrationForm', () => {
     it('should render without crashing', () => {
         shallow(<RegistrationForm/>)
     });

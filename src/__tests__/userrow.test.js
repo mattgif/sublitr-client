@@ -3,7 +3,7 @@ import {shallow} from 'enzyme';
 
 import UserRow from '../components/userrow';
 
-describe('UserRow', () => {
+describe.skip('UserRow', () => {
     it('should render without crashing', () => {
        shallow(<UserRow/>);
     });

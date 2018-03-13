@@ -3,7 +3,7 @@ import {shallow} from 'enzyme';
 
 import ModalWrapper from '../components/modalwrapper';
 
-describe ('ModalWrapper', () => {
+describe.skip('ModalWrapper', () => {
     it('should render without crashing', () => {
 
     });

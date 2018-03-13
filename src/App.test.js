@@ -4,7 +4,7 @@ import App from './App';
 import {shallow, mount} from 'enzyme';
 
 
-describe('App', () => {
+describe.skip('App', () => {
     it('renders without crashing', () => {
         const div = document.createElement('div');
         ReactDOM.render(<App />, div);
@@ -21,7 +21,7 @@ describe('App', () => {
         expect(wrapper.find('Landing')).toHaveLength(1);
     });
 
-    describe('logged in / dashboard', () => {
+    describe.skip('logged in / dashboard', () => {
         const user = {
             first: 'Ima',
             last: 'Maginary',

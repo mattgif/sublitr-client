@@ -3,7 +3,7 @@ import {shallow} from 'enzyme';
 
 import ModalConfirm from '../components/modalconfirm';
 
-describe('ModalConfirm', () => {
+describe.skip('ModalConfirm', () => {
     it('should render without crashing', () => {
        shallow(<ModalConfirm/>)
     });

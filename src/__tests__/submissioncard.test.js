@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom';
 
 import SubmissionCard from '../components/submissioncard';
 
-describe('SubmissionCard', () => {
+describe.skip('SubmissionCard', () => {
     const submission = {
         title: 'Test title',
         author: 'Alfred Armani',

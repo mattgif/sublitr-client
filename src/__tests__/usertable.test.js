@@ -4,7 +4,7 @@ import {shallow} from 'enzyme';
 import UserTable from '../components/usertable';
 import UserRow from "../components/userrow";
 
-describe('UserTable', ()=> {
+describe.skip('UserTable', ()=> {
     it('should render without crashing', ()=> {
        shallow(<UserTable/>)
     });
