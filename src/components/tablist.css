@@ -19,6 +19,7 @@
 
 .tabList li:hover {
     background-color: #666;
+    cursor: pointer;
 }
 
 .tabList .active {

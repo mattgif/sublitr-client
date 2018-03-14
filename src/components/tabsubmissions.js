@@ -1,12 +1,12 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
-import SubmissionList from "./submissionlist";
-import './tabsubmissions.css';
+import './tab.css';
+import CardSubmission from "./cardsubmission";
 
 export function TabSubmissions(props) {
     return(
-        <section className="tabSubmissions">
+        <section className="tab">
             <h2>My submissions</h2>
 
             <Link to='#'>+ New submission</Link>
@@ -22,7 +22,16 @@ export function TabSubmissions(props) {
                 </select>
             </div>
 
-            <SubmissionList submissions={props.submissions}/>
+            <ul className="submissionList">
+                {props.submissions.map((submission, index) => {
+                    return(<li key={index}><CardSubmission
+                        status={submission.status}
+                        publication={submission.publication}
+                        title={submission.title}
+                        submissionDate={submission.submitted}
+                    /></li>);
+                })}
+            </ul>
         </section>
     )
 }

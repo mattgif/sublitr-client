@@ -1,0 +1,23 @@
+.circle {
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    line-height: 30px;
+}
+
+.declined {
+    background-color: firebrick;
+}
+
+.accepted {
+    background-color: green;
+}
+
+.pending {
+    background-color: dimgray;
+}
+
+.revise {
+    background-color: moccasin;
+}

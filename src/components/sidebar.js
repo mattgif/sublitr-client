@@ -8,7 +8,7 @@ import './sidebar.css'
 
 export function Sidebar(props) {
     return (
-        <section className="sidebar">
+        <section className={props.showSidebar ? "sidebar" : "sidebar hidden"}>
             <p><strong>[Status icon]</strong></p>
             <h2>Status</h2>
             <PageHeader title={props.submission.title} subtitle={props.submission.author}/>
@@ -33,7 +33,8 @@ export function Sidebar(props) {
 
 const mapStateToProps = state => ({
     submission: state.activeSubmission,
-    comments: state.activeSubmission.reviewerInfo.comments
+    comments: state.activeSubmission.reviewerInfo.comments,
+    showSidebar: state.showSidebar
 });
 
 export default connect(mapStateToProps)(Sidebar);

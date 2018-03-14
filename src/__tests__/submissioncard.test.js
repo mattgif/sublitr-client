@@ -2,9 +2,9 @@ import React from 'react';
 import {shallow, mount} from 'enzyme';
 import {Link} from 'react-router-dom';
 
-import SubmissionCard from '../components/submissioncard';
+import SubmissionCard from '../components/cardsubmission';
 
-describe.skip('SubmissionCard', () => {
+describe.skip('CardReview', () => {
     const submission = {
         title: 'Test title',
         author: 'Alfred Armani',

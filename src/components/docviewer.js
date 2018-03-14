@@ -2,14 +2,14 @@ import React from 'react';
 import SidebarToggle from "./sidebartoggle";
 import Sidebar from "./sidebar";
 import PageHeader from "./pageheader";
-import { Document } from 'react-pdf';
+import { Document } from 'react-pdf/build/entry.noworker';
 import {connect} from 'react-redux';
 
 export function DocViewer(props) {
     return (
         <div>
             <SidebarToggle/>
-            {props.showSidebar ? <Sidebar/> : ''}
+            <Sidebar />
             <PageHeader/>
             <main>
                 <Document file={props.submission.file}></Document>
@@ -19,8 +19,7 @@ export function DocViewer(props) {
 }
 
 const mapStateToProps = state => ({
-    submission: state.activeSubmission,
-    showSidebar: state.showSidebar
+    submission: state.activeSubmission
 });
 
 export default connect(mapStateToProps)(DocViewer);

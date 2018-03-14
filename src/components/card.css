@@ -20,30 +20,6 @@
     font-style: italic;
 }
 
-.card .circle {
-    border-radius: 50%;
-    width: 30px;
-    height: 30px;
-    text-align: center;
-    line-height: 30px;
-}
-
-.card .declined {
-    background-color: firebrick;
-}
-
-.card .accepted {
-    background-color: green;
-}
-
-.card .pending {
-    background-color: dimgray;
-}
-
-.card .revise {
-    background-color: moccasin;
-}
-
 .card StatusUpdater {
     width: 100%;
     border: 1px solid #ddd;
