@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import ModalLogin from "./modallogin";
 import ModalConfirm from "./modalconfirm";
 import {closeModal} from "../actions";
+import './modal.css'
 
 
 export function ModalWrapper(props) {
@@ -13,7 +14,6 @@ export function ModalWrapper(props) {
                 <button onClick={() => props.dispatch(closeModal())}>close</button>
                 {props.type === "confirm" ? <ModalConfirm/> : <ModalLogin/>}
             </div>
-
         </div>
     )
 }

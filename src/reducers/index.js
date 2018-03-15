@@ -1,5 +1,5 @@
 import {testingState} from "../dummy/testingstate";
-import {CHANGE_TAB, TOGGLE_SIDEBAR, CLOSE_MODAL, OPEN_MODAL} from "../actions";
+import {CHANGE_TAB, TOGGLE_SIDEBAR, CLOSE_MODAL, OPEN_MODAL, LOGOUT} from "../actions";
 
 const initialState = testingState;
 
@@ -37,5 +37,12 @@ export const sublitrReducer = (state = initialState, action) => {
            }
         });
     }
+
+    if (action.type === LOGOUT) {
+        return Object.assign({}, state, {
+            user: false
+        });
+    }
+
     return state;
 };

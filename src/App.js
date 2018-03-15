@@ -15,17 +15,14 @@ export function App(props) {
             <div className="App">
                 <ModalWrapper />
                 <Navbar/>
-                <Route exact path='/' render={() => (<Dashboard user={props.user}/>)}/>
+                <Route exact path='/' render={() => (<Dashboard />)}/>
                 <Route exact path='/submit' component={SubmissionForm}/>
                 <Route exact path='/submission/:submissionID' component={DocViewer}/>
             </div>
         </Router>
-    ); else return (
-        <div className="App">
-            <Navbar/>
-            <Landing/>
-        </div>
     );
+
+    return <Landing/>;
 }
 
 const mapStateToProps = state => ({

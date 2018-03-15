@@ -20,3 +20,8 @@ export const openModal = (modalType, buttons) => ({
     modalType: modalType,
     buttons: buttons
 });
+
+export const LOGOUT = 'LOGOUT';
+export const logout = () => ({
+    type: LOGOUT,
+});

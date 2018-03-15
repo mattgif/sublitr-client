@@ -2,7 +2,6 @@ import React from 'react';
 import SidebarToggle from "./sidebartoggle";
 import Sidebar from "./sidebar";
 import PageHeader from "./pageheader";
-import { Document } from 'react-pdf/build/entry.noworker';
 import {connect} from 'react-redux';
 
 export function DocViewer(props) {
@@ -12,7 +11,7 @@ export function DocViewer(props) {
             <Sidebar />
             <PageHeader/>
             <main>
-                <Document file={props.submission.file}></Document>
+                <iframe src={props.submission.file} frameborder="0"/>
             </main>
         </div>
     )

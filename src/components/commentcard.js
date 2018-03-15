@@ -9,7 +9,7 @@ export default function CommentCard(props) {
                 {comment.text}
             </div>
             <div className="comments__footer">
-                <div classname="comments__name">{comment.name}</div>
+                <div className="comments__name">{comment.name}</div>
                 <div className="comments__date">{comment.date}</div>
             </div>
         </li>
