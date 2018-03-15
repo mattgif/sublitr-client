@@ -8,8 +8,10 @@ export function TabReview(props) {
         return (<option key={index} value={pub.abbr}>{pub.name}</option>)
     });
 
+    const tabClass = props.hidden ? "tab hidden" : "tab"
+
     return(
-        <section className="tab">
+        <section className={tabClass}>
             <h2>Review submissions</h2>
 
             <div>

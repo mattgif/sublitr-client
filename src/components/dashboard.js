@@ -11,17 +11,13 @@ export function Dashboard(props) {
     if (props.user) {
         name = props.user.first + ' ' + props.user.last;
     }
-    const activeTab = (active) => {
-        if (active === 'review') return <TabReview/>;
-        if (active === 'users') return <TabUsers/>;
-        return <TabSubmissions/>;
-    };
-
     return (
         <div>
             <PageHeader title={name}/>
             <TabList active={props.active}/>
-            {activeTab(props.active)}
+            <TabReview hidden={props.active !== 'review'}/>
+            <TabUsers hidden={props.active !== 'users'}/>
+            <TabSubmissions hidden={props.active !== 'submissions'}/>
         </div>
     )
 }

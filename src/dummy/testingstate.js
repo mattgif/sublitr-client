@@ -170,5 +170,10 @@ export const testingState = {
         {first: "Charlie", last: "Chaplin", email: "cchaps@example.com", editor: true},
         {first: "Debbie", last: "Douglas", email: "ddougs@example.com", editor: false},
     ],
-    showSidebar: false
+    showSidebar: false,
+    modal: {
+        show: false,
+        type: undefined,
+        buttons: []
+    }
 };

@@ -4,9 +4,11 @@ import MaterialInput from "./materialinput";
 export default function ModalLogin(props) {
     return (
         <form>
-            <MaterialInput/>
-            <MaterialInput/>
-            <button type="submit">Login</button>
+            <h2>Log in</h2>
+            <MaterialInput field={"emailLogin"} fieldType={"email"} label={"Email"}/>
+            <MaterialInput field={"passwordLogin"} fieldType={"password"} label={"Password"}/>
+            <button type="submit">Log in</button>
         </form>
+
     )
 }

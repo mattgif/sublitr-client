@@ -6,13 +6,17 @@ import Navbar from "./components/navbar";
 import Landing from "./components/landing";
 import Dashboard from "./components/dashboard";
 import DocViewer from "./components/docviewer";
+import SubmissionForm from "./components/submissionform";
+import ModalWrapper from "./components/modalwrapper";
 
 export function App(props) {
     if (props.user) return (
         <Router>
             <div className="App">
+                <ModalWrapper />
                 <Navbar/>
                 <Route exact path='/' render={() => (<Dashboard user={props.user}/>)}/>
+                <Route exact path='/submit' component={SubmissionForm}/>
                 <Route exact path='/submission/:submissionID' component={DocViewer}/>
             </div>
         </Router>

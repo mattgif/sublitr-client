@@ -5,11 +5,12 @@ import './tab.css';
 import CardSubmission from "./cardsubmission";
 
 export function TabSubmissions(props) {
+    const tabClass = props.hidden ? "tab hidden" : "tab";
     return(
-        <section className="tab">
+        <section className={tabClass}>
             <h2>My submissions</h2>
 
-            <Link to='#'>+ New submission</Link>
+            <Link to='/submit'>+ New submission</Link>
 
             <div>
                 <label htmlFor="submissionFilter">Status</label>

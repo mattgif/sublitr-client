@@ -3,8 +3,9 @@ import {connect} from 'react-redux';
 import UserTable from "./usertable";
 
 export function TabUsers(props) {
+    const tabClass = props.hidden ? "tab hidden" : "tab"
     return(
-        <section>
+        <section className={tabClass}>
             <h2>Users</h2>
 
             <label htmlFor="userFilter">User roles</label>
