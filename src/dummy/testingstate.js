@@ -8,7 +8,7 @@ export const testingState = {
         publication: 'Journal 1',
         status: 'pending',
         url: '#',
-        file: "../dummy/test_pdf.pdf",
+        file: "https://ihatetomatoes.net/wp-content/uploads/2017/01/react-cheat-sheet.pdf",
         reviewerInfo: {
             decision: 'pending',
             recommendation: 'none',

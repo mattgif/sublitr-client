@@ -20,8 +20,8 @@ export function Sidebar(props) {
                     <StatusUpdater elected={props.submission.reviewerInfo.recommendation} type="recommendation"/>
                 </label>
                 <ul>
-                    <li>Submitted: <time datetime={props.submission.submitted}>{props.submission.submitted}</time></li>
-                    <li>Last action: <time datetime={props.submission.reviewerInfo.lastAction}>{props.submission.reviewerInfo.lastAction}</time></li>
+                    <li>Submitted: <time dateTime={props.submission.submitted}>{props.submission.submitted}</time></li>
+                    <li>Last action: <time dateTime={props.submission.reviewerInfo.lastAction}>{props.submission.reviewerInfo.lastAction}</time></li>
                 </ul>
             </section>
             <section>

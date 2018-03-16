@@ -3,30 +3,35 @@ import {Link} from 'react-router-dom';
 import StatusUpdater from '../components/statusupdater';
 import './card.css';
 import StatusIndicator from "./statusindicator";
+import CollapsableCard from "./collapsablecard";
 
-export default function ReviewCard(props) {
-    return (
-        <div className="card">
-            <StatusIndicator status={props.status}/>
-            <div>
-                <div className='publication'><p>{props.publication}</p></div>
-                <div className='title'><p>{props.title}</p></div>
-                <div className='author'><p>{props.author}</p></div>
-            </div>
-            <div className="additional">
+export default class ReviewCard extends CollapsableCard {
+    render() {
+        return (
+            <div className="card" onClick={this.handleClick.bind(this)}>
+                <StatusIndicator status={this.props.status}/>
                 <div>
-                    <p>Decision:</p>
-                    <StatusUpdater type="decision" selected={props.status}/>
+                    <div className='publication'><p>{this.props.publication}</p></div>
+                    <div className='title'><p>{this.props.title}</p></div>
+                    <div className='author'><p>{this.props.author}</p></div>
                 </div>
-                <div>
-                    <p>Recommendation:</p>
-                    <StatusUpdater type="recommendation" selected={props.recommendation}/>
+                <div className={this.state.expanded ? "additional" : "hidden additional"}>
+                    <div>
+                        <p>Decision:</p>
+                        <StatusUpdater type="decision" selected={this.props.status}/>
+                    </div>
+                    <div>
+                        <p>Recommendation:</p>
+                        <StatusUpdater type="recommendation" selected={this.props.recommendation}/>
+                    </div>
+
+                    <li>Last action: <time>{this.props.lastAction}</time></li>
+
+                    <Link to={this.props.url}>View submission</Link>
                 </div>
-
-                <li>Last action: <time>{props.lastAction}</time></li>
-
-                <Link to={props.url}>View submission</Link>
             </div>
-        </div>
-    )
+        )
+    }
+    
 }
+

@@ -1,0 +1,12 @@
+.docviewer {
+    height: 100%;
+}
+
+.docviewer iframe {
+    width: 100%;
+    height: 100%;
+}
+
+.docviewer main {
+    height: 100%;
+}

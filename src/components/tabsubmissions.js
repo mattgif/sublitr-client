@@ -4,8 +4,12 @@ import {connect} from 'react-redux';
 import './tab.css';
 import CardSubmission from "./cardsubmission";
 
-export function TabSubmissions(props) {
+export class TabSubmissions extends React.Component {
+    constructor(props) {
+
+    }
     const tabClass = props.hidden ? "tab hidden" : "tab";
+
     return(
         <section className={tabClass}>
             <h2>My submissions</h2>
@@ -14,7 +18,7 @@ export function TabSubmissions(props) {
 
             <div>
                 <label htmlFor="submissionFilter">Status</label>
-                <select className="filter" name="submissionFilter" id="submissionFilter" value={props.filterValues.submissionFilter}>
+                <select className="filter" name="submissionFilter" id="submissionFilter" value={props.decisionFilter}>
                     <option value="all">All submissions</option>
                     <option value="pending">Pending review</option>
                     <option value="revise">Revise &amp; Resubmit</option>
@@ -25,12 +29,16 @@ export function TabSubmissions(props) {
 
             <ul className="submissionList">
                 {props.submissions.map((submission, index) => {
-                    return(<li key={index}><CardSubmission
-                        status={submission.status}
-                        publication={submission.publication}
-                        title={submission.title}
-                        submissionDate={submission.submitted}
-                    /></li>);
+                    return(
+                        <li key={index}>
+                            <CardSubmission
+                                status={submission.status}
+                                publication={submission.publication}
+                                title={submission.title}
+                                submissionDate={submission.submitted}
+                            />
+                        </li>
+                    );
                 })}
             </ul>
         </section>
@@ -39,7 +47,6 @@ export function TabSubmissions(props) {
 
 const mapStateToProps = state => ({
     publications: state.publications,
-    filterValues: state.filterValues,
     submissions: state.submissions
 });
 
