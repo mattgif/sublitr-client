@@ -80,6 +80,7 @@ export const testingState = {
     },
     submissions: [
         {
+            id: 111111,
             title: 'Demo title 1',
             author: 'Rea Roos',
             submitted: '2018-01-01',
@@ -94,6 +95,7 @@ export const testingState = {
             }
         },
         {
+            id: 222222,
             title: 'Demo title 2',
             author: 'Kylie Keegan',
             submitted: '2018-01-01',
@@ -108,6 +110,7 @@ export const testingState = {
             }
         },
         {
+            id: 333333,
             title: 'Demo title 3',
             author: 'Emanuel Eisenstein',
             submitted: '2018-01-01',
@@ -122,6 +125,7 @@ export const testingState = {
             }
         },
         {
+            id: 444444,
             title: 'Demo title 4',
             author: 'Emanuel Eisenstein',
             submitted: '2018-01-01',
@@ -136,6 +140,7 @@ export const testingState = {
             }
         },
         {
+            id: 555555,
             title: 'Demo title 5',
             author: 'Donna Delapaz',
             submitted: '2018-01-01',
@@ -150,6 +155,7 @@ export const testingState = {
             }
         },
         {
+            id: 666666,
             title: 'Demo title ',
             author: 'Ashanti Ables',
             submitted: '2018-01-01',

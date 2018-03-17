@@ -15,7 +15,7 @@ export function UserTable(props) {
                 <tr>
                     <th>Last</th>
                     <th>First</th>
-                    <th>Username</th>
+                    <th>Email</th>
                     <th>Editor</th>
                 </tr>
             </thead>
