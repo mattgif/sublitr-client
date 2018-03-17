@@ -2,26 +2,39 @@ import React from 'react';
 import {connect} from 'react-redux';
 import UserTable from "./usertable";
 
-export function TabUsers(props) {
-    const tabClass = props.hidden ? "tab hidden" : "tab"
-    return(
-        <section className={tabClass}>
-            <h2>Users</h2>
+export class TabUsers extends React.Component {
+    constructor (props) {
+        super(props);
+        this.state = {
+            userFilter: "all"
+        }
+    };
 
-            <label htmlFor="userFilter">User roles</label>
-            <select className="filter" name="userFilter" id="userFilter" value={props.filterValues.userFilter}>
-                <option value="all">All users</option>
-                <option value="editors">Editors</option>
-                <option value="regular">Non-editors</option>
-            </select>
+    updateFilter = e => {this.setState({userFilter: e.target.value})};
 
-            <UserTable users={props.users}/>
-        </section>
-    )
+    render() {
+        return (
+            <section className={this.props.hidden ? "tab hidden" : "tab"}>
+                <h2>Users</h2>
+
+                <label htmlFor="userFilter">User roles</label>
+                <select className="filter"
+                        name="userFilter"
+                        id="userFilter"
+                        value={this.state.userFilter}
+                        onChange={e => this.updateFilter(e)}>
+                    <option value="all">All users</option>
+                    <option value="editor">Editors</option>
+                    <option value="non">Non-editors</option>
+                </select>
+
+                <UserTable filter={this.state.userFilter}/>
+            </section>
+        )
+    }
 }
 
 const mapStateToProps = state => ({
-    filterValues: state.filterValues,
     users: state.users
 });
 

@@ -25,7 +25,7 @@ export default class ReviewCard extends CollapsableCard {
                         <StatusUpdater type="recommendation" selected={this.props.recommendation}/>
                     </div>
 
-                    <li>Last action: <time>{this.props.lastAction}</time></li>
+                    <p>Last action: <time>{this.props.lastAction}</time></p>
 
                     <Link to={this.props.url}>View submission</Link>
                 </div>

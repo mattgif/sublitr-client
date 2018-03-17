@@ -1,8 +1,14 @@
 import React from 'react';
+import {connect} from 'react-redux';
 
 import UserRow from './userrow'
 
-export default function UserTable(props) {
+export function UserTable(props) {
+    const editorFilter = ( (props.filter !== "all") && (props.filter === "editor"));
+    const users = props.filter === "all" ? props.users : props.users.filter(user =>
+        user.editor === editorFilter
+    );
+
     return (
         <table>
             <thead>
@@ -14,7 +20,7 @@ export default function UserTable(props) {
                 </tr>
             </thead>
             <tbody>
-                {props.users.map((user, index) => {
+                {users.map((user, index) => {
                     return(<UserRow key={index} user={user}/>)
                 })}
             </tbody>
@@ -23,5 +29,12 @@ export default function UserTable(props) {
 }
 
 UserTable.defaultProps = {
-    users: []
+    filter: "all"
 };
+
+const mapStateToProps = state => ({
+    users: state.users
+});
+
+export default connect(mapStateToProps)(UserTable)
+
