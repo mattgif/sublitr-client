@@ -17,11 +17,17 @@ export const closeModal = () => ({
 export const OPEN_MODAL = 'OPEN_MODAL';
 export const openModal = (modalType, buttons) => ({
     type: OPEN_MODAL,
-    modalType: modalType,
-    buttons: buttons
+    modalType,
+    buttons
 });
 
 export const LOGOUT = 'LOGOUT';
 export const logout = () => ({
     type: LOGOUT,
+});
+
+export const TOGGLE_EDITOR = 'TOGGLE_EDITOR';
+export const toggleEditor = (email) => ({
+    type: TOGGLE_EDITOR,
+    email
 });

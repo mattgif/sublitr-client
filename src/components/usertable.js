@@ -1,13 +1,28 @@
 import React from 'react';
 import {connect} from 'react-redux';
-
-import UserRow from './userrow'
+import {toggleEditor} from "../actions";
 
 export function UserTable(props) {
     const editorFilter = ( (props.filter !== "all") && (props.filter === "editor"));
     const users = props.filter === "all" ? props.users : props.users.filter(user =>
         user.editor === editorFilter
     );
+
+    let userRows = users.map((user, index) => {
+        return(
+            <tr key={index}>
+                <td>{user.last}</td>
+                <td>{user.first}</td>
+                <td>{user.email}</td>
+                <td><input type="checkbox"
+                           name="editor"
+                           checked={user.editor}
+                           onChange={() => props.dispatch(toggleEditor(user.email))}/></td>
+                <td><button className="delete">Delete user?</button></td>
+            </tr>
+        )
+    });
+
 
     return (
         <table>
@@ -20,9 +35,7 @@ export function UserTable(props) {
                 </tr>
             </thead>
             <tbody>
-                {users.map((user, index) => {
-                    return(<UserRow key={index} user={user}/>)
-                })}
+                {userRows}
             </tbody>
         </table>
     )

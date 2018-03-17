@@ -1,5 +1,5 @@
 import {testingState} from "../dummy/testingstate";
-import {CHANGE_TAB, TOGGLE_SIDEBAR, CLOSE_MODAL, OPEN_MODAL, LOGOUT} from "../actions";
+import {CHANGE_TAB, TOGGLE_SIDEBAR, CLOSE_MODAL, OPEN_MODAL, LOGOUT, TOGGLE_EDITOR} from "../actions";
 
 const initialState = testingState;
 
@@ -42,6 +42,15 @@ export const sublitrReducer = (state = initialState, action) => {
         return Object.assign({}, state, {
             user: false
         });
+    }
+
+    if (action.type === TOGGLE_EDITOR) {
+        const usersUpdated = state.users.slice();
+        const foundIndex = usersUpdated.findIndex(user => user.email === action.email);
+        usersUpdated[foundIndex].editor = !usersUpdated[foundIndex].editor;
+        return Object.assign({}, state, {
+            users: usersUpdated
+        })
     }
 
     return state;
