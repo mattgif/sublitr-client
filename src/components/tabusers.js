@@ -35,7 +35,7 @@ export class TabUsers extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    users: state.users
+    users: state.sublitr.users
 });
 
 export default connect(mapStateToProps)(TabUsers)

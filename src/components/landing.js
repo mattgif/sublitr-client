@@ -3,13 +3,11 @@ import {BrowserRouter as Router} from 'react-router-dom';
 import PageHeader from "./pageheader";
 import RegistrationForm from "./registrationform";
 import Navbar from "./navbar";
-import ModalWrapper from "./modalwrapper";
 
 export default function Landing(props) {
     return (
         <Router>
             <div className="App">
-                <ModalWrapper/>
                 <Navbar/>
                 <PageHeader title="sublitr" subtitle="submissions simplified"/>
                 <section>

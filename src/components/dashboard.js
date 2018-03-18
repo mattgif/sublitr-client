@@ -23,8 +23,8 @@ export function Dashboard(props) {
 }
 
 const mapStateToProps = state => ({
-    active: state.dashboard.activeTab,
-    user: state.user
+    active: state.sublitr.dashboard.activeTab,
+    user: state.sublitr.user
 });
 
 export default connect(mapStateToProps)(Dashboard);

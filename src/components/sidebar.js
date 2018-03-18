@@ -32,9 +32,9 @@ export function Sidebar(props) {
     )}
 
 const mapStateToProps = state => ({
-    submission: state.activeSubmission,
-    comments: state.activeSubmission.reviewerInfo.comments,
-    showSidebar: state.showSidebar
+    submission: state.sublitr.activeSubmission,
+    comments: state.sublitr.activeSubmission.reviewerInfo.comments,
+    showSidebar: state.sublitr.showSidebar
 });
 
 export default connect(mapStateToProps)(Sidebar);

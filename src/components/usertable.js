@@ -60,7 +60,7 @@ UserTable.defaultProps = {
 };
 
 const mapStateToProps = state => ({
-    users: state.users
+    users: state.sublitr.users
 });
 
 export default connect(mapStateToProps)(UserTable)

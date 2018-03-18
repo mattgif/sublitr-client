@@ -7,13 +7,11 @@ import Landing from "./components/landing";
 import Dashboard from "./components/dashboard";
 import DocViewer from "./components/docviewer";
 import SubmissionForm from "./components/submissionform";
-import ModalWrapper from "./components/modalwrapper";
 
 export function App(props) {
     if (props.user) return (
         <Router>
             <div className="App">
-                <ModalWrapper />
                 <Navbar/>
                 <Route exact path='/' render={() => (<Dashboard />)}/>
                 <Route exact path='/submit' component={SubmissionForm}/>
@@ -26,7 +24,7 @@ export function App(props) {
 }
 
 const mapStateToProps = state => ({
-    user: state.user
+    user: state.sublitr.user
 });
 
 export default connect(mapStateToProps)(App);

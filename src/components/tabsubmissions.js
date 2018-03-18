@@ -63,8 +63,8 @@ export class TabSubmissions extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    publications: state.publications,
-    submissions: state.submissions
+    publications: state.sublitr.publications,
+    submissions: state.sublitr.submissions
 });
 
 export default connect(mapStateToProps)(TabSubmissions)

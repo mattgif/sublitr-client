@@ -106,10 +106,10 @@ export class TabReview extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    publications: state.publications,
-    filterValues: state.filterValues,
-    statusLists: state.statusLists,
-    submissions: state.submissions
+    publications: state.sublitr.publications,
+    filterValues: state.sublitr.filterValues,
+    statusLists: state.sublitr.statusLists,
+    submissions: state.sublitr.submissions
 });
 
 export default connect(mapStateToProps)(TabReview);

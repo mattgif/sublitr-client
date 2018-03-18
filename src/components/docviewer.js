@@ -20,7 +20,7 @@ export function DocViewer(props) {
 }
 
 const mapStateToProps = state => ({
-    submission: state.activeSubmission
+    submission: state.sublitr.activeSubmission
 });
 
 export default connect(mapStateToProps)(DocViewer);

@@ -17,7 +17,7 @@ StatusUpdater.defaultProps = {
 };
 
 const mapStateToProps = state => ({
-    statusLists: state.statusLists
+    statusLists: state.sublitr.statusLists
 });
 
 export default connect(mapStateToProps)(StatusUpdater)

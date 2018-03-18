@@ -16,7 +16,7 @@ export function SidebarToggle(props) {
 }
 
 const mapStateToProps = state => ({
-    checked: state.showSidebar
+    checked: state.sublitr.showSidebar
 });
 
 export default connect(mapStateToProps)(SidebarToggle)
