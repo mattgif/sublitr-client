@@ -1,5 +1,5 @@
 import {testingState} from "../dummy/testingstate";
-import {CHANGE_TAB, TOGGLE_SIDEBAR, CLOSE_MODAL, OPEN_MODAL, LOGOUT, TOGGLE_EDITOR} from "../actions";
+import {CHANGE_TAB, TOGGLE_SIDEBAR, CLOSE_MODAL, OPEN_MODAL, LOGOUT, TOGGLE_EDITOR, DELETE_USER} from "../actions";
 
 const initialState = testingState;
 
@@ -23,7 +23,9 @@ export const sublitrReducer = (state = initialState, action) => {
             modal: {
                 show: false,
                 type: undefined,
-                buttons: []
+                label: undefined,
+                confirmMessage: undefined,
+                confirmAction: undefined
             }
         })
     }
@@ -33,7 +35,9 @@ export const sublitrReducer = (state = initialState, action) => {
            modal: {
                show: true,
                type: action.modalType,
-               buttons: action.buttons
+               label: action.label,
+               confirmMessage: action.confirmMessage,
+               confirmAction: action.confirmAction
            }
         });
     }
@@ -50,6 +54,15 @@ export const sublitrReducer = (state = initialState, action) => {
         usersUpdated[foundIndex].editor = !usersUpdated[foundIndex].editor;
         return Object.assign({}, state, {
             users: usersUpdated
+        })
+    }
+
+    if (action.type === DELETE_USER) {
+        const updatedUsers = state.users.filter(user =>
+            user.id !== action.id);
+
+        return Object.assign({}, state, {
+            users: updatedUsers
         })
     }
 

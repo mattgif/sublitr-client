@@ -15,10 +15,12 @@ export const closeModal = () => ({
 });
 
 export const OPEN_MODAL = 'OPEN_MODAL';
-export const openModal = (modalType, buttons) => ({
+export const openModal = ({modalType, label, confirmMessage, confirmAction} = {}) => ({
     type: OPEN_MODAL,
     modalType,
-    buttons
+    label,
+    confirmAction,
+    confirmMessage
 });
 
 export const LOGOUT = 'LOGOUT';
@@ -30,4 +32,10 @@ export const TOGGLE_EDITOR = 'TOGGLE_EDITOR';
 export const toggleEditor = (email) => ({
     type: TOGGLE_EDITOR,
     email
+});
+
+export const DELETE_USER = 'DELETE_USER';
+export const deleteUser = (id) => ({
+    type: DELETE_USER,
+    id
 });

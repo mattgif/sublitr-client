@@ -171,15 +171,17 @@ export const testingState = {
         },
     ],
     users: [
-        {first: "Abe", last: "Abrams", email: "aabrams@example.com", editor: false},
-        {first: "Betty", last: "Brown", email: "bbrown@example.com", editor: true},
-        {first: "Charlie", last: "Chaplin", email: "cchaps@example.com", editor: true},
-        {first: "Debbie", last: "Douglas", email: "ddougs@example.com", editor: false},
+        {id: 'u111111', first: "Abe", last: "Abrams", email: "aabrams@example.com", editor: false},
+        {id: 'u222222', first: "Betty", last: "Brown", email: "bbrown@example.com", editor: true},
+        {id: 'u333333', first: "Charlie", last: "Chaplin", email: "cchaps@example.com", editor: true},
+        {id: 'u444444', first: "Debbie", last: "Douglas", email: "ddougs@example.com", editor: false},
     ],
     showSidebar: false,
     modal: {
         show: false,
         type: undefined,
-        buttons: []
+        label: undefined,
+        confirmMessage: undefined,
+        confirmAction: undefined
     }
 };
