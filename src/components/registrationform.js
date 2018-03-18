@@ -1,15 +1,56 @@
 import React from 'react';
+import {Field, reduxForm, focus} from 'redux-form';
 import MaterialInput from "./materialinput";
+import {required, length, nonEmpty, matches, emailFormat} from '../validators';
+const passwordLength = length({min: 10, max: 72});
+const passwordMatch = matches('password');
 
-export default function RegistrationForm(props) {
-    return (
-        <form>
-            <MaterialInput label="First Name" field="firstName"/>
-            <MaterialInput label="Last Name" field="lastName"/>
-            <MaterialInput type="email" label="Email" field="email"/>
-            <MaterialInput type="password" label="Password" field="password"/>
-            <MaterialInput type="password" label="Retype password to confirm" field="confirmPassword"/>
-            <button type="submit">Join</button>
-        </form>
-    );
+export class RegistrationForm extends React.Component {
+    onSubmit(values) {
+        const {email, password, firstName, lastName} = values;
+        const user = {email, password, firstName, lastName};
+        // TODO: async user registration
+    }
+    render() {
+        return (
+            <form>
+                <Field
+                    name="firstName"
+                    type="text"
+                    component={MaterialInput}
+                    label="First name"
+                    validate={[required, nonEmpty]}/>
+                <Field
+                    name="lastName"
+                    type="text"
+                    component={MaterialInput}
+                    label="Last name"
+                    validate={[required, nonEmpty]}/>
+                <Field
+                    name="email"
+                    type="email"
+                    component={MaterialInput}
+                    label="Email"
+                    validate={[required, nonEmpty, emailFormat]}/>
+                <Field
+                    name="password"
+                    type="password"
+                    component={MaterialInput}
+                    label="Password"
+                    validate={[required, passwordLength, nonEmpty]}/>
+                <Field
+                    name="passwordConfirm"
+                    type="password"
+                    component={MaterialInput}
+                    label="Confirm password"
+                    validate={[required, nonEmpty, passwordMatch]}
+                />
+                <button type="submit" disabled={this.props.pristine || this.props.submitting}>Join</button>
+            </form>
+        );
+    }
 }
+
+export default reduxForm({
+    form: 'registration'
+})(RegistrationForm);
