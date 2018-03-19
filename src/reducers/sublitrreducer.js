@@ -12,36 +12,6 @@ export const sublitrReducer = (state = initialState, action) => {
         });
     }
 
-    if (action.type === TOGGLE_SIDEBAR) {
-        return Object.assign({}, state, {
-            showSidebar: !state.showSidebar
-        });
-    }
-
-    if (action.type === CLOSE_MODAL) {
-        return Object.assign({}, state, {
-            modal: {
-                show: false,
-                type: undefined,
-                label: undefined,
-                confirmMessage: undefined,
-                confirmAction: undefined
-            }
-        })
-    }
-
-    if (action.type === OPEN_MODAL) {
-        return Object.assign({}, state, {
-           modal: {
-               show: true,
-               type: action.modalType,
-               label: action.label,
-               confirmMessage: action.confirmMessage,
-               confirmAction: action.confirmAction
-           }
-        });
-    }
-
     if (action.type === LOGOUT) {
         return Object.assign({}, state, {
             user: false
