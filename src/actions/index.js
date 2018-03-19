@@ -20,3 +20,9 @@ export const deleteUser = (id) => ({
     type: DELETE_USER,
     id
 });
+
+export const DELETE_SUBMISSION = 'DELETE_SUBMISSION';
+export const deleteSubmission = (id) => ({
+    type: DELETE_SUBMISSION,
+    id
+});

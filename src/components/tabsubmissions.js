@@ -50,6 +50,7 @@ export class TabSubmissions extends React.Component {
                                         publication={submission.publication}
                                         title={submission.title}
                                         submissionDate={submission.submitted}
+                                        id={submission.id}
                                     />
                                 </li>
                             );
