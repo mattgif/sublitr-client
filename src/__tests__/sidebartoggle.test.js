@@ -1,7 +1,7 @@
 import React from 'react';
 import {shallow} from 'enzyme';
 
-import SidebarToggle from '../components/sidebartoggle';
+import SidebarToggle from '../components/mobilemenutoggle';
 
 describe.skip('SidebarToggle', () => {
     it('should render without crashing', () => {

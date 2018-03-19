@@ -10,7 +10,7 @@ describe.skip('DocViewer', () => {
 
     it('should contain a sidebar', () => {
         let wrapper = shallow(<DocViewer/>);
-        expect(wrapper.find('Sidebar')).toHaveLength(1);
+        expect(wrapper.find('PushableLeftSidebar')).toHaveLength(1);
     });
 
     it('should have a SidebarToggle', () => {

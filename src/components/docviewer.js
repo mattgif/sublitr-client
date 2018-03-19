@@ -1,19 +1,18 @@
 import React from 'react';
-import SidebarToggle from "./sidebartoggle";
-import Sidebar from "./sidebar";
 import PageHeader from "./pageheader";
 import {connect} from 'react-redux';
 import './docviewer.css';
+import PushableLeftSidebar from "./sidebar";
 
 export function DocViewer(props) {
     return (
         <div className="docviewer">
-            <SidebarToggle/>
-            <Sidebar />
-            <PageHeader/>
-            <main>
-                <iframe title={props.submission.title} src={props.submission.file} frameBorder="0"/>
-            </main>
+            <PushableLeftSidebar>
+                <PageHeader title={props.submission.title} subtitle={props.submission.author}/>
+                <main>
+                    <iframe className="docviewer__iframe" title={props.submission.title} src={props.submission.file} frameBorder="0"/>
+                </main>
+            </PushableLeftSidebar>
         </div>
 
     )
