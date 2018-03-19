@@ -1,23 +1,46 @@
 import React from 'react';
-import {Modal, Form, Message} from 'semantic-ui-react';
-import {connect} from 'react-redux';
+import {Modal, Message} from 'semantic-ui-react';
+import {Field, reduxForm} from 'redux-form';
+import MaterialInput from "./materialinput";
+import {emailFormat, required} from "../validators";
 
 class Login extends React.Component {
+    onSubmit(values) {
+        return ''
+    }
+
     render() {
         let loginError;
         if (this.props.error) {
             loginError = <Message error header='Invalid email or password' />
         }
         return (
-            <Modal trigger={<button>Log in</button>}>
+            <Modal trigger={<button>Log in</button>} size="tiny">
                 <Modal.Header>Log in</Modal.Header>
                 <Modal.Content>
                     {loginError}
-                    <Form>
-                        <Form.Input label='Email' type='email' name='email' placeholder='user@example.com'/>
-                        <Form.Input label='Password' name='email' type='password'/>
+                    <form
+                        className="login__form"
+                        onSubmit={this.props.handleSubmit(values =>
+                            this.onSubmit(values)
+                        )}
+                    >
+                        <Field
+                            label='Email'
+                            type='email'
+                            name='email'
+                            component={MaterialInput}
+                            validate={[required, emailFormat]}
+                        />
+                        <Field
+                            label='Password'
+                            name='password'
+                            type='password'
+                            component={MaterialInput}
+                            validate={[required]}
+                        />
                         <button type='submit'>Log in</button>
-                    </Form>
+                    </form>
                 </Modal.Content>
             </Modal>
 
@@ -25,8 +48,6 @@ class Login extends React.Component {
     }
 }
 
-const mapStateToProps = state => ({
-    user: state.sublitr.user
-});
-
-export default connect(mapStateToProps)(Login)
+export default reduxForm({
+    form: 'login'
+})(Login);

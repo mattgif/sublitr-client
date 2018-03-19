@@ -13,7 +13,8 @@ export class RegistrationForm extends React.Component {
     }
     render() {
         return (
-            <form>
+            <form method="POST">
+                <div className="form__error"></div>
                 <Field
                     name="firstName"
                     type="text"

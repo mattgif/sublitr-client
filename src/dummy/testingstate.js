@@ -183,5 +183,6 @@ export const testingState = {
         label: undefined,
         confirmMessage: undefined,
         confirmAction: undefined
-    }
+    },
+    allowedFileTypes: ["application/pdf", "application/vnd.openxmlformats-officedocument.wordprocessingml.document"]
 };
