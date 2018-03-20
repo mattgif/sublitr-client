@@ -32,10 +32,10 @@ export class PushableLeftSidebar extends React.Component {
                             <p><strong>[Status icon]</strong></p>
                             <h2>Status</h2>
                             <label>Decision
-                                <StatusUpdater selected={this.props.submission.reviewerInfo.decision} type="decision"/>
+                                <StatusUpdater submissionID={this.props.submissionID} selected={this.props.submission.reviewerInfo.decision} type="decision"/>
                             </label>
                             <label>Recommendation
-                                <StatusUpdater elected={this.props.submission.reviewerInfo.recommendation} type="recommendation"/>
+                                <StatusUpdater submissionID={this.props.submissionID} selected={this.props.submission.reviewerInfo.recommendation} type="recommendation"/>
                             </label>
                             <ul>
                                 <li>Submitted: <time dateTime={this.props.submission.submitted}>{this.props.submission.submitted}</time>

@@ -49,7 +49,9 @@ export class TabReview extends React.Component {
                     title={submission.title}
                     submissionDate={submission.submitted}
                     lastAction={submission.reviewerInfo.lastAction}
-                    url={submission.url}/>
+                    url={submission.url}
+                    submissionID = {submission.id}
+                />
             </li>
     )});
 

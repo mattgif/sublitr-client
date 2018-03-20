@@ -39,3 +39,11 @@ export const updateActiveSubmission = (id) => ({
     type: UPDATE_ACTIVE_SUBMISSION,
     id
 });
+
+export const UPDATE_STATUS = 'UPDATE_STATUS';
+export const updateStatus = (field, value, id) => ({
+    type: UPDATE_STATUS,
+    field,
+    value,
+    id
+});

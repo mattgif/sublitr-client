@@ -1,7 +1,7 @@
 import {testingState} from "../dummy/testingstate";
 import {
-    CHANGE_TAB, TOGGLE_SIDEBAR, CLOSE_MODAL, OPEN_MODAL, LOGOUT, TOGGLE_EDITOR, DELETE_USER,
-    DELETE_SUBMISSION, ADD_COMMENT, UPDATE_ACTIVE_SUBMISSION
+    CHANGE_TAB, LOGOUT, TOGGLE_EDITOR, DELETE_USER,
+    DELETE_SUBMISSION, ADD_COMMENT, UPDATE_ACTIVE_SUBMISSION, UPDATE_STATUS
 } from "../actions";
 
 const initialState = testingState;
@@ -74,6 +74,21 @@ export const sublitrReducer = (state = initialState, action) => {
             submission.id === action.id)[0];
         return Object.assign({}, state, {
             activeSubmission: targetSubmission
+        })
+    }
+
+    if (action.type === UPDATE_STATUS) {
+        console.log('update status reducer called');
+        const updatedSubmissions = state.submissions;
+        const foundIndex = updatedSubmissions.findIndex((el) => el.id === action.id);
+        const targetSubmission = updatedSubmissions[foundIndex];
+        targetSubmission.reviewerInfo[action.field] = action.value;
+        targetSubmission.reviewerInfo.lastAction = new Date().toLocaleDateString();
+        targetSubmission.status = targetSubmission.reviewerInfo.decision;
+        updatedSubmissions[foundIndex] = targetSubmission;
+        console.log(updatedSubmissions);
+        return Object.assign({}, state, {
+            submissions: updatedSubmissions
         })
     }
 

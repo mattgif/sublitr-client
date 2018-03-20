@@ -19,11 +19,11 @@ export default class ReviewCard extends CollapsableCard {
                 <div className={this.state.expanded ? "additional" : "hidden additional"}>
                     <div>
                         <p>Decision:</p>
-                        <StatusUpdater type="decision" selected={this.props.status}/>
+                        <StatusUpdater submissionID={this.props.submissionID} type="decision" selected={this.props.status}/>
                     </div>
                     <div>
                         <p>Recommendation:</p>
-                        <StatusUpdater type="recommendation" selected={this.props.recommendation}/>
+                        <StatusUpdater submissionID={this.props.submissionID} type="recommendation" selected={this.props.recommendation}/>
                     </div>
 
                     <p>Last action: <time>{this.props.lastAction}</time></p>
