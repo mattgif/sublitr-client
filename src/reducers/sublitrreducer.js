@@ -1,7 +1,7 @@
 import {testingState} from "../dummy/testingstate";
 import {
     CHANGE_TAB, TOGGLE_SIDEBAR, CLOSE_MODAL, OPEN_MODAL, LOGOUT, TOGGLE_EDITOR, DELETE_USER,
-    DELETE_SUBMISSION
+    DELETE_SUBMISSION, ADD_COMMENT, UPDATE_ACTIVE_SUBMISSION
 } from "../actions";
 
 const initialState = testingState;
@@ -50,6 +50,30 @@ export const sublitrReducer = (state = initialState, action) => {
 
         return Object.assign({}, state, {
             submissions: updatedSubmissions
+        })
+    }
+
+    if (action.type === ADD_COMMENT) {
+        // TODO: async
+        const updatedSubmissions = state.submissions;
+        const foundIndex = updatedSubmissions.findIndex((el) => el.id === action.id);
+        const submission = updatedSubmissions[foundIndex];
+        if (submission.reviewerInfo.comments) {
+            submission.reviewerInfo.comments.push(action.comment)
+        } else {
+            submission.reviewerInfo.comments = [action.comment]
+        }
+        updatedSubmissions[foundIndex] = submission;
+        return Object.assign({}, state, {
+            submissions: updatedSubmissions
+        })
+    }
+
+    if (action.type === UPDATE_ACTIVE_SUBMISSION) {
+        const targetSubmission = state.submissions.filter(submission =>
+            submission.id === action.id)[0];
+        return Object.assign({}, state, {
+            activeSubmission: targetSubmission
         })
     }
 

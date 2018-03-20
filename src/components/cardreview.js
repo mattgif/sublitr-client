@@ -6,6 +6,7 @@ import StatusIndicator from "./statusindicator";
 import CollapsableCard from "./collapsablecard";
 
 export default class ReviewCard extends CollapsableCard {
+    // CollapsableCard for Reviewer pane
     render() {
         return (
             <div className="card" onClick={this.handleClick.bind(this)}>

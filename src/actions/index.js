@@ -26,3 +26,16 @@ export const deleteSubmission = (id) => ({
     type: DELETE_SUBMISSION,
     id
 });
+
+export const ADD_COMMENT = 'ADD_COMMENT';
+export const addComment = (comment, id) => ({
+    type: ADD_COMMENT,
+    comment,
+    id
+});
+
+export const UPDATE_ACTIVE_SUBMISSION = 'UPDATE_ACTIVE_SUBMISSION';
+export const updateActiveSubmission = (id) => ({
+    type: UPDATE_ACTIVE_SUBMISSION,
+    id
+});
