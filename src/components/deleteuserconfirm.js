@@ -9,11 +9,9 @@ class DeleteUserConfirm extends React.Component {
         this.state = { open: false }
     };
 
-    id = this.props.user.id;
-
     show = () => this.setState({ open: true });
     handleConfirm = () => {
-        this.props.dispatch(deleteUser(this.id));
+        this.props.dispatch(deleteUser(this.props.user.id));
         this.setState({ open: false });
     };
     handleCancel = () => this.setState({ open: false });
