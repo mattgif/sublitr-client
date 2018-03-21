@@ -8,7 +8,7 @@ const passwordMatch = matches('password');
 export class RegistrationForm extends React.Component {
     onSubmit(values) {
         const {email, password, firstName, lastName} = values;
-        const user = {email, password, firstName, lastName};
+        // const user = {email, password, firstName, lastName};
         // TODO: async user registration
     }
     render() {
