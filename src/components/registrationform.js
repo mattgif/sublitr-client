@@ -6,11 +6,11 @@ const passwordLength = length({min: 10, max: 72});
 const passwordMatch = matches('password');
 
 export class RegistrationForm extends React.Component {
-    onSubmit(values) {
-        const {email, password, firstName, lastName} = values;
-        // const user = {email, password, firstName, lastName};
-        // TODO: async user registration
-    }
+    // onSubmit(values) {
+    //     const {email, password, firstName, lastName} = values;
+    //     const user = {email, password, firstName, lastName};
+    //     // TODO: async user registration
+    // }
     render() {
         return (
             <form method="POST">
