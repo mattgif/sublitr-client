@@ -41,9 +41,7 @@ export class TabReview extends React.Component {
     formattedSubmissions = submissionList => submissionList.map((submission, index) => {
         return (
             <li key={index}>
-                <CardReview
-                    submissionID={submission.id}
-                />
+                <CardReview submission={submission}/>
             </li>
     )});
 
@@ -107,3 +105,4 @@ const mapStateToProps = state => ({
 });
 
 export default connect(mapStateToProps)(TabReview);
+
