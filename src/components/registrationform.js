@@ -1,5 +1,5 @@
 import React from 'react';
-import {Field, reduxForm, focus} from 'redux-form';
+import {Field, reduxForm} from 'redux-form';
 import MaterialInput from "./materialinput";
 import {required, length, nonEmpty, matches, emailFormat} from '../validators';
 const passwordLength = length({min: 10, max: 72});

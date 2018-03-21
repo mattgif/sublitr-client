@@ -2,7 +2,7 @@ import React from 'react';
 import './commentsform.css';
 import {reduxForm, Field} from 'redux-form';
 import {connect} from 'react-redux';
-import {addComment, updateActiveSubmission} from "../actions";
+import {addComment} from "../actions";
 
 export class CommentForm extends React.Component {
     constructor(props) {
@@ -21,7 +21,6 @@ export class CommentForm extends React.Component {
         const id = this.props.submissionID;
         const comment = {text, name, date};
         this.props.dispatch(addComment(comment, id));
-        this.props.dispatch(updateActiveSubmission(id));
     }
 
     render () {
@@ -47,7 +46,6 @@ export class CommentForm extends React.Component {
 
 const mapStateToProps = state => ({
     user: state.sublitr.user,
-    submissionID: state.sublitr.activeSubmission.id
 });
 
 CommentForm = connect(mapStateToProps)(CommentForm);

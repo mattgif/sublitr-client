@@ -1,7 +1,7 @@
 import React from 'react';
 import PageHeader from "./pageheader";
 import MaterialInput from "./materialinput";
-import {Field, reduxForm, focus} from 'redux-form';
+import {Field, reduxForm} from 'redux-form';
 import Dropzone from 'react-dropzone';
 import {connect} from 'react-redux';
 import {nonEmpty, required} from "../validators";

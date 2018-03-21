@@ -34,12 +34,6 @@ export const addComment = (comment, id) => ({
     id
 });
 
-export const UPDATE_ACTIVE_SUBMISSION = 'UPDATE_ACTIVE_SUBMISSION';
-export const updateActiveSubmission = (id) => ({
-    type: UPDATE_ACTIVE_SUBMISSION,
-    id
-});
-
 export const UPDATE_STATUS = 'UPDATE_STATUS';
 export const updateStatus = (field, value, id) => ({
     type: UPDATE_STATUS,

@@ -66,10 +66,8 @@ export class ReviewCard extends CollapsableCard {
     
 }
 
-const mapStateToProps = (state, ownProps) => ({
+const mapStateToProps = state => ({
     statusLists: state.sublitr.statusLists,
-    submission: state.sublitr.submissionsByID[ownProps.submissionID],
-    submissionsByID: state.sublitr.submissionsByID
 });
 
 export default connect(mapStateToProps)(ReviewCard)

@@ -1,7 +1,7 @@
 import {testingState} from "../dummy/testingstate";
 import {
     CHANGE_TAB, LOGOUT, TOGGLE_EDITOR, DELETE_USER,
-    DELETE_SUBMISSION, ADD_COMMENT, UPDATE_ACTIVE_SUBMISSION, UPDATE_STATUS
+    DELETE_SUBMISSION, ADD_COMMENT, UPDATE_STATUS
 } from "../actions";
 
 const initialState = testingState;
@@ -55,36 +55,34 @@ export const sublitrReducer = (state = initialState, action) => {
 
     if (action.type === ADD_COMMENT) {
         // TODO: async
-        const updatedSubmissions = state.submissions;
+        const updatedSubmissions = state.submissions.slice();
         const foundIndex = updatedSubmissions.findIndex((el) => el.id === action.id);
         const submission = updatedSubmissions[foundIndex];
+        updatedSubmissions.splice(foundIndex, 1);
         if (submission.reviewerInfo.comments) {
             submission.reviewerInfo.comments.push(action.comment)
         } else {
             submission.reviewerInfo.comments = [action.comment]
         }
-        updatedSubmissions[foundIndex] = submission;
+        updatedSubmissions.push(submission);
         return Object.assign({}, state, {
             submissions: updatedSubmissions
         })
     }
 
-    if (action.type === UPDATE_ACTIVE_SUBMISSION) {
-        const targetSubmission = state.submissions.filter(submission =>
-            submission.id === action.id)[0];
-        return Object.assign({}, state, {
-            activeSubmission: targetSubmission
-        })
-    }
-
     if (action.type === UPDATE_STATUS) {
-        const updatedSubmissions = Object.assign({},state.submissionsByID);
-        updatedSubmissions[action.id].reviewerInfo[action.field] = action.value;
-        updatedSubmissions[action.id].reviewerInfo.lastAction = new Date().toLocaleDateString();
-        updatedSubmissions[action.id].status = updatedSubmissions[action.id].reviewerInfo.decision;
-        console.log(updatedSubmissions);
+        const updatedSubmissions = state.submissions.map((sub) => {
+            if (sub.id !== action.id) {
+                return sub;
+            }
+            const newItem = Object.assign({}, sub);
+            newItem.reviewerInfo[action.field] = action.value;
+            newItem.reviewerInfo.lastAction = new Date().toLocaleDateString();
+            newItem.status = newItem.reviewerInfo.decision;
+            return newItem
+        });
         return Object.assign({}, state, {
-            submissionsByID: updatedSubmissions
+            submissions: updatedSubmissions
         })
     }
 

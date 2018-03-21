@@ -2,7 +2,7 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import './navbar.css'
-import {openModal, logout} from "../actions";
+import {logout} from "../actions";
 import Login from './login';
 
 export function Navbar(props) {

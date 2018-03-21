@@ -2,10 +2,11 @@ import React from 'react';
 import {connect} from 'react-redux';
 import { Sidebar, Segment, Menu} from 'semantic-ui-react'
 import PageHeader from "./pageheader";
-import StatusUpdater from "./statusupdater";
 import CommentForm from "./commentform";
 import CommentList from "./commentlist";
 import MobileMenuToggle from "./mobilemenutoggle";
+import {updateStatus} from "../actions";
+import StatusIndicator from "./statusindicator";
 
 export class PushableLeftSidebar extends React.Component {
     constructor(props) {
@@ -20,8 +21,19 @@ export class PushableLeftSidebar extends React.Component {
         this.setState({ visible: !this.state.visible} );
     }
 
+    handleStatusChange = (e, statusType) => {
+        this.props.dispatch(
+            updateStatus(statusType, e.target.value, this.props.submission.id)
+        )
+    };
+
     render() {
         const { visible } = this.state;
+
+        const statusOptions = statusType => this.props.statusLists[statusType].map((opt, index) => {
+            return(<option key={index} value={opt.short}>{opt.long}</option>)
+        });
+
         return (
             <div className="sidebar">
                 <MobileMenuToggle checked={this.state.visible} onChange={this.toggleVisibility}/>
@@ -29,13 +41,21 @@ export class PushableLeftSidebar extends React.Component {
                     <Sidebar as={Menu} animation='uncover' width='wide' visible={visible} icon='labeled' vertical>
                         <PageHeader title={this.props.submission.title} subtitle={this.props.submission.author}/>
                         <Menu.Item name='status'>
-                            <p><strong>[Status icon]</strong></p>
+                            <StatusIndicator status={this.props.submission.reviewerInfo.decision}/>
                             <h2>Status</h2>
                             <label>Decision
-                                <StatusUpdater submissionID={this.props.submissionID} selected={this.props.submission.reviewerInfo.decision} type="decision"/>
+                                <select value={this.props.submission.reviewerInfo.decision}
+                                        onChange={e => this.handleStatusChange(e, 'decision')}
+                                >
+                                    {statusOptions('decision')}
+                                </select>
                             </label>
                             <label>Recommendation
-                                <StatusUpdater submissionID={this.props.submissionID} selected={this.props.submission.reviewerInfo.recommendation} type="recommendation"/>
+                                <select value={this.props.submission.reviewerInfo.recommendation}
+                                        onChange={e => this.handleStatusChange(e, 'recommendation')}
+                                >
+                                    {statusOptions('recommendation')}
+                                </select>
                             </label>
                             <ul>
                                 <li>Submitted: <time dateTime={this.props.submission.submitted}>{this.props.submission.submitted}</time>
@@ -47,8 +67,8 @@ export class PushableLeftSidebar extends React.Component {
                         </Menu.Item>
                         <Menu.Item>
                             <section>
-                                <CommentForm/>
-                                <CommentList comments={this.props.comments}/>
+                                <CommentForm submissionID={this.props.submission.id}/>
+                                <CommentList comments={this.props.submission.reviewerInfo.comments}/>
                             </section>
                         </Menu.Item>
                     </Sidebar>
@@ -61,9 +81,8 @@ export class PushableLeftSidebar extends React.Component {
     }
 }
 
-const mapStateToProps = state => ({
-    submission: state.sublitr.activeSubmission,
-    comments: state.sublitr.activeSubmission.reviewerInfo.comments,
+const mapStateToProps = (state, ownProps) => ({
+    statusLists: state.sublitr.statusLists,
 });
 
 export default connect(mapStateToProps)(PushableLeftSidebar);
