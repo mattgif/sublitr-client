@@ -10,9 +10,9 @@ export const sublitrReducer = (state = initialState, action) => {
     if (action.type === CHANGE_TAB) {
         // TODO: async
         return Object.assign({}, state, {
-           dashboard: {
-               activeTab: action.tab
-           }
+            dashboard: {
+                activeTab: action.tab
+            }
         });
     }
 
@@ -78,17 +78,13 @@ export const sublitrReducer = (state = initialState, action) => {
     }
 
     if (action.type === UPDATE_STATUS) {
-        console.log('update status reducer called');
-        const updatedSubmissions = state.submissions;
-        const foundIndex = updatedSubmissions.findIndex((el) => el.id === action.id);
-        const targetSubmission = updatedSubmissions[foundIndex];
-        targetSubmission.reviewerInfo[action.field] = action.value;
-        targetSubmission.reviewerInfo.lastAction = new Date().toLocaleDateString();
-        targetSubmission.status = targetSubmission.reviewerInfo.decision;
-        updatedSubmissions[foundIndex] = targetSubmission;
+        const updatedSubmissions = Object.assign({},state.submissionsByID);
+        updatedSubmissions[action.id].reviewerInfo[action.field] = action.value;
+        updatedSubmissions[action.id].reviewerInfo.lastAction = new Date().toLocaleDateString();
+        updatedSubmissions[action.id].status = updatedSubmissions[action.id].reviewerInfo.decision;
         console.log(updatedSubmissions);
         return Object.assign({}, state, {
-            submissions: updatedSubmissions
+            submissionsByID: updatedSubmissions
         })
     }
 

@@ -9,7 +9,7 @@ export class TabReview extends React.Component {
         this.state = {
             recommendationFilter: "all",
             decisionFilter: "all",
-            publicationFilter: "all"
+            publicationFilter: "all",
         }
     };
     // options for publications, recommendation status, and decision status are defined in state
@@ -42,15 +42,7 @@ export class TabReview extends React.Component {
         return (
             <li key={index}>
                 <CardReview
-                    publication={submission.publication}
-                    status={submission.reviewerInfo.decision}
-                    recommendation={submission.reviewerInfo.recommendation}
-                    author={submission.author}
-                    title={submission.title}
-                    submissionDate={submission.submitted}
-                    lastAction={submission.reviewerInfo.lastAction}
-                    url={submission.url}
-                    submissionID = {submission.id}
+                    submissionID={submission.id}
                 />
             </li>
     )});
