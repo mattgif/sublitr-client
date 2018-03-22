@@ -4,9 +4,8 @@ import {toggleEditor} from "../actions";
 import DeleteUserConfirm from "./deleteuserconfirm";
 
 export function UserTable(props) {
-    const editorFilter = ( (props.filter !== "all") && (props.filter === "editor"));
     const users = props.filter === "all" ? props.users : props.users.filter(user =>
-        user.editor === editorFilter
+        user.editor === (props.filter === "editor")
     );
 
     let userRows = users.map((user, index) => {

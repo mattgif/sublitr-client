@@ -1,5 +1,5 @@
 import React from 'react';
-import './commentsform.css';
+import './commentform.css';
 import {reduxForm, Field} from 'redux-form';
 import {connect} from 'react-redux';
 import {addComment} from "../actions";
