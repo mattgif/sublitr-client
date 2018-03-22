@@ -2,7 +2,7 @@ import React from 'react';
 import {shallow} from 'enzyme';
 import PageHeader from '../components/pageheader';
 
-describe.skip('PageHeader', () => {
+describe('PageHeader', () => {
     it('should render without crashing', () => {
         shallow(<PageHeader/>);
     });
@@ -22,13 +22,13 @@ describe.skip('PageHeader', () => {
         const title = 'Foo';
         const subtitle = 'Bar';
         const wrapper = shallow(<PageHeader title={title} subtitle={subtitle}/>);
-        expect(wrapper.contains(<h2>{subtitle}</h2>)).toEqual(true);
+        expect(wrapper.contains(<h3>{subtitle}</h3>)).toEqual(true);
     });
 
     it('should not have a subtitle if one is not provided', () => {
         const title = 'Foo';
         const wrapper = shallow(<PageHeader title={title} />);
-        expect(wrapper.contains(<h2></h2>)).toEqual(false);
+        expect(wrapper.find('h3')).toHaveLength(0);
     })
 
 });

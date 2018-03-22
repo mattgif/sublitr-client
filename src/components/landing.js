@@ -4,7 +4,7 @@ import PageHeader from "./pageheader";
 import RegistrationForm from "./registrationform";
 import Navbar from "./navbar";
 
-export default function Landing(props) {
+export default function Landing() {
     return (
         <Router>
             <div className="App">

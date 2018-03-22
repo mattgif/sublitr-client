@@ -4,12 +4,16 @@ import {toggleEditor} from "../actions";
 import DeleteUserConfirm from "./deleteuserconfirm";
 
 export function UserTable(props) {
+    if (!props.users) {
+        return <h4>No user data found</h4>
+    }
+
     const users = props.filter === "all" ? props.users : props.users.filter(user =>
         user.editor === (props.filter === "editor")
     );
 
-    let userRows = users.map((user, index) => {
-        return(
+    const userRows = users.map((user, index) => {
+        return (
             <tr key={index}>
                 <td>{user.last}</td>
                 <td>{user.first}</td>
@@ -28,18 +32,20 @@ export function UserTable(props) {
     return (
         <table>
             <thead>
-                <tr>
-                    <th>Last</th>
-                    <th>First</th>
-                    <th>Email</th>
-                    <th>Editor</th>
-                </tr>
+            <tr>
+                <th>Last</th>
+                <th>First</th>
+                <th>Email</th>
+                <th>Editor</th>
+            </tr>
             </thead>
             <tbody>
-                {userRows}
+            {userRows}
             </tbody>
         </table>
     )
+
+
 }
 
 UserTable.defaultProps = {

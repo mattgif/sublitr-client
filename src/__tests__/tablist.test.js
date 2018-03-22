@@ -1,9 +1,9 @@
 import React from 'react';
 import {shallow} from 'enzyme';
 
-import TabList from '../components/tablist'
+import {TabList} from '../components/tablist'
 
-describe.skip('TabList', () => {
+describe('TabList', () => {
     it('should render w/o crashing', () => {
         shallow(<TabList />)
     });

@@ -3,7 +3,7 @@ import {shallow} from 'enzyme';
 
 import Landing from '../components/landing';
 
-describe.skip('Landing page', () => {
+describe('Landing page', () => {
     it('should render without crashing', () => {
         shallow(<Landing/>)
     });
@@ -25,6 +25,6 @@ describe.skip('Landing page', () => {
 
     it('should include a registration form', () => {
         const wrapper = shallow(<Landing/>);
-        expect(wrapper.find('RegistrationForm')).toHaveLength(1);
+        expect(wrapper.find('ReduxForm')).toHaveLength(1);
     });
 });
