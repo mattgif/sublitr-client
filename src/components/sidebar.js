@@ -1,12 +1,16 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import { Sidebar, Segment, Menu} from 'semantic-ui-react'
+
 import PageHeader from "./pageheader";
 import CommentForm from "./commentform";
-import CommentList from "./commentlist";
 import MobileMenuToggle from "./mobilemenutoggle";
-import {updateStatus} from "../actions";
 import StatusIndicator from "./statusindicator";
+import CommentCard from "./commentcard";
+
+import {updateStatus} from "../actions";
+
+import './sidebar.css';
 
 export class PushableLeftSidebar extends React.Component {
     constructor(props) {
@@ -68,7 +72,11 @@ export class PushableLeftSidebar extends React.Component {
                         <Menu.Item>
                             <section>
                                 <CommentForm submissionID={this.props.submission.id}/>
-                                <CommentList comments={this.props.submission.reviewerInfo.comments}/>
+                                <ul className="comments__list">
+                                    {this.props.submission.reviewerInfo.comments.map((comment, index) => {
+                                        return <CommentCard key={index} comment={comment}/>
+                                    })}
+                                </ul>
                             </section>
                         </Menu.Item>
                     </Sidebar>
