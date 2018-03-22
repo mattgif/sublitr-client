@@ -1,5 +1,6 @@
 export const testingState = {
-    user: {first: "Betty", last: "Brown", email: "bbrown@example.com", editor: true},
+    user: {first: "Betty", last: "Brown", id:'u444444', email: "bbrown@example.com", editor: true},
+    mySubmissions: function() {return this.submissions.filter(submission => {return submission.authorID === this.user.id})},
     dashboard: {activeTab: 'submissions'},
     statusLists: {
         decision: [
@@ -64,6 +65,7 @@ export const testingState = {
             id: 111111,
             title: 'Demo title 1',
             author: 'Rea Roos',
+            authorID: 'u555555',
             submitted: '2018-01-01',
             publication: 'Journal 1',
             status: 'pending',
@@ -79,6 +81,7 @@ export const testingState = {
             id: 222222,
             title: 'Demo title 2',
             author: 'Kylie Keegan',
+            authorID: 'u777777',
             submitted: '2018-01-01',
             publication: 'Journal 1',
             status: 'declined',
@@ -94,6 +97,7 @@ export const testingState = {
             id: 333333,
             title: 'Demo title 3',
             author: 'Emanuel Eisenstein',
+            authorID: 'u666666',
             submitted: '2018-01-01',
             publication: 'Magazine 1',
             status: 'declined',
@@ -109,6 +113,7 @@ export const testingState = {
             id: 444444,
             title: 'Demo title 4',
             author: 'Emanuel Eisenstein',
+            authorID: 'u666666',
             submitted: '2018-01-01',
             publication: 'Journal 2',
             status: 'accepted',
@@ -123,7 +128,8 @@ export const testingState = {
         {
             id: 555555,
             title: 'Demo title 5',
-            author: 'Donna Delapaz',
+            author: 'Debbie Douglas',
+            authorID: 'u444444',
             submitted: '2018-01-01',
             publication: 'Magazine 1',
             status: 'revise',
@@ -138,7 +144,8 @@ export const testingState = {
         {
             id: 666666,
             title: 'Demo title ',
-            author: 'Ashanti Ables',
+            author: 'Abe Abrams',
+            authorID: 'u111111',
             submitted: '2018-01-01',
             publication: 'Magazine 2',
             status: 'pending',
@@ -154,6 +161,7 @@ export const testingState = {
             id: 777777,
             title: 'Title of Submission',
             author: 'Rea Roos',
+            authorID: 'u555555',
             submitted: '2018-01-01',
             publication: 'Journal 1',
             status: 'pending',
@@ -176,14 +184,10 @@ export const testingState = {
         {id: 'u222222', first: "Betty", last: "Brown", email: "bbrown@example.com", editor: true},
         {id: 'u333333', first: "Charlie", last: "Chaplin", email: "cchaps@example.com", editor: true},
         {id: 'u444444', first: "Debbie", last: "Douglas", email: "ddougs@example.com", editor: false},
+        {id: 'u666666', first: "Emanuel", last: "Eisenstein", email: "eeisenstein@example.com", editor: false},
+        {id: 'u555555', first: "Rea", last: "Roos", email: 'rroos@example.com', editor: false},
+        {id: 'u777777', first: "Kylie", last: "Keegan", email: "kkeegs@example.com", editor: false},
     ],
     showSidebar: false,
-    modal: {
-        show: false,
-        type: undefined,
-        label: undefined,
-        confirmMessage: undefined,
-        confirmAction: undefined
-    },
     allowedFileTypes: ["application/pdf", "application/vnd.openxmlformats-officedocument.wordprocessingml.document"]
 };
