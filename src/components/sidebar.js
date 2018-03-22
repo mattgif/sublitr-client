@@ -73,9 +73,9 @@ export class PushableLeftSidebar extends React.Component {
                             <section>
                                 <CommentForm submissionID={this.props.submission.id}/>
                                 <ul className="comments__list">
-                                    {this.props.submission.reviewerInfo.comments.map((comment, index) => {
+                                    {this.props.submission.reviewerInfo.comments ? this.props.submission.reviewerInfo.comments.map((comment, index) => {
                                         return <CommentCard key={index} comment={comment}/>
-                                    })}
+                                    }) : ''}
                                 </ul>
                             </section>
                         </Menu.Item>

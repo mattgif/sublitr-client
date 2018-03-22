@@ -58,7 +58,7 @@ export class ReviewCard extends CollapsableCard {
 
                     <p>Last action: <time>{this.props.submission.reviewerInfo.lastAction}</time></p>
 
-                    <Link to={this.props.submission.url}>View submission</Link>
+                    <Link to={`/submission/${this.props.submission.id}`}>View submission</Link>
                 </div>
             </div>
         )
