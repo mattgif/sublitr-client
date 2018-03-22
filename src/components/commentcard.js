@@ -1,8 +1,19 @@
 import React from 'react'
+import {connect} from 'react-redux';
+
 import './commentcard.css';
 
-export default function CommentCard(props) {
-    const {text, name, date} = props.comment;
+export function CommentCard(props) {
+    const {text, name, date, authorID} = props.comment;
+
+    let deleteButton;
+    if (authorID === props.userID) {
+        deleteButton = (
+            <div>
+                <button>Delete</button>
+            </div>
+        )
+    }    
 
     return (
         <li className="comments__card">
@@ -13,6 +24,13 @@ export default function CommentCard(props) {
                 <div className="comments__name">{name}</div>
                 <div className="comments__date">{date}</div>
             </div>
+            {deleteButton}
         </li>
     )
 }
+
+const mapStateToProps = state => ({
+    userID: state.sublitr.user.id
+});
+
+export default connect(mapStateToProps)(CommentCard)

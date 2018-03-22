@@ -18,8 +18,9 @@ export class CommentForm extends React.Component {
         const text = values['newComment'];
         const name = `${this.props.user.first} ${this.props.user.last}`;
         const date = new Date().toLocaleString();
+        const authorID = this.props.user.id;
         const id = this.props.submissionID;
-        const comment = {text, name, date};
+        const comment = {text, name, date, authorID};
         this.props.dispatch(addComment(comment, id));
     }
 
