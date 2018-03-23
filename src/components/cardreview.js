@@ -11,7 +11,6 @@ import './card.css';
 
 export class ReviewCard extends CollapsableCard {
     // CollapsableCard for Reviewer pane
-
     handleStatusChange = (e, statusType) => {
         this.props.dispatch(
             updateStatus(statusType, e.target.value, this.props.submission.id)
