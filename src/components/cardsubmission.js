@@ -14,13 +14,13 @@ export default class CardSubmission extends CollapsableCard {
         return (
             <div className="card" onClick={this.handleClick.bind(this)}>
                 <StatusIndicator status={status}/>
-                <div>
-                    <div className='publication'><p>{publication}</p></div>
-                    <div className='title'><p>{title}</p></div>
-                </div>
+                <ul className="card__list">
+                    <li className='publication'>{publication}</li>
+                    <li className='title'>{title}</li>
+                </ul>
 
                 <div className={this.state.expanded ? "additional" : "hidden additional"}>
-                    <ul>
+                    <ul className="card__list">
                         <li>Status: {status}</li>
                         <li>Submitted: <time>{submissionDate}</time></li>
                     </ul>
