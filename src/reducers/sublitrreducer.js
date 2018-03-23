@@ -1,7 +1,7 @@
 import {testingState} from "../dummy/testingstate";
 import {
     LOGOUT, TOGGLE_EDITOR, DELETE_USER,
-    DELETE_SUBMISSION, ADD_COMMENT, UPDATE_STATUS, CHANGE_TAB
+    DELETE_SUBMISSION, ADD_COMMENT, UPDATE_STATUS
 } from "../actions";
 
 const initialState = testingState;
