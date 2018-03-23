@@ -1,6 +1,9 @@
 import React from 'react';
 import {shallow, mount} from 'enzyme';
-import ReviewCard from '../components/collapsablecard'
+import { Router, Route } from 'react-router';
+import { createMemoryHistory } from 'history';
+
+import {ReviewCard} from '../components/cardreview'
 
 const testSubmission = {
     id: 777777,
@@ -15,16 +18,99 @@ const testSubmission = {
         decision: 'pending',
         recommendation: 'none',
         lastAction: '2018-01-01',
-        comments: [
-            {name: 'Betty Brown', date: '2018-03-04 21:12', text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur, dolorem doloremque doloribus eius eos error fugit id, inventore minus nam nobis porro possimus repellat repellendus repudiandae rerum suscipit velit veritatis?'},
-            {name: 'Abe Abrams', date: '2018-03-03 08:30', text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur, dolorem doloremque doloribus eius eos error fugit id, inventore minus nam nobis porro possimus repellat repellendus repudiandae rerum suscipit velit veritatis?'},
-            {name: 'Debbie Douglas', date: '2018-03-03 08:00', text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur, dolorem doloremque doloribus eius eos error fugit id, inventore minus nam nobis porro possimus repellat repellendus repudiandae rerum suscipit velit veritatis?'}
-        ]
     }
+};
+
+const statusLists = {
+    decision: [
+        {
+            short: 'pending',
+            long: 'No decision'
+        },
+        {
+            short: 'revise',
+            long: 'Revise & resubmit'
+        },
+        {
+            short: 'accepted',
+            long: 'Accepted'
+        },
+        {
+            short: 'declined',
+            long: 'Declined'
+        }
+    ],
+        recommendation: [
+        {
+            short: 'none',
+            long: 'Not reviewed'
+        },
+        {
+            short: 'underReview',
+            long: 'Under review'
+        },
+        {
+            short: 'accept',
+            long: 'Accept'
+        },
+        {
+            short: 'revise',
+            long: 'Revise & Resubmit'
+        },
+        {
+            short: 'consider',
+            long: 'Consider'
+        },
+        {
+            short: 'decline',
+            long: 'Decline'
+        }
+    ]
 };
 
 describe('ReviewCard', () => {
     it('should render without crashing', () => {
-        shallow(<ReviewCard submission={testSubmission}/>)
+        const testSubmissionCopy = Object.assign({}, testSubmission);
+        shallow(<ReviewCard submission={testSubmissionCopy} statusLists={statusLists}/>)
     });
+
+    describe('basic elements are present', () => {
+        // Router required to render Link element
+        const testSubmissionCopy = Object.assign({}, testSubmission);
+        const wrapper = mount(
+            <Router history={createMemoryHistory()}>
+                <Route path='/' render={() => (
+                    <ReviewCard submission={testSubmissionCopy} statusLists={statusLists}/>)}/>
+            </Router>
+            );
+        it('should contain a status indicator', () => {
+            expect(wrapper.find('StatusIndicator')).toHaveLength(1);
+        });
+
+        it('should have a collapsable element', () => {
+            expect(wrapper.find('dl.additional')).toHaveLength(1);
+        });
+
+        it('should contain a link to the submission\'s review page', () => {
+            expect(wrapper.find('a').prop('href')).toEqual(`/submission/${testSubmissionCopy.id}`)
+        })
+    });
+
+    describe('collapse logic', () => {
+        const testSubmissionCopy = Object.assign({}, testSubmission);
+        const wrapper = shallow(<ReviewCard submission={testSubmissionCopy} statusLists={statusLists}/>);
+        it('should hide additional section by default', () => {
+            expect(wrapper.find('.additional').hasClass('hidden')).toEqual(true);
+        });
+
+        it('should toggle hidden off when card is clicked', () => {
+            wrapper.simulate('click');
+            expect(wrapper.find('.additional').hasClass('hidden')).toEqual(false);
+        });
+
+        it('should toggle hidden on when card is clicked a second time', () => {
+            wrapper.simulate('click');
+            expect(wrapper.find('.additional').hasClass('hidden')).toEqual(true);
+        });
+    })
 });
