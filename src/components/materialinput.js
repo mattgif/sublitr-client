@@ -38,7 +38,7 @@ export default class MaterialInput extends React.Component {
                 >
                     {this.props.children}
                 </Element>
-                <span className={`material__input__bar ${active}`}></span>
+                <span className={`material__input__bar ${active}`}/>
                 <label
                     htmlFor={this.props.input.name}
                     className={`${active}`}>
