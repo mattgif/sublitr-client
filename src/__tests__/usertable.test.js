@@ -19,8 +19,6 @@ describe('UserTable', ()=> {
         const headers = ['Last', 'First', 'Email', 'Editor'];
         let wrapper = shallow(<UserTable users={testUsers}/>);
         expect(wrapper.find('table')).toHaveLength(1);
-        headers.forEach(header => {
-            expect(wrapper.contains(<th>{header}</th>)).toEqual(true);
-        })
+        expect(wrapper.find('th')).toHaveLength(headers.length);
     });
 });

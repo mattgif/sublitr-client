@@ -3,54 +3,96 @@ import {connect} from 'react-redux';
 import {toggleEditor} from "../actions";
 import DeleteUserConfirm from "./deleteuserconfirm";
 
-export function UserTable(props) {
-    if (!props.users) {
-        return <h4>No user data found</h4>
+export class UserTable extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            sortParams: {
+                key: 'last',
+                reverse: false
+            }
+        };
+        this.compareBy.bind(this);
+        this.sortBy.bind(this);
     }
 
-    const users = props.filter === "all" ? props.users : props.users.filter(user =>
-        user.editor === (props.filter === "editor")
-    );
+    compareBy(key) {
+        return function (a, b) {
+            if (a[key] > b[key]) return -1;
+            if (a[key] < b[key]) return 1;
+            return 0;
+        };
+    }
 
-    const userRows = users.map((user, index) => {
+    sortBy(usersArray, sortParams) {
+        let arrayCopy = usersArray.slice();
+        if (sortParams.reverse) {
+            return arrayCopy.sort(this.compareBy(sortParams.key)).reverse();
+        }
+        return arrayCopy.sort(this.compareBy(sortParams.key));
+    }
+
+    filterUsers(usersArray, filterValue) {
+        if (filterValue === 'all') {
+            return usersArray
+        }
+        return usersArray.filter(user => user.editor === (filterValue === 'editor'));
+    }
+
+    formattedUserRows(usersArray) {
+        return usersArray.map((user, index) => {
+            return (
+                <tr key={index}>
+                    <td>{user.last}</td>
+                    <td>{user.first}</td>
+                    <td>{user.email}</td>
+                    <td><input type="checkbox"
+                               name="editor"
+                               checked={user.editor}
+                               onChange={() => this.props.dispatch(toggleEditor(user.email))}/></td>
+                    <td>
+                        <DeleteUserConfirm user={user}/>
+                    </td>
+                </tr>
+            )
+        });
+    }
+
+    updateSort(key) {
+        if (this.state.sortParams.key === key) {
+            this.setState({sortParams: {key: key, reverse: !this.state.sortParams.reverse}})
+        } else {
+            this.setState({sortParams: {key: key, reverse: false}})
+        }
+    }
+
+    render() {
+        if (!this.props.users) {
+            return <h4>No user data found</h4>
+        }
+        const userRows = this.formattedUserRows(
+            this.filterUsers(
+                this.sortBy(this.props.users, this.state.sortParams),
+                this.props.filter)
+        );
+
         return (
-            <tr key={index}>
-                <td>{user.last}</td>
-                <td>{user.first}</td>
-                <td>{user.email}</td>
-                <td><input type="checkbox"
-                           name="editor"
-                           checked={user.editor}
-                           onChange={() => props.dispatch(toggleEditor(user.email))}/></td>
-                <td>
-                    <DeleteUserConfirm user={user}/>
-                </td>
-            </tr>
+            <table>
+                <thead>
+                <tr>
+                    <th onClick={() => this.updateSort('last')}>Last</th>
+                    <th onClick={() => this.updateSort('first')}>First</th>
+                    <th onClick={() => this.updateSort('email')}>Email</th>
+                    <th onClick={() => this.updateSort('editor')}>Editor</th>
+                </tr>
+                </thead>
+                <tbody>
+                {userRows}
+                </tbody>
+            </table>
         )
-    });
-
-    return (
-        <table>
-            <thead>
-            <tr>
-                <th>Last</th>
-                <th>First</th>
-                <th>Email</th>
-                <th>Editor</th>
-            </tr>
-            </thead>
-            <tbody>
-            {userRows}
-            </tbody>
-        </table>
-    )
-
-
+    }
 }
-
-UserTable.defaultProps = {
-    filter: "all"
-};
 
 const mapStateToProps = state => ({
     users: state.sublitr.users
