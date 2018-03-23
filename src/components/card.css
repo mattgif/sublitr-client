@@ -20,15 +20,6 @@
     font-style: italic;
 }
 
-.card StatusUpdater {
-    width: 100%;
-    border: 1px solid #ddd;
-    background: #ddd;
-    padding: 10px;
-    border-radius: 4px;
-    display: inline-block;
-}
-
 .card .title {
     font-weight: bold;
 }
@@ -40,9 +31,16 @@
     border: 1px solid #333;
     border-radius: 3px;
     background-color: #aaa;
+    list-style: none;
 }
 
 .card .additional p {
     display: inline-block;
     margin: 0 15px 0 0;
 }
+
+.card__list {
+    list-style: none;
+}
+
+

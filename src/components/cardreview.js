@@ -12,11 +12,6 @@ import './card.css';
 export class ReviewCard extends CollapsableCard {
     // CollapsableCard for Reviewer pane
 
-    handleItemClick = e => {
-        // for clickable items like status selectors that shouldn't collapse card
-        e.stopPropagation();
-    };
-
     handleStatusChange = (e, statusType) => {
         this.props.dispatch(
             updateStatus(statusType, e.target.value, this.props.submission.id)
@@ -31,41 +26,40 @@ export class ReviewCard extends CollapsableCard {
         return (
             <div className="card" onClick={this.handleClick.bind(this)}>
                 <StatusIndicator status={this.props.submission.reviewerInfo.decision}/>
-                <div>
-                    <div className='publication'><p>{this.props.submission.publication}</p></div>
-                    <div className='title'><p>{this.props.submission.title}</p></div>
-                    <div className='author'><p>{this.props.submission.author}</p></div>
-                </div>
-                <div className={this.state.expanded ? "additional" : "hidden additional"}>
-                    <div>
-                        <p>Decision:</p>
+                <ul className="card__list">
+                    <li className='publication'>{this.props.submission.publication}</li>
+                    <li className='title'>{this.props.submission.title}</li>
+                    <li className='author'>{this.props.submission.author}</li>
+                </ul>
+                <dl className={this.state.expanded ? "additional" : "hidden additional"}>
+                    <dt>Decision:</dt>
+                    <dd>
                         <select value={this.props.submission.reviewerInfo.decision}
-                                onClick={e => this.handleItemClick(e)}
-                                onChange={e => this.handleStatusChange(e, 'decision')}
-                        >
+                                onClick={e => e.stopPropagation()}
+                                onChange={e => this.handleStatusChange(e, 'decision')}>
                             {statusOptions('decision')}
                         </select>
-                    </div>
-                    <div>
-                        <p>Recommendation:</p>
+                    </dd>
+                    <dt>Recommendation:</dt>
+                    <dd>
                         <select value={this.props.submission.reviewerInfo.recommendation}
-                                onClick={e => this.handleItemClick(e)}
+                                onClick={e => e.stopPropagation()}
                                 onChange={e => this.handleStatusChange(e, 'recommendation')}
                         >
                             {statusOptions('recommendation')}
                         </select>
-                    </div>
+                    </dd>
 
-                    <p>Last action: <time>{this.props.submission.reviewerInfo.lastAction}</time></p>
+                    <dt>Last action:</dt>
+                    <dd><time>{this.props.submission.reviewerInfo.lastAction}</time></dd>
 
-                    <div onClick={e => e.stopPropagation()}>
+                    <dt onClick={e => e.stopPropagation()}>
                         <Link to={`/submission/${this.props.submission.id}`}>View submission</Link>
-                    </div>
-                </div>
+                    </dt>
+                </dl>
             </div>
         )
     }
-    
 }
 
 const mapStateToProps = state => ({
