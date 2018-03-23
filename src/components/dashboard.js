@@ -1,5 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import {Route, Switch} from 'react-router-dom';
+
 import PageHeader from "./pageheader";
 import TabList from "./tablist";
 import TabReview from "./tabreview";
@@ -15,15 +17,17 @@ export function Dashboard(props) {
         <div>
             <PageHeader title={name}/>
             <TabList active={props.active}/>
-            <TabReview hidden={props.active !== 'review'}/>
-            <TabUsers hidden={props.active !== 'users'}/>
-            <TabSubmissions hidden={props.active !== 'submissions'}/>
+            <Switch>
+                <Route exact path='/dashboard/review' component={TabReview}/>
+                <Route exact path='/dashboard/users' component={TabUsers}/>
+                <Route path='/' component={TabSubmissions}/>
+            </Switch>
         </div>
     )
 }
 
-const mapStateToProps = state => ({
-    active: state.sublitr.dashboard.activeTab,
+const mapStateToProps = (state, ownProps) => ({
+    active: ownProps.match.params.activeTab || 'submissions',
     user: state.sublitr.user
 });
 

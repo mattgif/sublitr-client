@@ -1,5 +1,5 @@
 import React from 'react';
-import {BrowserRouter as Router, Route} from 'react-router-dom';
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import {connect} from 'react-redux';
 import './App.css';
 import Navbar from "./components/navbar";
@@ -13,9 +13,12 @@ export function App(props) {
         <Router>
             <div className="App">
                 <Navbar/>
-                <Route exact path='/' render={() => (<Dashboard />)}/>
-                <Route exact path='/submit' component={SubmissionForm}/>
-                <Route exact path='/submission/:submissionID' component={DocViewer}/>
+                <Switch>
+                    <Route exact path='/' component={Dashboard}/>
+                    <Route path='/dashboard/:activeTab' component={Dashboard}/>
+                    <Route exact path='/submit' component={SubmissionForm}/>
+                    <Route exact path='/submission/:submissionID' component={DocViewer}/>
+                </Switch>
             </div>
         </Router>
     );
@@ -24,7 +27,8 @@ export function App(props) {
 }
 
 const mapStateToProps = state => ({
-    user: state.sublitr.user
+    user: state.sublitr.user,
+    active: state.sublitr.dashboard.activeTab
 });
 
 export default connect(mapStateToProps)(App);

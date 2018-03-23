@@ -2,13 +2,13 @@
     padding: 0;
 }
 
-.tabList ul {
+.tabList__list {
     list-style: none;
     text-align: left;
     padding-left: 0;
 }
 
-.tabList li {
+.tabList__item {
     display: inline-block;
     font-size: 16px;
     text-align: center;
@@ -17,7 +17,7 @@
     width: 115px;
 }
 
-.tabList li:hover {
+.tabList__item:hover {
     background-color: #666;
     cursor: pointer;
 }
@@ -25,4 +25,8 @@
 .tabList .active {
     background-color: #eee;
     border-bottom: none;
+}
+
+.tabList__link {
+    display: block;
 }

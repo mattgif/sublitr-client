@@ -1,9 +1,3 @@
-export const CHANGE_TAB = 'CHANGE_TAB';
-export const changeTab = tab => ({
-    type: CHANGE_TAB,
-    tab
-});
-
 export const LOGOUT = 'LOGOUT';
 export const logout = () => ({
     type: LOGOUT,
@@ -41,3 +35,4 @@ export const updateStatus = (field, value, id) => ({
     value,
     id
 });
+

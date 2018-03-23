@@ -1,21 +1,12 @@
 import {testingState} from "../dummy/testingstate";
 import {
-    CHANGE_TAB, LOGOUT, TOGGLE_EDITOR, DELETE_USER,
-    DELETE_SUBMISSION, ADD_COMMENT, UPDATE_STATUS
+    LOGOUT, TOGGLE_EDITOR, DELETE_USER,
+    DELETE_SUBMISSION, ADD_COMMENT, UPDATE_STATUS, CHANGE_TAB
 } from "../actions";
 
 const initialState = testingState;
 
 export const sublitrReducer = (state = initialState, action) => {
-    if (action.type === CHANGE_TAB) {
-        // TODO: async
-        return Object.assign({}, state, {
-            dashboard: {
-                activeTab: action.tab
-            }
-        });
-    }
-
     if (action.type === LOGOUT) {
         // TODO: async
         return Object.assign({}, state, {
@@ -23,7 +14,7 @@ export const sublitrReducer = (state = initialState, action) => {
         });
     }
 
-    if (action.type === TOGGLE_EDITOR) {
+    else if (action.type === TOGGLE_EDITOR) {
         // TODO: async
         const usersUpdated = state.users.slice();
         const foundIndex = usersUpdated.findIndex(user => user.email === action.email);
@@ -33,7 +24,7 @@ export const sublitrReducer = (state = initialState, action) => {
         })
     }
 
-    if (action.type === DELETE_USER) {
+    else if (action.type === DELETE_USER) {
         // TODO: async
         const updatedUsers = state.users.filter(user =>
             user.id !== action.id);
@@ -43,7 +34,7 @@ export const sublitrReducer = (state = initialState, action) => {
         })
     }
 
-    if (action.type === DELETE_SUBMISSION) {
+    else if (action.type === DELETE_SUBMISSION) {
         // TODO: async
         const updatedSubmissions = state.submissions.filter(submission =>
             submission.id !== action.id);
@@ -53,7 +44,7 @@ export const sublitrReducer = (state = initialState, action) => {
         })
     }
 
-    if (action.type === ADD_COMMENT) {
+    else if (action.type === ADD_COMMENT) {
         // TODO: async
         const updatedSubmissions = state.submissions.slice();
         const foundIndex = updatedSubmissions.findIndex((el) => el.id === action.id);
@@ -70,7 +61,7 @@ export const sublitrReducer = (state = initialState, action) => {
         })
     }
 
-    if (action.type === UPDATE_STATUS) {
+    else if (action.type === UPDATE_STATUS) {
         const updatedSubmissions = state.submissions.map((sub) => {
             if (sub.id !== action.id) {
                 return sub;
