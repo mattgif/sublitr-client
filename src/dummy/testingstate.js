@@ -1,6 +1,5 @@
 export const testingState = {
-    user: {first: "Betty", last: "Brown", id:'u444444', email: "bbrown@example.com", editor: true},
-    mySubmissions: function() {return this.submissions.filter(submission => {return submission.authorID === this.user.id})},
+    // user: {first: "Betty", last: "Brown", id:'u444444', email: "bbrown@example.com", editor: true},
     dashboard: {activeTab: 'submissions'},
     statusLists: {
         decision: [

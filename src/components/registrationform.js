@@ -2,7 +2,7 @@ import React from 'react';
 import {Field, reduxForm} from 'redux-form';
 import MaterialInput from "./materialinput";
 import {required, length, nonEmpty, matches, emailFormat} from '../validators';
-const passwordLength = length({min: 10, max: 72});
+const passwordLength = length({min: 8, max: 72});
 const passwordMatch = matches('password');
 
 export class RegistrationForm extends React.Component {
@@ -14,7 +14,7 @@ export class RegistrationForm extends React.Component {
     render() {
         return (
             <form method="POST">
-                <div className="form__error"></div>
+                <div className="form__error"/>
                 <Field
                     name="firstName"
                     type="text"

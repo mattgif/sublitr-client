@@ -65,7 +65,9 @@ export class TabSubmissions extends React.Component {
 
 const mapStateToProps = state => ({
     publications: state.sublitr.publications,
-    submissions: state.sublitr.mySubmissions()
+    submissions: state.sublitr.submissions.filter(submission =>
+        {return submission.authorID === state.auth.currentUser.id}
+    )
 });
 
 export default connect(mapStateToProps)(TabSubmissions)

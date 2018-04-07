@@ -11,7 +11,7 @@ import TabSubmissions from "./tabsubmissions";
 export function Dashboard(props) {
     let name;
     if (props.user) {
-        name = props.user.first + ' ' + props.user.last;
+        name = props.user.firstName + ' ' + props.user.lastName;
     }
     return (
         <div>
@@ -28,7 +28,7 @@ export function Dashboard(props) {
 
 const mapStateToProps = (state, ownProps) => ({
     active: ownProps.match.params.activeTab || 'submissions',
-    user: state.sublitr.user
+    user: state.auth.currentUser
 });
 
 export default connect(mapStateToProps)(Dashboard);

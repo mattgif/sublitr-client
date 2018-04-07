@@ -1,8 +1,7 @@
 import React from 'react';
-import {connect} from 'react-redux';
 import UserTable from "./usertable";
 
-export class TabUsers extends React.Component {
+export default class TabUsers extends React.Component {
     constructor (props) {
         super(props);
         this.state = {
@@ -33,9 +32,3 @@ export class TabUsers extends React.Component {
         )
     }
 }
-
-const mapStateToProps = state => ({
-    users: state.sublitr.users
-});
-
-export default connect(mapStateToProps)(TabUsers)

@@ -1,9 +1,13 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {toggleEditor} from "../actions";
+import {fetchUserList, toggleEditor} from "../actions";
 import DeleteUserConfirm from "./deleteuserconfirm";
 
 export class UserTable extends React.Component {
+    componentDidMount() {
+        this.props.dispatch(fetchUserList());
+    }
+
     constructor(props) {
         super(props);
         this.state = {
@@ -43,8 +47,8 @@ export class UserTable extends React.Component {
         return usersArray.map((user, index) => {
             return (
                 <tr key={index}>
-                    <td>{user.last}</td>
-                    <td>{user.first}</td>
+                    <td>{user.lastName}</td>
+                    <td>{user.firstName}</td>
                     <td>{user.email}</td>
                     <td><input type="checkbox"
                                name="editor"

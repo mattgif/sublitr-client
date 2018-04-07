@@ -3,16 +3,17 @@ import {Modal, Message} from 'semantic-ui-react';
 import {Field, reduxForm} from 'redux-form';
 import MaterialInput from "./materialinput";
 import {emailFormat, required} from "../validators";
+import {login} from "../actions/auth";
 
 class Login extends React.Component {
     onSubmit(values) {
-        return ''
+        return this.props.dispatch(login(values.email, values.password));
     }
 
     render() {
         let loginError;
         if (this.props.error) {
-            loginError = <Message error header='Invalid email or password' />
+            loginError = <Message error header={this.props.error} />
         }
         return (
             <Modal trigger={<button>Log in</button>} size="tiny">
@@ -39,7 +40,7 @@ class Login extends React.Component {
                             component={MaterialInput}
                             validate={[required]}
                         />
-                        <button type='submit'>Log in</button>
+                        <button disabled={this.props.pristine || this.props.loading}>Log in</button>
                     </form>
                 </Modal.Content>
             </Modal>

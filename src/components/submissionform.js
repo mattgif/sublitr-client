@@ -1,7 +1,7 @@
 import React from 'react';
 import PageHeader from "./pageheader";
 import MaterialInput from "./materialinput";
-import {Field, reduxForm} from 'redux-form';
+import {Field, reduxForm, SubmissionError} from 'redux-form';
 import Dropzone from 'react-dropzone';
 import {connect} from 'react-redux';
 import {nonEmpty, required} from "../validators";
@@ -45,11 +45,42 @@ export class SubmissionForm extends React.Component {
 
     onSubmit(values) {
         const {publication, title, cover} = values;
-        const submission = {publication, title, cover};
-        Object.assign({}, submission, {
+        const _submission = {publication, title, cover};
+        const submission = Object.assign({}, _submission, {
             files: this.state.uploadedFiles
+        });
+        return fetch('/api/submissions', {
+            // TODO: check for typos
+            method: 'POST',
+            body: submission,
+            contentType: 'multipart/form-data'
         })
-        // TODO: async submission
+            .then(res => {
+                if (!(res.status === 201)) {
+                    if (res.headers.has('content-type') &&
+                        res.headers.get('content-type').startsWith('application/json')
+                    ) {
+                        // it's a JSON error with a custom message
+                        return res.json().then(Promise.reject)
+                    }
+                    // it's an express error
+                    return Promise.reject({
+                        code: res.status,
+                        message: res.statusText
+                    });
+                }
+                return;
+            })
+            .catch(err => {
+                const {reason, message, location} = err;
+                if (reason === 'ValidationError') {
+                    return Promise.reject(
+                        new SubmissionError({
+                            [location]: message
+                        })
+                    )
+                }
+            })
     }
 
     render() {
@@ -67,11 +98,32 @@ export class SubmissionForm extends React.Component {
             filePreviews = this.state.uploadedFiles.map((file, index) => {return (<li key={index}>{file[0].name}</li>)})
         }
 
+        let successMessage;
+        if (this.props.submitSucceeded) {
+            successMessage = (
+                <div className="message message__success">
+                    Successfully submitted!
+                </div>
+            )
+        }
+
+        let errorMessage;
+        if (this.props.submitSucceeded) {
+            errorMessage = (
+                <div className="message message__error">
+                    {this.props.error}
+                </div>
+            )
+        }
+
         return (
             <main>
                 <PageHeader/>
                 <form>
-                    <div className="form__error"></div>
+                    <div className="form__message">
+                        {successMessage}
+                        {errorMessage}
+                    </div>
                     <fieldset>
                         <legend>Submission Info</legend>
                         <Field
@@ -87,7 +139,7 @@ export class SubmissionForm extends React.Component {
                             component="select"
                             validate={[required]}
                         >
-                            <option></option>
+                            <option/>
                             {pubOptions}
                         </Field>
                     </fieldset>
@@ -100,7 +152,7 @@ export class SubmissionForm extends React.Component {
                         {fileError}
                         <p className="tip">Documents must be in .pdf, .doc, or .docx formats.</p>
                         <Dropzone onDrop={files => this.onDrop(files)}>
-                            <div>Drop your file here, or click to select files to upload.</div>
+                            <div>Drop your file here, or click to select file to upload.</div>
                         </Dropzone>
                         <div>
                             <h4>Uploaded files:</h4>

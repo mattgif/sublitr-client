@@ -16,11 +16,8 @@ export class CommentForm extends React.Component {
 
     handleSubmit(values) {
         const text = values['newComment'];
-        const name = `${this.props.user.first} ${this.props.user.last}`;
-        const date = new Date().toLocaleString();
-        const authorID = this.props.user.id;
         const id = this.props.submissionID;
-        const comment = {text, name, date, authorID};
+        const comment = {text};
         this.props.dispatch(addComment(comment, id));
     }
 
@@ -46,7 +43,7 @@ export class CommentForm extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    user: state.sublitr.user,
+    user: state.auth.currentUser,
 });
 
 CommentForm = connect(mapStateToProps)(CommentForm);

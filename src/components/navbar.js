@@ -15,6 +15,6 @@ export function Navbar(props) {
 }
 
 const mapStateToProps = state => ({
-    user: state.sublitr.user
+    user: state.auth.currentUser
 });
 export default connect(mapStateToProps)(Navbar)

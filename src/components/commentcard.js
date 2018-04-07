@@ -30,7 +30,7 @@ export function CommentCard(props) {
 }
 
 const mapStateToProps = state => ({
-    userID: state.sublitr.user.id
+    userID: state.auth.currentUser.id
 });
 
 export default connect(mapStateToProps)(CommentCard)

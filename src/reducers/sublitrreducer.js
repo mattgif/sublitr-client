@@ -1,8 +1,9 @@
 import {testingState} from "../dummy/testingstate";
 import {
     LOGOUT, TOGGLE_EDITOR, DELETE_USER,
-    DELETE_SUBMISSION, ADD_COMMENT, UPDATE_STATUS
+    DELETE_SUBMISSION, ADD_COMMENT, UPDATE_STATUS, FETCH_USER_SUCCESS, FETCH_USER_LIST_ERROR,
 } from "../actions";
+import {AUTH_REQUEST} from "../actions/auth";
 
 const initialState = testingState;
 
@@ -74,6 +75,25 @@ export const sublitrReducer = (state = initialState, action) => {
         });
         return Object.assign({}, state, {
             submissions: updatedSubmissions
+        })
+    }
+
+    else if (action.type === FETCH_USER_SUCCESS) {
+        return Object.assign({}, state, {
+            users: action.userList
+        })
+    }
+
+    else if (action.type === AUTH_REQUEST) {
+        return Object.assign({}, state, {
+            loading: true,
+            error: null
+        })
+    }
+
+    else if (action.type === FETCH_USER_LIST_ERROR) {
+        return Object.assign({}, state, {
+            error: action.error
         })
     }
 
