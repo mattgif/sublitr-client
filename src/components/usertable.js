@@ -3,38 +3,11 @@ import {connect} from 'react-redux';
 import {fetchUserList} from "../actions";
 import DeleteUserConfirm from "./deleteuserconfirm";
 import {editUserInfo} from "../actions/users";
+import SortableTable from "./sortableTable";
 
 export class UserTable extends React.Component {
     componentDidMount() {
         this.props.dispatch(fetchUserList());
-    }
-
-    constructor(props) {
-        super(props);
-        this.state = {
-            sortParams: {
-                key: 'last',
-                reverse: false
-            }
-        };
-        this.compareBy.bind(this);
-        this.sortBy.bind(this);
-    }
-
-    compareBy(key) {
-        return function (a, b) {
-            if (a[key] > b[key]) return -1;
-            if (a[key] < b[key]) return 1;
-            return 0;
-        };
-    }
-
-    sortBy(usersArray, sortParams) {
-        let arrayCopy = usersArray.slice();
-        if (sortParams.reverse) {
-            return arrayCopy.sort(this.compareBy(sortParams.key)).reverse();
-        }
-        return arrayCopy.sort(this.compareBy(sortParams.key));
     }
 
     filterUsers(usersArray, filterValue) {
@@ -70,38 +43,18 @@ export class UserTable extends React.Component {
         });
     }
 
-    updateSort(key) {
-        if (this.state.sortParams.key === key) {
-            this.setState({sortParams: {key: key, reverse: !this.state.sortParams.reverse}})
-        } else {
-            this.setState({sortParams: {key: key, reverse: false}})
-        }
-    }
-
     render() {
         if (!this.props.users) {
             return <h4>No user data found</h4>
         }
         const userRows = this.formattedUserRows(
-            this.filterUsers(
-                this.sortBy(this.props.users, this.state.sortParams),
-                this.props.filter)
+            this.filterUsers(this.props.users, this.props.filter)
         );
 
         return (
-            <table>
-                <thead>
-                <tr>
-                    <th onClick={() => this.updateSort('last')}>Last</th>
-                    <th onClick={() => this.updateSort('first')}>First</th>
-                    <th onClick={() => this.updateSort('email')}>Email</th>
-                    <th onClick={() => this.updateSort('editor')}>Editor</th>
-                </tr>
-                </thead>
-                <tbody>
+            <SortableTable headers={['Last','First','Email','Editor']} tableId='userTable'>
                 {userRows}
-                </tbody>
-            </table>
+            </SortableTable>
         )
     }
 }
