@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {fetchUserList} from "../actions";
+import {fetchUserList} from "../actions/users";
 import DeleteUserConfirm from "./deleteuserconfirm";
 import {editUserInfo} from "../actions/users";
 import SortableTable from "./sortableTable";
@@ -60,7 +60,7 @@ export class UserTable extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    users: state.sublitr.users
+    users: state.users.users
 });
 
 export default connect(mapStateToProps)(UserTable)

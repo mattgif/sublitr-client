@@ -1,9 +1,7 @@
 import {
-    DELETE_USER, DELETE_SUBMISSION, ADD_COMMENT, UPDATE_STATUS, FETCH_USER_SUCCESS,
-    FETCH_USER_LIST_ERROR, FETCH_PUBLICATIONS_SUCCESS, FETCH_PUBLICATIONS_ERROR,
+    DELETE_SUBMISSION, ADD_COMMENT, UPDATE_STATUS, FETCH_PUBLICATIONS_SUCCESS, FETCH_PUBLICATIONS_ERROR,
 } from "../actions";
 import {AUTH_REQUEST} from "../actions/auth";
-import {UPDATE_USER_SUCCESS} from "../actions/users";
 
 const initialState = {
     dashboard: {activeTab: 'submissions'},
@@ -91,23 +89,7 @@ const initialState = {
 };
 
 export const sublitrReducer = (state = initialState, action) => {
-    if (action.type === UPDATE_USER_SUCCESS) {
-        // find target user in state.users array
-        // assign user data + updated info to new object
-        // return state, with users = all users but target and add target
-        let updatedUser = action.userInfo;
-        const user = state.users.find(u => u.id === updatedUser.id);
-        updatedUser = Object.assign({}, user, updatedUser);
-        return {...state, users: [...state.users.filter(u => u !== user), {...updatedUser}]}
-    } else if (action.type === DELETE_USER) {
-        // TODO: async
-        const updatedUsers = state.users.filter(user =>
-            user.id !== action.id);
-
-        return Object.assign({}, state, {
-            users: updatedUsers
-        })
-    } else if (action.type === DELETE_SUBMISSION) {
+    if (action.type === DELETE_SUBMISSION) {
         // TODO: async
         const updatedSubmissions = state.submissions.filter(submission =>
             submission.id !== action.id);
@@ -144,18 +126,10 @@ export const sublitrReducer = (state = initialState, action) => {
         return Object.assign({}, state, {
             submissions: updatedSubmissions
         })
-    } else if (action.type === FETCH_USER_SUCCESS) {
-        return Object.assign({}, state, {
-            users: action.userList
-        })
     } else if (action.type === AUTH_REQUEST) {
         return Object.assign({}, state, {
             loading: true,
             error: null
-        })
-    } else if (action.type === FETCH_USER_LIST_ERROR) {
-        return Object.assign({}, state, {
-            error: action.error
         })
     } else if (action.type === FETCH_PUBLICATIONS_SUCCESS) {
         return Object.assign({}, state, {

@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {Confirm} from 'semantic-ui-react';
-import {deleteUser} from "../actions";
+import {deleteUser} from "../actions/users";
 
 class DeleteUserConfirm extends React.Component {
     constructor(props) {

@@ -7,12 +7,6 @@ export const toggleEditor = (email) => ({
     email
 });
 
-export const DELETE_USER = 'DELETE_USER';
-export const deleteUser = (id) => ({
-    type: DELETE_USER,
-    id
-});
-
 export const DELETE_SUBMISSION = 'DELETE_SUBMISSION';
 export const deleteSubmission = (id) => ({
     type: DELETE_SUBMISSION,
@@ -34,30 +28,7 @@ export const updateStatus = (field, value, id) => ({
     id
 });
 
-export const FETCH_USER_SUCCESS = 'FETCH_USER_SUCCESS';
-export const fetchUserSuccess = userList => ({
-    type: FETCH_USER_SUCCESS,
-    userList
-});
 
-export const FETCH_USER_LIST_ERROR = 'FETCH_USER_LIST_ERROR';
-export const fetchUserListError = error => ({
-    type: FETCH_USER_LIST_ERROR,
-    error
-});
-
-export const fetchUserList = () => (dispatch, getState) => {
-    const authToken = getState().auth.authToken;
-    fetch(`${API_BASE_URL}/users`, {
-        method: 'GET',
-        headers: {
-            Authorization: `Bearer ${authToken}`
-        }
-    }).then(res => normalizeResponseErrors(res))
-        .then(res => res.json())
-        .then(userList => dispatch(fetchUserSuccess(userList)))
-        .catch(err => dispatch(fetchUserListError(err)))
-};
 
 export const FETCH_PUBLICATIONS_SUCCESS = 'FETCH_PUBLICATIONS_SUCCESS';
 export const fetchPublicationsSuccess = publications => ({
