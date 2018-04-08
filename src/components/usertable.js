@@ -1,7 +1,8 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {fetchUserList, toggleEditor} from "../actions";
+import {fetchUserList} from "../actions";
 import DeleteUserConfirm from "./deleteuserconfirm";
+import {editUserInfo} from "../actions/users";
 
 export class UserTable extends React.Component {
     componentDidMount() {
@@ -43,6 +44,13 @@ export class UserTable extends React.Component {
         return usersArray.filter(user => user.editor === (filterValue === 'editor'));
     }
 
+    toggleEditor(id, isEditor) {
+        this.props.dispatch(editUserInfo({
+            id,
+            editor: !isEditor
+        }))
+    }
+
     formattedUserRows(usersArray) {
         return usersArray.map((user, index) => {
             return (
@@ -53,7 +61,7 @@ export class UserTable extends React.Component {
                     <td><input type="checkbox"
                                name="editor"
                                checked={user.editor}
-                               onChange={() => this.props.dispatch(toggleEditor(user.email))}/></td>
+                               onChange={() => this.toggleEditor(user.id, user.editor)}/></td>
                     <td>
                         <DeleteUserConfirm user={user}/>
                     </td>

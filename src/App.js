@@ -9,6 +9,9 @@ import DocViewer from "./components/docviewer";
 import SubmissionForm from "./components/submissionform";
 
 export class App extends React.Component {
+    componentDidMount() {
+
+    }
     render() {
         if (this.props.user) return (
             <Router>

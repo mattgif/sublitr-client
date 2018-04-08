@@ -1,11 +1,6 @@
 import {API_BASE_URL} from '../config'
 import {normalizeResponseErrors} from "./utils";
 
-export const LOGOUT = 'LOGOUT';
-export const logout = () => ({
-    type: LOGOUT,
-});
-
 export const TOGGLE_EDITOR = 'TOGGLE_EDITOR';
 export const toggleEditor = (email) => ({
     type: TOGGLE_EDITOR,
@@ -61,6 +56,26 @@ export const fetchUserList = () => (dispatch, getState) => {
     }).then(res => normalizeResponseErrors(res))
         .then(res => res.json())
         .then(userList => dispatch(fetchUserSuccess(userList)))
-        .catch(err => {dispatch(fetchUserListError(err))})
+        .catch(err => dispatch(fetchUserListError(err)))
+};
+
+export const FETCH_PUBLICATIONS_SUCCESS = 'FETCH_PUBLICATIONS_SUCCESS';
+export const fetchPublicationsSuccess = publications => ({
+    type: FETCH_PUBLICATIONS_SUCCESS,
+    publications
+});
+
+export const FETCH_PUBLICATIONS_ERROR = 'FETCH_PUBLICATIONS_ERROR';
+export const fetchPublicationsError = error => ({
+    type: FETCH_PUBLICATIONS_ERROR,
+    error
+});
+
+export const fetchPublications = () => dispatch => {
+    fetch(`${API_BASE_URL}/publications`)
+        .then(res => normalizeResponseErrors(res))
+        .then(res => res.json())
+        .then(publications => dispatch(fetchPublicationsSuccess(publications)))
+        .catch(err => dispatch(fetchPublicationsError(err)))
 };
 
