@@ -1,5 +1,6 @@
 import React from 'react';
 import UserTable from "./usertable";
+import {seedUsers} from "../actions/utils";
 
 export default class TabUsers extends React.Component {
     constructor (props) {
@@ -11,11 +12,15 @@ export default class TabUsers extends React.Component {
 
     updateFilter = e => {this.setState({userFilter: e.target.value})};
 
+    hiddenStyle = {
+        display: 'none'
+    };
+
     render() {
         return (
             <section className={this.props.hidden ? "tab hidden" : "tab"}>
                 <h2>Users</h2>
-
+                <button style={this.hiddenStyle} onClick={() => seedUsers()}>Seed users</button>
                 <label htmlFor="userFilter">User roles</label>
                 <select className="filter"
                         name="userFilter"
