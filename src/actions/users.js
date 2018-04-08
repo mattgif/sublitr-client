@@ -1,5 +1,6 @@
 import {API_BASE_URL} from '../config';
 import {normalizeResponseErrors} from "./utils";
+import {SubmissionError} from 'redux-form';
 
 export const UPDATE_USER_SUCCESS = 'UPDATE_USER_SUCCESS';
 export const updateUserSuccess = userInfo => ({
@@ -81,4 +82,32 @@ export const fetchUserList = () => (dispatch, getState) => {
         .then(res => res.json())
         .then(userList => dispatch(fetchUserSuccess(userList)))
         .catch(err => dispatch(fetchUserListError(err)))
+};
+
+export const CREATE_USER_REQUEST = 'CREATE_USER_REQUEST';
+export const createUserRequest = () => ({
+    type: CREATE_USER_REQUEST
+});
+
+export const createUser = user => dispatch => {
+    dispatch(createUserRequest);
+    fetch(`${API_BASE_URL}/users`, {
+        method: 'POST',
+        headers: {
+            'content-type': 'application/json'
+        },
+        body: JSON.stringify(user)
+    })
+        .then(res => normalizeResponseErrors(res))
+        .then(res => res.json())
+        .catch(err => {
+            const {reason, message, location} = err;
+            if (reason ==='ValidationError') {
+                return Promise.reject(
+                    new SubmissionError({
+                        [location]: message
+                    })
+                )
+            }
+        })
 };

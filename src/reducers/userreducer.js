@@ -1,5 +1,7 @@
-import {DELETE_USER_REQUEST, DELETE_USER_SUCCESS, UPDATE_USER_SUCCESS,
-    FETCH_USER_LIST_ERROR, FETCH_USER_SUCCESS} from "../actions/users";
+import {
+    DELETE_USER_REQUEST, DELETE_USER_SUCCESS, UPDATE_USER_SUCCESS,
+    FETCH_USER_LIST_ERROR, FETCH_USER_SUCCESS, DELETE_USER_ERROR
+} from "../actions/users";
 
 const initialState = {
     users: [],
@@ -15,28 +17,43 @@ export const userReducer = (state = initialState, action) => {
         let updatedUser = action.userInfo;
         const user = state.users.find(u => u.id === updatedUser.id);
         updatedUser = Object.assign({}, user, updatedUser);
+
         return {...state, users: [...state.users.filter(u => u !== user), {...updatedUser}]}
-    } else if (action.type === DELETE_USER_SUCCESS) {
-        // TODO: async
+    }
+
+    else if (action.type === DELETE_USER_SUCCESS) {
         const updatedUsers = state.users.filter(user =>
-            user.id !== action.id);
+            user.id !== action.userId);
 
         return Object.assign({}, state, {
             users: updatedUsers
         })
-    } else if (action.type === FETCH_USER_SUCCESS) {
+    }
+
+    else if (action.type === DELETE_USER_REQUEST) {
+        return Object.assign({}, state, {
+            loading: true,
+            error: null
+        })
+    }
+
+    else if (action.type === DELETE_USER_ERROR) {
+        return Object.assign({}, state, {
+            loading: false,
+            error: action.error
+        })
+    }
+
+    else if (action.type === FETCH_USER_SUCCESS) {
         return Object.assign({}, state, {
             users: action.userList,
             error: null
         })
-    } else if (action.type === FETCH_USER_LIST_ERROR) {
+    }
+
+    else if (action.type === FETCH_USER_LIST_ERROR) {
         return Object.assign({}, state, {
             error: action.error
-        })
-    } else if (action.type === DELETE_USER_REQUEST) {
-        return Object.assign({}, state, {
-            loading: true,
-            error: null
         })
     }
 
