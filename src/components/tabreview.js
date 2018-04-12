@@ -2,6 +2,8 @@ import React from 'react';
 import {connect} from 'react-redux';
 import './tab.css';
 import CardReview from "./cardreview";
+import {fetchSubmissions} from "../actions/submissions";
+import CubicLoadingSpinner from "./cubic-loading-spinner"
 
 export class TabReview extends React.Component {
     constructor (props) {
@@ -12,6 +14,11 @@ export class TabReview extends React.Component {
             publicationFilter: "all",
         }
     };
+
+    componentDidMount() {
+        this.props.dispatch(fetchSubmissions())
+    }
+
     // options for publications, recommendation status, and decision status are defined in state
     // so they can be customized by user
     pubOptions = this.props.publications.map((pub, index) => {
@@ -46,6 +53,14 @@ export class TabReview extends React.Component {
     )});
 
     render() {
+        let submissionList;
+        if (this.props.loading) {
+            submissionList = <CubicLoadingSpinner/>
+        } else {
+            submissionList =  <ul className="submissionList">
+                {this.formattedSubmissions(this.filteredSubmissions(this.props.submissions, this.state))}
+            </ul>
+        }
         return (
             <section className={this.props.hidden ? "tab hidden" : "tab"}>
                 <h2>Review submissions</h2>
@@ -89,9 +104,7 @@ export class TabReview extends React.Component {
                     </div>
                 </div>
 
-                <ul className="submissionList">
-                    {this.formattedSubmissions(this.filteredSubmissions(this.props.submissions, this.state))}
-                </ul>
+                {submissionList}
             </section>
         )
     }
@@ -101,7 +114,8 @@ const mapStateToProps = state => ({
     publications: state.sublitr.publications,
     filterValues: state.sublitr.filterValues,
     statusLists: state.sublitr.statusLists,
-    submissions: state.submissions.allSubmissions
+    submissions: state.submissions.allSubmissions,
+    loading: state.submissions.loading
 });
 
 export default connect(mapStateToProps)(TabReview);
