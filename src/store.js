@@ -3,6 +3,7 @@ import {reducer as formReducer} from 'redux-form';
 import thunk from 'redux-thunk';
 
 import authReducer from './reducers/authreducer';
+import {submissionReducer} from './reducers/submissionreducer'
 import {sublitrReducer} from './reducers/sublitrreducer';
 import {userReducer} from "./reducers/userreducer";
 import {loadAuthToken} from "./localstorage";
@@ -13,6 +14,7 @@ const store = createStore(
         form: formReducer,
         auth: authReducer,
         users: userReducer,
+        submissions: submissionReducer,
         sublitr: sublitrReducer
     }),
     applyMiddleware(thunk)

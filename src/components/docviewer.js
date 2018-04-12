@@ -1,25 +1,55 @@
 import React from 'react';
 import PageHeader from "./pageheader";
+import CubicLoadingSpinner from './cubic-loading-spinner/'
 import {connect} from 'react-redux';
 import './docviewer.css';
 import PushableLeftSidebar from "./sidebar";
+import {fetchDocument, getSubmissionsAndFetchDocument} from "../actions/submissions";
 
-export function DocViewer(props) {
-    return (
-        <div className="docviewer">
-            <PushableLeftSidebar submission={props.submission}>
-                <PageHeader title={props.submission.title} subtitle={props.submission.author}/>
-                <main>
-                    <iframe className="docviewer__iframe" title={props.submission.title} src={props.submission.file} frameBorder="0"/>
-                </main>
-            </PushableLeftSidebar>
-        </div>
+export class DocViewer extends React.Component {
+    componentDidMount() {
+        if (!this.props.submission && !this.props.loadingSubmissions) {
+            this.props.dispatch(getSubmissionsAndFetchDocument(String(this.props.match.params.submissionID)))
+        } else if (!this.props.document) {
+            this.props.dispatch(fetchDocument(this.props.submission.id, this.props.submission.file))
+        }
+    }
 
-    )
+    render() {
+        if (!this.props.submission || this.props.loadingSubmissions || this.props.fetching) {
+            return (
+                <CubicLoadingSpinner/>
+            )
+        }
+
+        let documentPreview;
+        if (!this.props.document) {
+            documentPreview = <div>Sorry, there was an error retrieving the document</div>
+        } else {
+            documentPreview = <iframe className="docviewer__iframe" title={this.props.submission.title}
+                                      src={this.props.document} frameBorder="0"/>
+        }
+
+        return (
+            <div className="docviewer">
+                <PushableLeftSidebar submission={this.props.submission}>
+                    <PageHeader title={this.props.submission.title} subtitle={this.props.submission.author}/>
+                    <main>
+                        {documentPreview}
+                    </main>
+                </PushableLeftSidebar>
+            </div>
+        )
+    }
 }
 
 const mapStateToProps = (state, ownProps) => ({
-    submission: state.sublitr.submissions.filter(sub => String(sub.id) === ownProps.match.params.submissionID)[0],
+    submission: state.submissions.allSubmissions.find(sub => String(sub.id) === ownProps.match.params.submissionID),
+    allSubmissions: state.submissions.allSubmissions,
+    loadingSubmissions: state.submissions.loading,
+    document: state.submissions.loadedFiles[ownProps.match.params.submissionID],
+    fetching: state.submissions.fetchingDocument,
+    error: state.submissions.error
 });
 
 export default connect(mapStateToProps)(DocViewer);

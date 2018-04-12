@@ -13,17 +13,27 @@ export function Dashboard(props) {
     if (props.user) {
         name = props.user.firstName + ' ' + props.user.lastName;
     }
+
+    if (props.user.admin || props.user.editor) {
+        return (
+            <div>
+                <PageHeader title={name}/>
+                <TabList active={props.active}/>
+                <Switch>
+                    <Route exact path='/dashboard/review' component={TabReview}/>
+                    <Route exact path='/dashboard/users' component={TabUsers}/>
+                    <Route path='/' component={TabSubmissions}/>
+                </Switch>
+            </div>
+        )
+    }
+
     return (
         <div>
-            <PageHeader title={name}/>
-            <TabList active={props.active}/>
-            <Switch>
-                <Route exact path='/dashboard/review' component={TabReview}/>
-                <Route exact path='/dashboard/users' component={TabUsers}/>
-                <Route path='/' component={TabSubmissions}/>
-            </Switch>
+            <TabSubmissions/>
         </div>
     )
+
 }
 
 const mapStateToProps = (state, ownProps) => ({

@@ -101,7 +101,7 @@ const mapStateToProps = state => ({
     publications: state.sublitr.publications,
     filterValues: state.sublitr.filterValues,
     statusLists: state.sublitr.statusLists,
-    submissions: state.sublitr.submissions
+    submissions: state.submissions.allSubmissions
 });
 
 export default connect(mapStateToProps)(TabReview);

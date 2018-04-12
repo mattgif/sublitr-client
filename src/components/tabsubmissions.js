@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import './tab.css';
 import CardSubmission from "./cardsubmission";
+import {fetchSubmissions} from "../actions/submissions";
 
 export class TabSubmissions extends React.Component {
     constructor (props) {
@@ -11,6 +12,10 @@ export class TabSubmissions extends React.Component {
             filter: 'all'
         }
     };
+
+    componentDidMount() {
+        this.props.dispatch(fetchSubmissions())
+    }
 
     filterList = (e) => {
         const val = e.target.value;
@@ -65,9 +70,7 @@ export class TabSubmissions extends React.Component {
 
 const mapStateToProps = state => ({
     publications: state.sublitr.publications,
-    submissions: state.sublitr.submissions.filter(submission =>
-        {return submission.authorID === state.auth.currentUser.id}
-    )
+    submissions: state.submissions.mySubmissions
 });
 
 export default connect(mapStateToProps)(TabSubmissions)

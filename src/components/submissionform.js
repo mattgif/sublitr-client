@@ -5,6 +5,7 @@ import {Field, reduxForm, SubmissionError} from 'redux-form';
 import Dropzone from 'react-dropzone';
 import {connect} from 'react-redux';
 import {nonEmpty, required} from "../validators";
+import {API_BASE_URL} from "../config";
 
 export class SubmissionForm extends React.Component {
     constructor(props) {
@@ -23,7 +24,6 @@ export class SubmissionForm extends React.Component {
     }
 
     onDrop(acceptedFiles) {
-        const uploadedFiles = this.state.uploadedFiles;
         let allValid = true;
         acceptedFiles.forEach(file => {
             if (!this.validFileType(file)) {
@@ -31,8 +31,7 @@ export class SubmissionForm extends React.Component {
             }
         });
         if (allValid) {
-            uploadedFiles.push(acceptedFiles);
-            this.setState({uploadedFiles, fileError: false})
+            this.setState({uploadedFiles:acceptedFiles, fileError: false})
         } else {
             this.setState({fileError: "Invalid file type"})
         }
@@ -44,16 +43,19 @@ export class SubmissionForm extends React.Component {
     }
 
     onSubmit(values) {
-        const {publication, title, cover} = values;
-        const _submission = {publication, title, cover};
-        const submission = Object.assign({}, _submission, {
-            files: this.state.uploadedFiles
-        });
-        return fetch('/api/submissions', {
-            // TODO: check for typos
+        const data = new FormData();
+        data.append('publication', values.publication);
+        data.append('title', values.title);
+        if (values.cover) {
+            data.append('coverLetter', values.cover);
+        }
+        data.append('doc', this.state.uploadedFiles[0]);
+        return fetch(`${API_BASE_URL}/submissions`, {
             method: 'POST',
-            body: submission,
-            contentType: 'multipart/form-data'
+            body: data,
+            headers: {
+                Authorization: `Bearer ${this.props.authToken}`
+            }
         })
             .then(res => {
                 if (!(res.status === 201)) {
@@ -69,7 +71,6 @@ export class SubmissionForm extends React.Component {
                         message: res.statusText
                     });
                 }
-                return;
             })
             .catch(err => {
                 const {reason, message, location} = err;
@@ -85,7 +86,7 @@ export class SubmissionForm extends React.Component {
 
     render() {
         const pubOptions = this.props.publications.map((pub, index) => {
-            return (<option key={index} value={pub.name}>{pub.name}</option>)
+            return (<option key={index} value={pub.title}>{pub.title}</option>)
         });
 
         let fileError;
@@ -95,7 +96,7 @@ export class SubmissionForm extends React.Component {
 
         let filePreviews;
         if (this.state.uploadedFiles) {
-            filePreviews = this.state.uploadedFiles.map((file, index) => {return (<li key={index}>{file[0].name}</li>)})
+            filePreviews = this.state.uploadedFiles.map((file, index) => {return (<li key={index}>{file.name}</li>)})
         }
 
         let successMessage;
@@ -119,7 +120,7 @@ export class SubmissionForm extends React.Component {
         return (
             <main>
                 <PageHeader/>
-                <form>
+                <form onSubmit={this.props.handleSubmit(values => this.onSubmit(values))}>
                     <div className="form__message">
                         {successMessage}
                         {errorMessage}
@@ -151,7 +152,7 @@ export class SubmissionForm extends React.Component {
                         <legend>Upload document(s)</legend>
                         {fileError}
                         <p className="tip">Documents must be in .pdf, .doc, or .docx formats.</p>
-                        <Dropzone onDrop={files => this.onDrop(files)}>
+                        <Dropzone onDrop={files => this.onDrop(files)} multiple={false}>
                             <div>Drop your file here, or click to select file to upload.</div>
                         </Dropzone>
                         <div>
@@ -171,7 +172,8 @@ export class SubmissionForm extends React.Component {
 
 const mapStateToProps = state => ({
     publications: state.sublitr.publications,
-    allowedFileTypes: state.sublitr.allowedFileTypes
+    allowedFileTypes: state.sublitr.allowedFileTypes,
+    authToken: state.auth.authToken
 });
 
 SubmissionForm = connect(mapStateToProps)(SubmissionForm);
