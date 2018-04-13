@@ -8,7 +8,7 @@ import MobileMenuToggle from "./mobilemenutoggle";
 import StatusIndicator from "./statusindicator";
 import CommentCard from "./commentcard";
 
-import {updateStatus} from "../actions";
+import {updateStatus} from "../actions/submissions";
 
 import './sidebar.css';
 

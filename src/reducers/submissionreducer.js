@@ -6,7 +6,7 @@ import {
 } from "../actions/submissions";
 
 const initialState = {
-    allSubmissions: [],
+    submissionData: {},
     loading: false,
     fetchingDocument: false,
     error: null,
@@ -16,8 +16,11 @@ const initialState = {
 
 export const submissionReducer = (state = initialState, action) => {
     if (action.type === GET_SUBMISSIONS_SUCCESS) {
+        const updatedSubmissionData = Object.assign({}, state.submissionData);
+        action.submissions.forEach(sub => updatedSubmissionData[sub.id] = sub);
+
         return Object.assign({}, state, {
-            allSubmissions: action.submissions,
+            submissionData: updatedSubmissionData,
             loading: false
         })
     }
@@ -58,19 +61,19 @@ export const submissionReducer = (state = initialState, action) => {
     }
 
     else if (action.type === UPDATE_STATUS_SUCCESS) {
-        const submission = state.allSubmissions.find(s => s.id === action.id);
-        const updatedSubmission = Object.assign({}, submission,
-            Object.assign({}, submission.reviewerInfo, {
-                [action.field]: action.value
-        }));
-        if (action.field === 'decision') {updatedSubmission.status = action.value;}
-        return {
-            ...state,
-            updating: {
-                [action.id]: false
-            },
-            allSubmissions: [...state.allSubmissions.filter(s => s.id !== action.id), updatedSubmission]
+        const submissionData = Object.assign({}, state.submissionData);
+        const updatedSubmission = submissionData[action.id];
+        if (action.field === 'decision') {
+            updatedSubmission.status = action.value;
+            updatedSubmission.reviewerInfo.decision = action.value;
+        } else {
+            updatedSubmission.reviewerInfo.recommendation = action.value
         }
+        updatedSubmission.reviewerInfo.lastAction = new Date().toString();
+        const updating = Object.assign({}, state.updating, {
+            [action.id]: false
+        });
+        return Object.assign({}, state, {submissionData, updating})
     }
 
     else if (action.type === UPDATE_STATUS_ERROR) {

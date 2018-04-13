@@ -1,7 +1,7 @@
 import {
-    DELETE_SUBMISSION, ADD_COMMENT, UPDATE_STATUS, FETCH_PUBLICATIONS_SUCCESS, FETCH_PUBLICATIONS_ERROR,
+    DELETE_SUBMISSION, ADD_COMMENT, FETCH_PUBLICATIONS_SUCCESS, FETCH_PUBLICATIONS_ERROR,
+    TOGGLE_CARD_EXPAND, CREATE_CARD,
 } from "../actions";
-import {AUTH_REQUEST} from "../actions/auth";
 
 const initialState = {
     dashboard: {activeTab: 'submissions'},
@@ -77,7 +77,7 @@ const initialState = {
             "abbr": "prosestudies"
         }
     ],
-    submissions: [],
+    submissionCards: {},
     filterValues: {
         recommendationFilter: ["all"],
         publicationFilter: "all",
@@ -97,7 +97,9 @@ export const sublitrReducer = (state = initialState, action) => {
         return Object.assign({}, state, {
             submissions: updatedSubmissions
         })
-    } else if (action.type === ADD_COMMENT) {
+    }
+
+    else if (action.type === ADD_COMMENT) {
         // TODO: async
         const updatedSubmissions = state.submissions.slice();
         const foundIndex = updatedSubmissions.findIndex((el) => el.id === action.id);
@@ -112,34 +114,37 @@ export const sublitrReducer = (state = initialState, action) => {
         return Object.assign({}, state, {
             submissions: updatedSubmissions
         })
-    } else if (action.type === UPDATE_STATUS) {
-        const updatedSubmissions = state.submissions.map((sub) => {
-            if (sub.id !== action.id) {
-                return sub;
-            }
-            const newItem = Object.assign({}, sub);
-            newItem.reviewerInfo[action.field] = action.value;
-            newItem.reviewerInfo.lastAction = new Date().toLocaleDateString();
-            newItem.status = newItem.reviewerInfo.decision;
-            return newItem
-        });
-        return Object.assign({}, state, {
-            submissions: updatedSubmissions
-        })
-    } else if (action.type === AUTH_REQUEST) {
-        return Object.assign({}, state, {
-            loading: true,
-            error: null
-        })
-    } else if (action.type === FETCH_PUBLICATIONS_SUCCESS) {
+    }
+
+    else if (action.type === FETCH_PUBLICATIONS_SUCCESS) {
         return Object.assign({}, state, {
             publications: action.publications
         })
-    } else if (action.type === FETCH_PUBLICATIONS_ERROR) {
+    }
+
+    else if (action.type === FETCH_PUBLICATIONS_ERROR) {
         return Object.assign({}, state, {
             error: action.error
         })
     }
+
+    else if (action.type === TOGGLE_CARD_EXPAND) {
+        const toggledCard = Object.assign({}, state.submissionCards[action.id], {
+            expanded: !state.submissionCards[action.id].expanded
+        });
+        return Object.assign({}, state, {submissionCards: {...state.submissionCards, toggledCard}})
+    }
+
+    else if (action.type === CREATE_CARD) {
+        if (!state.submissionCards[action.id]) {
+            return Object.assign({}, state, {submissionCards:
+                    {...state.submissionCards, [action.id]: {expanded: false}}
+            })
+        }
+    }
+
+    //
+
 
     return state;
 };

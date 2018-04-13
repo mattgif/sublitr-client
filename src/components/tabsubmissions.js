@@ -46,10 +46,11 @@ export class TabSubmissions extends React.Component {
                 </div>
 
                 <ul className="submissionList">
-                    {this.props.submissions.map((submission, index) => {
+                    {Object.keys(this.props.submissions).map(key => {
+                        const submission = this.props.submissions[key];
                         if (this.state.filter === "all" || submission.status === this.state.filter) {
                             return(
-                                <li key={index}>
+                                <li key={submission.id}>
                                     <CardSubmission
                                         status={submission.status}
                                         publication={submission.publication}
@@ -70,7 +71,12 @@ export class TabSubmissions extends React.Component {
 
 const mapStateToProps = state => ({
     publications: state.sublitr.publications,
-    submissions: state.submissions.allSubmissions.filter(s => s.authorID === state.auth.currentUser.id)
+    submissions: Object.keys(state.submissions.submissionData).reduce((hash, key) => {
+        if (state.submissions.submissionData[key].authorID === state.auth.currentUser.id) {
+             hash[key] = state.submissions.submissionData[key]
+        }
+        return hash;
+    }, {})
 });
 
 export default connect(mapStateToProps)(TabSubmissions)

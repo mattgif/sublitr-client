@@ -44,8 +44,8 @@ export class DocViewer extends React.Component {
 }
 
 const mapStateToProps = (state, ownProps) => ({
-    submission: state.submissions.allSubmissions.find(sub => String(sub.id) === ownProps.match.params.submissionID),
-    allSubmissions: state.submissions.allSubmissions,
+    submission: state.submissions.submissionData[ownProps.match.params.submissionID],
+    allSubmissions: state.submissions.submissionData,
     loadingSubmissions: state.submissions.loading,
     document: state.submissions.loadedFiles[ownProps.match.params.submissionID],
     fetching: state.submissions.fetchingDocument,

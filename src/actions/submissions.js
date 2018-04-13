@@ -96,7 +96,7 @@ export const getSubmissionsAndFetchDocument = (id) => (dispatch, getState) => {
         .then(res => res.json())
         .then(submissions => dispatch(getSubmissionsSuccess(submissions, getState().auth.currentUser.id)))
         .then(() => {
-            const key = getState().submissions.allSubmissions.find(s => s.id === id).file;
+            const key = getState().submissions.submissionData[id].file;
             dispatch(fetchDocument(id, key))
         });
 };

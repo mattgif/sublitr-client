@@ -39,15 +39,20 @@ export class TabReview extends React.Component {
         return targetField === filterValue || filterValue === "all"
     };
 
-    filteredSubmissions = (submissionList, state) => submissionList.filter(submission => {
-        return this.matchesField(submission.publication, state.publicationFilter) &&
+    filteredSubmissions = (submissionList, state) => Object.keys(submissionList).reduce((hash, key) => {
+        const submission = submissionList[key];
+        if (this.matchesField(submission.publication, state.publicationFilter) &&
             this.matchesField(submission.reviewerInfo.decision, state.decisionFilter) &&
-            this.matchesField(submission.reviewerInfo.recommendation, state.recommendationFilter)
-    });
+            this.matchesField(submission.reviewerInfo.recommendation, state.recommendationFilter)) {
+            hash[key] = submission;
+        }
+        return hash;
+    }, {});
 
-    formattedSubmissions = submissionList => submissionList.map((submission, index) => {
+    formattedSubmissions = submissionList => Object.keys(submissionList).map(key => {
+        const submission = submissionList[key];
         return (
-            <li key={index}>
+            <li key={submission.id}>
                 <CardReview submission={submission}/>
             </li>
     )});
@@ -113,7 +118,7 @@ const mapStateToProps = state => ({
     publications: state.sublitr.publications,
     filterValues: state.sublitr.filterValues,
     statusLists: state.sublitr.statusLists,
-    submissions: state.submissions.allSubmissions,
+    submissions: state.submissions.submissionData,
     loading: state.submissions.loading
 });
 

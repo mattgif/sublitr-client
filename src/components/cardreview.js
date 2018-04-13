@@ -12,6 +12,7 @@ import './card.css';
 export class ReviewCard extends CollapsableCard {
     // CollapsableCard for Reviewer pane
     handleStatusChange = (e, statusType) => {
+        // triggered by changing drop down values - changes recommendation or decision+status
         this.props.dispatch(
             updateStatus(statusType, e.target.value, this.props.submission.id)
         )

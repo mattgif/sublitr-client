@@ -1,12 +1,6 @@
 import {API_BASE_URL} from '../config'
 import {normalizeResponseErrors} from "./utils";
 
-export const TOGGLE_EDITOR = 'TOGGLE_EDITOR';
-export const toggleEditor = (email) => ({
-    type: TOGGLE_EDITOR,
-    email
-});
-
 export const DELETE_SUBMISSION = 'DELETE_SUBMISSION';
 export const deleteSubmission = (id) => ({
     type: DELETE_SUBMISSION,
@@ -19,16 +13,6 @@ export const addComment = (comment, id) => ({
     comment,
     id
 });
-
-export const UPDATE_STATUS = 'UPDATE_STATUS';
-export const updateStatus = (field, value, id) => ({
-    type: UPDATE_STATUS,
-    field,
-    value,
-    id
-});
-
-
 
 export const FETCH_PUBLICATIONS_SUCCESS = 'FETCH_PUBLICATIONS_SUCCESS';
 export const fetchPublicationsSuccess = publications => ({
@@ -49,4 +33,16 @@ export const fetchPublications = () => dispatch => {
         .then(publications => dispatch(fetchPublicationsSuccess(publications)))
         .catch(err => dispatch(fetchPublicationsError(err)))
 };
+
+export const TOGGLE_CARD_EXPAND = 'TOGGLE_CARD_EXPAND';
+export const toggleCardExpand = id => ({
+    type: TOGGLE_CARD_EXPAND,
+    id
+});
+
+export const CREATE_CARD = 'CREATE_CARD';
+export const createCard = id => ({
+    type: CREATE_CARD,
+    id
+});
 
