@@ -1,22 +1,23 @@
 import {
     FETCH_DOCUMENT_ERROR,
-    FETCH_DOCUMENT_REQUEST, FETCH_DOCUMENT_SUCCESS, GET_SUBMISSIONS_REQUEST, GET_SUBMISSIONS_SUCCESS
+    FETCH_DOCUMENT_REQUEST, FETCH_DOCUMENT_SUCCESS, GET_SUBMISSIONS_REQUEST, GET_SUBMISSIONS_SUCCESS,
+    UPDATE_STATUS_ERROR,
+    UPDATE_STATUS_REQUEST, UPDATE_STATUS_SUCCESS
 } from "../actions/submissions";
 
 const initialState = {
     allSubmissions: [],
-    mySubmissions: [],
     loading: false,
     fetchingDocument: false,
     error: null,
-    loadedFiles: {}
+    loadedFiles: {},
+    updating: {}
 };
 
 export const submissionReducer = (state = initialState, action) => {
     if (action.type === GET_SUBMISSIONS_SUCCESS) {
         return Object.assign({}, state, {
             allSubmissions: action.submissions,
-            mySubmissions: action.submissions.filter(submission => submission.authorID === action.userId),
             loading: false
         })
     }
@@ -51,5 +52,36 @@ export const submissionReducer = (state = initialState, action) => {
             loading: true
         })
     }
+
+    else if (action.type === UPDATE_STATUS_REQUEST) {
+        return {...state, updating: {...state.updating, [action.id]: true}}
+    }
+
+    else if (action.type === UPDATE_STATUS_SUCCESS) {
+        const submission = state.allSubmissions.find(s => s.id === action.id);
+        const updatedSubmission = Object.assign({}, submission,
+            Object.assign({}, submission.reviewerInfo, {
+                [action.field]: action.value
+        }));
+        if (action.field === 'decision') {updatedSubmission.status = action.value;}
+        return {
+            ...state,
+            updating: {
+                [action.id]: false
+            },
+            allSubmissions: [...state.allSubmissions.filter(s => s.id !== action.id), updatedSubmission]
+        }
+    }
+
+    else if (action.type === UPDATE_STATUS_ERROR) {
+        return {
+            ...state,
+            updating: {
+                [action.id]: false
+            },
+            error: action.error
+        }
+    }
+
     return state;
 };

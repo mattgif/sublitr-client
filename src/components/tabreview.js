@@ -103,7 +103,6 @@ export class TabReview extends React.Component {
                         </select>
                     </div>
                 </div>
-
                 {submissionList}
             </section>
         )

@@ -100,3 +100,44 @@ export const getSubmissionsAndFetchDocument = (id) => (dispatch, getState) => {
             dispatch(fetchDocument(id, key))
         });
 };
+
+export const UPDATE_STATUS_SUCCESS = 'UPDATE_STATUS_SUCCESS';
+export const updateStatusSuccess = (field, value, id) => ({
+    type: UPDATE_STATUS_SUCCESS,
+    field,
+    value,
+    id
+});
+
+export const UPDATE_STATUS_ERROR = 'UPDATE_STATUS_ERROR';
+export const updateStatusError = (error, id) => ({
+    type: UPDATE_STATUS_ERROR,
+    error,
+    id
+});
+
+export const UPDATE_STATUS_REQUEST = 'UPDATE_STATUS_REQUEST';
+export const updateStatusRequest = id => ({
+    type: UPDATE_STATUS_REQUEST,
+    id
+});
+
+export const updateStatus = (field, value, id) => (dispatch, getState) => {
+    dispatch(updateStatusRequest(id));
+    fetch(`${API_BASE_URL}/submissions/${id}`, {
+        method: 'PUT',
+        body: JSON.stringify({
+            id,
+            reviewerInfo: {
+                [field]: value
+            }
+        }),
+        headers: {
+            Authorization: `Bearer ${getState().auth.authToken}`,
+            'Content-Type': 'application/json'
+        }
+    })
+        .then(res => normalizeResponseErrors(res))
+        .then(() => dispatch(updateStatusSuccess(field, value, id)))
+        .catch(error => dispatch(updateStatusError(error, id)))
+};

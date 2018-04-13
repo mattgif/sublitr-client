@@ -2,7 +2,7 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import {connect} from "react-redux";
 
-import {updateStatus} from "../actions";
+import {updateStatus} from "../actions/submissions";
 
 import CollapsableCard from "./collapsablecard";
 import StatusIndicator from "./statusindicator";
@@ -35,7 +35,8 @@ export class ReviewCard extends CollapsableCard {
                     <dd>
                         <select value={this.props.submission.reviewerInfo.decision}
                                 onClick={e => e.stopPropagation()}
-                                onChange={e => this.handleStatusChange(e, 'decision')}>
+                                onChange={e => this.handleStatusChange(e, 'decision')}
+                                disabled={!!this.props.updating}>
                             {statusOptions('decision')}
                         </select>
                     </dd>
@@ -44,6 +45,7 @@ export class ReviewCard extends CollapsableCard {
                         <select value={this.props.submission.reviewerInfo.recommendation}
                                 onClick={e => e.stopPropagation()}
                                 onChange={e => this.handleStatusChange(e, 'recommendation')}
+                                disabled={!!this.props.updating}
                         >
                             {statusOptions('recommendation')}
                         </select>
@@ -61,8 +63,9 @@ export class ReviewCard extends CollapsableCard {
     }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state, ownProps) => ({
     statusLists: state.sublitr.statusLists,
+    updating: state.submissions.updating[ownProps.submission.id]
 });
 
 export default connect(mapStateToProps)(ReviewCard)
