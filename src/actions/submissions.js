@@ -177,3 +177,41 @@ export const createComment = (submissionId, comment) => (dispatch, getState) => 
         .then(res => dispatch(createCommentSuccess(submissionId, res)))
         .catch(error => dispatch(createCommentError(error)));
 };
+
+export const DELETE_COMMENT_REQUEST = 'DELETE_COMMENT_REQUEST';
+export const deleteCommentRequest = commentId => ({
+    type: DELETE_COMMENT_REQUEST,
+    commentId
+});
+
+export const DELETE_COMMENT_SUCCESS = 'DELETE_COMMENT_SUCCESS';
+export const deleteCommentSuccess = (submissionId, commentId) => ({
+    type: DELETE_COMMENT_SUCCESS,
+    submissionId,
+    commentId
+});
+
+export const DELETE_COMMENT_ERROR = 'DELETE_COMMENT_ERROR';
+export const deleteCommentError = (commentId, error) => ({
+    type: DELETE_COMMENT_ERROR,
+    commentId,
+    error
+});
+
+export const deleteComment = (submissionId, commentId) => (dispatch, getState) => {
+    dispatch(deleteCommentRequest(commentId));
+    fetch(`${API_BASE_URL}/submissions/${submissionId}/comment/${commentId}`, {
+        method: 'DELETE',
+        body: JSON.stringify({
+            submissionId,
+            commentId
+        }),
+        headers: {
+            'Authorization': `Bearer ${getState().auth.authToken}`,
+            'Content-Type': 'application/json'
+        }
+    })
+        .then(res => normalizeResponseErrors(res))
+        .then(() => dispatch(deleteCommentSuccess(submissionId, commentId)))
+        .catch(error => dispatch(deleteCommentError(commentId, error)))
+};

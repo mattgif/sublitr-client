@@ -1,6 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import { Sidebar, Segment, Menu} from 'semantic-ui-react'
+import { Sidebar, Segment, Menu} from 'semantic-ui-react';
+import { CSSTransitionGroup } from 'react-transition-group';
 
 import PageHeader from "./pageheader";
 import CommentForm from "./commentform";
@@ -41,6 +42,20 @@ export class PushableLeftSidebar extends React.Component {
             return(<option key={index} value={opt.short}>{opt.long}</option>)
         });
 
+        let comments;
+        if (this.props.submission.reviewerInfo.comments) {
+            // generate sorted list of comment cards
+            const sortedComments = this.props.submission.reviewerInfo.comments.sort(function(a,b){
+                // sort newest to oldest
+                return new Date(b.date) - new Date(a.date)
+            });
+            const commentCards = sortedComments.map(comment => {
+                // returns array of comments cards (which are <li> elements)
+                return <CommentCard key={comment._id} comment={comment} submissionId={this.props.submission.id}/>
+            });
+            comments = <ul className="comments__list">{commentCards}</ul>
+        }
+
         return (
             <div className="sidebar">
                 <MobileMenuToggle checked={this.state.visible} onChange={this.toggleVisibility}/>
@@ -74,11 +89,9 @@ export class PushableLeftSidebar extends React.Component {
                         <Menu.Item>
                             <section>
                                 <CommentForm submissionID={this.props.submission.id}/>
-                                <ul className="comments__list">
-                                    {this.props.submission.reviewerInfo.comments ? this.props.submission.reviewerInfo.comments.map((comment, index) => {
-                                        return <CommentCard key={index} comment={comment}/>
-                                    }) : ''}
-                                </ul>
+                                <CSSTransitionGroup>
+                                    {comments}
+                                </CSSTransitionGroup>
                             </section>
                         </Menu.Item>
                     </Sidebar>
@@ -91,7 +104,7 @@ export class PushableLeftSidebar extends React.Component {
     }
 }
 
-const mapStateToProps = (state, ownProps) => ({
+const mapStateToProps = state => ({
     statusLists: state.sublitr.statusLists,
 });
 

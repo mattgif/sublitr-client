@@ -1,5 +1,5 @@
 import {
-    DELETE_SUBMISSION, ADD_COMMENT, FETCH_PUBLICATIONS_SUCCESS, FETCH_PUBLICATIONS_ERROR
+    DELETE_SUBMISSION, FETCH_PUBLICATIONS_SUCCESS, FETCH_PUBLICATIONS_ERROR
 } from "../actions";
 
 const initialState = {
@@ -92,23 +92,6 @@ export const sublitrReducer = (state = initialState, action) => {
         const updatedSubmissions = state.submissions.filter(submission =>
             submission.id !== action.id);
 
-        return Object.assign({}, state, {
-            submissions: updatedSubmissions
-        })
-    }
-
-    else if (action.type === ADD_COMMENT) {
-        // TODO: async
-        const updatedSubmissions = state.submissions.slice();
-        const foundIndex = updatedSubmissions.findIndex((el) => el.id === action.id);
-        const submission = updatedSubmissions[foundIndex];
-        updatedSubmissions.splice(foundIndex, 1);
-        if (submission.reviewerInfo.comments) {
-            submission.reviewerInfo.comments.push(action.comment)
-        } else {
-            submission.reviewerInfo.comments = [action.comment]
-        }
-        updatedSubmissions.push(submission);
         return Object.assign({}, state, {
             submissions: updatedSubmissions
         })

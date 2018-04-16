@@ -3,6 +3,7 @@ import './commentform.css';
 import {reduxForm, Field} from 'redux-form';
 import {connect} from 'react-redux';
 import {createComment} from "../actions/submissions";
+import CircleLoadingSpinner from "./circle-loading-spinner"
 
 export class CommentForm extends React.Component {
     constructor(props) {
@@ -21,6 +22,10 @@ export class CommentForm extends React.Component {
     }
 
     render () {
+        let loading;
+        if (this.props.submitting) {
+            loading = <CircleLoadingSpinner/>
+        }
         return (
             <form className="comments__form"
                   onSubmit={this.props.handleSubmit(values =>
@@ -35,7 +40,8 @@ export class CommentForm extends React.Component {
                     placeholder="Add a new comment"
                     component={'textarea'}
                 />
-                <button type="submit">Submit</button>
+                {loading}
+                <button disabled={this.props.submitting} type="submit">Submit</button>
             </form>
         )
     }
@@ -43,6 +49,7 @@ export class CommentForm extends React.Component {
 
 const mapStateToProps = state => ({
     user: state.auth.currentUser,
+    submitting: state.submissions.commenting
 });
 
 CommentForm = connect(mapStateToProps)(CommentForm);

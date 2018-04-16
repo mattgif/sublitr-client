@@ -1,8 +1,10 @@
 import React from 'react'
 import {connect} from 'react-redux';
-
+import DeleteCommentConfirm from './delete-comment-confirm';
+import CircleLoadingSpinner from './circle-loading-spinner';
 import './commentcard.css';
 import {formatDate} from "../actions/utils";
+
 
 export function CommentCard(props) {
     const {text, firstName, lastName, date, authorID} = props.comment;
@@ -11,11 +13,13 @@ export function CommentCard(props) {
 
     let deleteButton;
     if (authorID === props.userID) {
-        deleteButton = (
-            <div>
-                <button>Delete</button>
-            </div>
-        )
+        if (props.deleting) {
+            deleteButton = <CircleLoadingSpinner/>
+        } else {
+            deleteButton = (
+                <DeleteCommentConfirm submissionId={props.submissionId} commentId={props.comment._id}/>
+            )
+        }
     }    
 
     return (
@@ -32,8 +36,9 @@ export function CommentCard(props) {
     )
 }
 
-const mapStateToProps = state => ({
-    userID: state.auth.currentUser.id
+const mapStateToProps = (state, ownProps) => ({
+    userID: state.auth.currentUser.id,
+    deleting: state.submissions.deletingComment[ownProps.commentId] ? state.submissions.deletingComment[ownProps.commentId] : null
 });
 
 export default connect(mapStateToProps)(CommentCard)

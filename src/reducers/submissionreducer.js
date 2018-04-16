@@ -1,5 +1,6 @@
 import {
-    CREATE_COMMENT_REQUEST, CREATE_COMMENT_SUCCESS,
+    CREATE_COMMENT_REQUEST, CREATE_COMMENT_SUCCESS, DELETE_COMMENT_ERROR, DELETE_COMMENT_REQUEST,
+    DELETE_COMMENT_SUCCESS,
     FETCH_DOCUMENT_ERROR,
     FETCH_DOCUMENT_REQUEST, FETCH_DOCUMENT_SUCCESS, GET_SUBMISSIONS_REQUEST, GET_SUBMISSIONS_SUCCESS,
     UPDATE_STATUS_ERROR,
@@ -14,6 +15,7 @@ const initialState = {
     loadedFiles: {},
     updating: {},
     commenting: false,
+    deletingComment: {}
 };
 
 export const submissionReducer = (state = initialState, action) => {
@@ -96,7 +98,6 @@ export const submissionReducer = (state = initialState, action) => {
     }
 
     else if (action.type === CREATE_COMMENT_SUCCESS) {
-        console.log(action);
         return {
             ...state,
             commenting: false,
@@ -110,6 +111,49 @@ export const submissionReducer = (state = initialState, action) => {
                     }
                 }
             }
+        }
+    }
+
+    else if (action.type === DELETE_COMMENT_REQUEST) {
+        return {
+            ...state,
+            deletingComment: {
+                ...state.deletingComment,
+                [action.commentId]: true
+            }
+        }
+    }
+
+    else if (action.type === DELETE_COMMENT_SUCCESS) {
+        return {
+            ...state,
+            deletingComment: {
+                ...state.deletingComment,
+                [action.commentId]: false
+            },
+            submissionData: {
+                ...state.submissionData,
+                [action.submissionId]: {
+                    ...state.submissionData[action.submissionId],
+                    reviewerInfo: {
+                        ...state.submissionData[action.submissionId].reviewerInfo,
+                        comments: [...state.submissionData[action.submissionId].reviewerInfo.comments.filter(comment =>
+                            comment._id !== action.commentId
+                        )]
+                    }
+                }
+            }
+        }
+    }
+
+    else if (action.type === DELETE_COMMENT_ERROR) {
+        return {
+            ...state,
+            deletingComment: {
+                ...state.deletingComment,
+                [action.commentId]: true
+            },
+            error: action.error
         }
     }
 
