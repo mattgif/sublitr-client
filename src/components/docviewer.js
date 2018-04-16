@@ -26,7 +26,7 @@ export class DocViewer extends React.Component {
         if (!this.props.document) {
             documentPreview = <div>Sorry, there was an error retrieving the document</div>
         } else {
-            documentPreview = <iframe className="docviewer__iframe" title={this.props.submission.title}
+            documentPreview = <embed width="100%" height="100%" className="docviewer__iframe" type="application/pdf" title={this.props.submission.title}
                                       src={this.props.document} frameBorder="0"/>
         }
 

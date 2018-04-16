@@ -33,6 +33,8 @@ export class PushableLeftSidebar extends React.Component {
 
     render() {
         const { visible } = this.state;
+        const lastActionDate = new Date(this.props.submission.reviewerInfo.lastAction).toUTCString();
+        const submittedDate = new Date(this.props.submission.submitted).toUTCString();
 
         const statusOptions = statusType => this.props.statusLists[statusType].map((opt, index) => {
             return(<option key={index} value={opt.short}>{opt.long}</option>)
@@ -61,13 +63,12 @@ export class PushableLeftSidebar extends React.Component {
                                     {statusOptions('recommendation')}
                                 </select>
                             </label>
-                            <ul>
-                                <li>Submitted: <time dateTime={this.props.submission.submitted}>{this.props.submission.submitted}</time>
-                                </li>
-                                <li>Last action: <time
-                                    dateTime={this.props.submission.reviewerInfo.lastAction}>{this.props.submission.reviewerInfo.lastAction}</time>
-                                </li>
-                            </ul>
+                            <dl>
+                                <dt>Submitted:</dt>
+                                <dd><time dateTime={this.props.submission.submitted}>{submittedDate}</time></dd>
+                                <dt>Last action:</dt>
+                                <dd><time dateTime={this.props.submission.reviewerInfo.lastAction}>{lastActionDate}</time></dd>
+                            </dl>
                         </Menu.Item>
                         <Menu.Item>
                             <section>

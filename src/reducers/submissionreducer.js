@@ -1,4 +1,5 @@
 import {
+    CREATE_COMMENT_REQUEST, CREATE_COMMENT_SUCCESS,
     FETCH_DOCUMENT_ERROR,
     FETCH_DOCUMENT_REQUEST, FETCH_DOCUMENT_SUCCESS, GET_SUBMISSIONS_REQUEST, GET_SUBMISSIONS_SUCCESS,
     UPDATE_STATUS_ERROR,
@@ -11,7 +12,8 @@ const initialState = {
     fetchingDocument: false,
     error: null,
     loadedFiles: {},
-    updating: {}
+    updating: {},
+    commenting: false,
 };
 
 export const submissionReducer = (state = initialState, action) => {
@@ -83,6 +85,31 @@ export const submissionReducer = (state = initialState, action) => {
                 [action.id]: false
             },
             error: action.error
+        }
+    }
+
+    else if (action.type === CREATE_COMMENT_REQUEST) {
+        return {
+            ...state,
+            commenting: true
+        }
+    }
+
+    else if (action.type === CREATE_COMMENT_SUCCESS) {
+        console.log(action);
+        return {
+            ...state,
+            commenting: false,
+            submissionData: {
+                ...state.submissionData,
+                [action.submissionId]: {
+                    ...state.submissionData[action.submissionId],
+                    reviewerInfo: {
+                        ...state.submissionData[action.submissionId].reviewerInfo,
+                        comments: [...state.submissionData[action.submissionId].reviewerInfo.comments, action.comment]
+                    }
+                }
+            }
         }
     }
 

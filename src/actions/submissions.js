@@ -141,3 +141,39 @@ export const updateStatus = (field, value, id) => (dispatch, getState) => {
         .then(() => dispatch(updateStatusSuccess(field, value, id)))
         .catch(error => dispatch(updateStatusError(error, id)))
 };
+
+export const CREATE_COMMENT_REQUEST = 'CREATE_COMMENT_REQUEST';
+export const createCommentRequest = () => ({
+    type: CREATE_COMMENT_REQUEST
+});
+
+export const CREATE_COMMENT_SUCCESS = 'CREATE_COMMENT_SUCCESS';
+export const createCommentSuccess = (submissionId, comment) => ({
+    type: CREATE_COMMENT_SUCCESS,
+    submissionId,
+    comment
+});
+
+export const CREATE_COMMENT_ERROR = 'CREATE_COMMENT_ERROR';
+export const createCommentError = error => ({
+    type: CREATE_COMMENT_ERROR,
+    error
+});
+
+export const createComment = (submissionId, comment) => (dispatch, getState) => {
+    dispatch(createCommentRequest());
+    fetch(`${API_BASE_URL}/submissions/${submissionId}/comment`, {
+        method: 'POST',
+        body: JSON.stringify({
+            text: comment
+        }),
+        headers: {
+            'Authorization': `Bearer ${getState().auth.authToken}`,
+            'Content-Type': 'application/json'
+        }
+    })
+        .then(res => normalizeResponseErrors(res))
+        .then(res => res.json())
+        .then(res => dispatch(createCommentSuccess(submissionId, res)))
+        .catch(error => dispatch(createCommentError(error)));
+};

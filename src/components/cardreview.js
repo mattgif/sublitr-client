@@ -19,6 +19,8 @@ export class ReviewCard extends CollapsableCard {
     };
 
     render() {
+        const lastActionDate = new Date(this.props.submission.reviewerInfo.lastAction).toUTCString();
+        const submittedDate = new Date(this.props.submission.submitted).toUTCString();
         const statusOptions = statusType => this.props.statusLists[statusType].map((opt, index) => {
             return(<option key={index} value={opt.short}>{opt.long}</option>)
         });
@@ -52,8 +54,11 @@ export class ReviewCard extends CollapsableCard {
                         </select>
                     </dd>
 
+                    <dt>Submitted:</dt>
+                    <dd><time dateTime={this.props.submission.submitted}>{submittedDate}</time></dd>
+
                     <dt>Last action:</dt>
-                    <dd><time>{this.props.submission.reviewerInfo.lastAction}</time></dd>
+                    <dd><time dateTime={this.props.submission.reviewerInfo.lastAction}>{lastActionDate}</time></dd>
 
                     <dt onClick={e => e.stopPropagation()}>
                         <Link to={`/submission/${this.props.submission.id}`}>View submission</Link>

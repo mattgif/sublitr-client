@@ -39,10 +39,3 @@ export const toggleCardExpand = id => ({
     type: TOGGLE_CARD_EXPAND,
     id
 });
-
-export const CREATE_CARD = 'CREATE_CARD';
-export const createCard = id => ({
-    type: CREATE_CARD,
-    id
-});
-

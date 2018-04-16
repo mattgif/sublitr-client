@@ -2,7 +2,7 @@ import React from 'react';
 import './commentform.css';
 import {reduxForm, Field} from 'redux-form';
 import {connect} from 'react-redux';
-import {addComment} from "../actions";
+import {createComment} from "../actions/submissions";
 
 export class CommentForm extends React.Component {
     constructor(props) {
@@ -15,10 +15,9 @@ export class CommentForm extends React.Component {
     };
 
     handleSubmit(values) {
-        const text = values['newComment'];
-        const id = this.props.submissionID;
-        const comment = {text};
-        this.props.dispatch(addComment(comment, id));
+        const comment = values['newComment'];
+        const submissionId = this.props.submissionID;
+        this.props.dispatch(createComment(submissionId, comment));
     }
 
     render () {

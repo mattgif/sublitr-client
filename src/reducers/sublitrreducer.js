@@ -1,6 +1,5 @@
 import {
-    DELETE_SUBMISSION, ADD_COMMENT, FETCH_PUBLICATIONS_SUCCESS, FETCH_PUBLICATIONS_ERROR,
-    TOGGLE_CARD_EXPAND, CREATE_CARD,
+    DELETE_SUBMISSION, ADD_COMMENT, FETCH_PUBLICATIONS_SUCCESS, FETCH_PUBLICATIONS_ERROR
 } from "../actions";
 
 const initialState = {
@@ -77,7 +76,6 @@ const initialState = {
             "abbr": "prosestudies"
         }
     ],
-    submissionCards: {},
     filterValues: {
         recommendationFilter: ["all"],
         publicationFilter: "all",
@@ -127,24 +125,6 @@ export const sublitrReducer = (state = initialState, action) => {
             error: action.error
         })
     }
-
-    else if (action.type === TOGGLE_CARD_EXPAND) {
-        const toggledCard = Object.assign({}, state.submissionCards[action.id], {
-            expanded: !state.submissionCards[action.id].expanded
-        });
-        return Object.assign({}, state, {submissionCards: {...state.submissionCards, toggledCard}})
-    }
-
-    else if (action.type === CREATE_CARD) {
-        if (!state.submissionCards[action.id]) {
-            return Object.assign({}, state, {submissionCards:
-                    {...state.submissionCards, [action.id]: {expanded: false}}
-            })
-        }
-    }
-
-    //
-
 
     return state;
 };
