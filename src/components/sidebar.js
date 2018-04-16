@@ -11,6 +11,7 @@ import CommentCard from "./commentcard";
 import {updateStatus} from "../actions/submissions";
 
 import './sidebar.css';
+import {formatDate} from "../actions/utils";
 
 export class PushableLeftSidebar extends React.Component {
     constructor(props) {
@@ -33,8 +34,8 @@ export class PushableLeftSidebar extends React.Component {
 
     render() {
         const { visible } = this.state;
-        const lastActionDate = new Date(this.props.submission.reviewerInfo.lastAction).toUTCString();
-        const submittedDate = new Date(this.props.submission.submitted).toUTCString();
+        const lastActionDate = formatDate(this.props.submission.reviewerInfo.lastAction);
+        const submittedDate = formatDate(this.props.submission.submitted);
 
         const statusOptions = statusType => this.props.statusLists[statusType].map((opt, index) => {
             return(<option key={index} value={opt.short}>{opt.long}</option>)

@@ -42,3 +42,31 @@ export const seedUsers = (count) => {
             .catch(console.error);
     }
 };
+
+export function formatDate(_date, includeTime) {
+    // take in str formatted date, and bool for whether time is required
+    // return formatted str of date (+ time, if requested)
+    const date = new Date(_date);
+    const today = new Date();
+    const yesterday = new Date(today);
+    yesterday.setDate(today.getDate() - 1);
+
+    let dateString;
+    const _dateString = date.toDateString();
+    if (_dateString === today.toDateString()) {
+        dateString = 'Today';
+    } else if (_dateString === yesterday.toDateString()) {
+        dateString = 'Yesterday'
+    } else {
+        dateString = date.toLocaleDateString();
+    }
+
+    let time = '';
+    if (includeTime) {
+        const rawHours = date.getHours();
+        const suffix = rawHours >= 12 ? "PM" : "AM";
+        const hours = ((rawHours + 11) % 12 + 1);
+        time = ` at ${hours}:${date.getMinutes()} ${suffix}`
+    }
+    return dateString + time;
+}

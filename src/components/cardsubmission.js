@@ -2,6 +2,7 @@ import React from 'react';
 import StatusIndicator from "./statusindicator";
 import CollapsableCard from "./collapsablecard";
 import DeleteSubmissionConfirm from './deletesubmissionconfirm';
+import {formatDate} from "../actions/utils";
 
 
 export default class CardSubmission extends CollapsableCard {
@@ -10,7 +11,7 @@ export default class CardSubmission extends CollapsableCard {
         const publication = this.props.publication;
         const title = this.props.title;
         const id = this.props.id;
-        const submissionDate = this.props.submissionDate;
+        const submissionDate = formatDate(this.props.submissionDate);
         return (
             <div className="card" onClick={this.handleClick.bind(this)}>
                 <StatusIndicator status={status}/>

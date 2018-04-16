@@ -8,6 +8,7 @@ import CollapsableCard from "./collapsablecard";
 import StatusIndicator from "./statusindicator";
 
 import './card.css';
+import {formatDate} from "../actions/utils";
 
 export class ReviewCard extends CollapsableCard {
     // CollapsableCard for Reviewer pane
@@ -19,8 +20,8 @@ export class ReviewCard extends CollapsableCard {
     };
 
     render() {
-        const lastActionDate = new Date(this.props.submission.reviewerInfo.lastAction).toUTCString();
-        const submittedDate = new Date(this.props.submission.submitted).toUTCString();
+        const lastActionDate = formatDate(this.props.submission.reviewerInfo.lastAction);
+        const submittedDate = formatDate(this.props.submission.submitted);
         const statusOptions = statusType => this.props.statusLists[statusType].map((opt, index) => {
             return(<option key={index} value={opt.short}>{opt.long}</option>)
         });
