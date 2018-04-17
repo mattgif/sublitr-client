@@ -3,7 +3,7 @@ import {AUTH_ERROR, AUTH_REQUEST, AUTH_SUCCESS, CLEAR_AUTH, SET_AUTH_TOKEN} from
 const initialState = {
     authToken: null,
     currentUser: null,
-    loading: false,
+    loading: true,
     error: null
 };
 

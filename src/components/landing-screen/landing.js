@@ -1,7 +1,7 @@
 import React from 'react';
 import {BrowserRouter as Router} from 'react-router-dom';
-import RegistrationForm from "./forms/registration-form/registrationform";
-import Navbar from "./navbar/index";
+import RegistrationForm from "../forms/registration-form/registrationform";
+import Navbar from "../navbar/index";
 
 export default function Landing() {
     return (
