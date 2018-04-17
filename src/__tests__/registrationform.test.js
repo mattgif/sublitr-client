@@ -4,11 +4,15 @@ import {RegistrationForm} from '../components/registrationform';
 
 describe('RegistrationForm', () => {
     it('should render without crashing', () => {
-        shallow(<RegistrationForm/>)
+        const dispatch = jest.fn();
+        const handleSubmit = jest.fn();
+        shallow(<RegistrationForm handleSubmit={handleSubmit} dispatch={dispatch}/>)
     });
 
     it('should contain a form', () => {
-        const wrapper = shallow(<RegistrationForm/>);
+        const dispatch = jest.fn();
+        const handleSubmit = jest.fn();
+        const wrapper = shallow(<RegistrationForm handleSubmit={handleSubmit} dispatch={dispatch}/>);
         expect(wrapper.find('form')).toHaveLength(1);
     });
 });
