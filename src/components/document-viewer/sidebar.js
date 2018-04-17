@@ -1,17 +1,15 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import { Sidebar, Segment, Menu} from 'semantic-ui-react';
-import { CSSTransitionGroup } from 'react-transition-group';
 
-import CommentForm from "../comments/comment-form/index";
 import MobileMenuToggle from "./mobilemenutoggle";
 import StatusIndicator from "../status-indicator/statusindicator";
-import CommentCard from "../comments/comment-card/index";
 
 import {updateStatus} from "../../actions/submissions";
 
 import './sidebar.css';
 import {formatDate} from "../../actions/utils";
+import CommentSection from "../comments/comment-section";
 
 export class PushableLeftSidebar extends React.Component {
     constructor(props) {
@@ -41,20 +39,6 @@ export class PushableLeftSidebar extends React.Component {
             return(<option key={index} value={opt.short}>{opt.long}</option>)
         });
 
-        let comments;
-        if (this.props.submission.reviewerInfo.comments) {
-            // generate sorted list of comment cards
-            const sortedComments = this.props.submission.reviewerInfo.comments.sort(function(a,b){
-                // sort newest to oldest
-                return new Date(b.date) - new Date(a.date)
-            });
-            const commentCards = sortedComments.map(comment => {
-                // returns array of comments cards (which are <li> elements)
-                return <CommentCard key={comment._id} comment={comment} submissionId={this.props.submission.id}/>
-            });
-            comments = <ul className="comments__list">{commentCards}</ul>
-        }
-
         return (
             <div className="sidebar">
                 <MobileMenuToggle checked={this.state.visible} onChange={this.toggleVisibility}/>
@@ -62,7 +46,7 @@ export class PushableLeftSidebar extends React.Component {
                     <Sidebar as={Menu} animation='uncover' width='wide' visible={visible} icon='labeled' vertical>
                         <header>
                             <h1>{this.props.submission.title}</h1>
-                            <h3>subtitle={this.props.submission.author}</h3>
+                            <h3>{this.props.submission.author}</h3>
                         </header>
                         <Menu.Item name='status'>
                             <StatusIndicator status={this.props.submission.reviewerInfo.decision}/>
@@ -89,12 +73,7 @@ export class PushableLeftSidebar extends React.Component {
                             </dl>
                         </Menu.Item>
                         <Menu.Item>
-                            <section>
-                                <CommentForm submissionID={this.props.submission.id}/>
-                                <CSSTransitionGroup>
-                                    {comments}
-                                </CSSTransitionGroup>
-                            </section>
+                            <CommentSection submissionId={this.props.submission.id}/>
                         </Menu.Item>
                     </Sidebar>
                     <Sidebar.Pusher>
