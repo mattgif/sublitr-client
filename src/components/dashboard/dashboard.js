@@ -2,7 +2,6 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {Route, Switch} from 'react-router-dom';
 
-import PageHeader from "../pageheader";
 import TabList from "./tablist";
 import TabReview from "./review-pane/index";
 import TabUsers from "./user-pane/tabusers";
@@ -17,7 +16,9 @@ export function Dashboard(props) {
     if (props.user.admin || props.user.editor) {
         return (
             <div>
-                <PageHeader title={name}/>
+                <header>
+                    <h1>{name}</h1>
+                </header>
                 <TabList active={props.active}/>
                 <Switch>
                     <Route exact path='/dashboard/review' component={TabReview}/>

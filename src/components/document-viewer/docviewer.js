@@ -1,5 +1,4 @@
 import React from 'react';
-import PageHeader from "../pageheader";
 import CubicLoadingSpinner from '../loading-animations/cubic-loading-spinner/index'
 import {connect} from 'react-redux';
 import './docviewer.css';
@@ -33,7 +32,10 @@ export class DocViewer extends React.Component {
         return (
             <div className="docviewer">
                 <PushableLeftSidebar submission={this.props.submission}>
-                    <PageHeader title={this.props.submission.title} subtitle={this.props.submission.author}/>
+                    <header>
+                        <h1>{this.props.submission.title}</h1>
+                        <h3>{this.props.submission.author}</h3>
+                    </header>
                     <main>
                         {documentPreview}
                     </main>

@@ -1,5 +1,4 @@
 import React from 'react';
-import PageHeader from "../../pageheader";
 import MaterialInput from "../form-elements/materialinput";
 import {Field, reduxForm, SubmissionError} from 'redux-form';
 import Dropzone from 'react-dropzone';
@@ -119,7 +118,9 @@ export class SubmissionForm extends React.Component {
 
         return (
             <main>
-                <PageHeader/>
+                <header>
+                    <h1>New submission</h1>
+                </header>
                 <form onSubmit={this.props.handleSubmit(values => this.onSubmit(values))}>
                     <div className="form__message">
                         {successMessage}

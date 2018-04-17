@@ -3,7 +3,6 @@ import {connect} from 'react-redux';
 import { Sidebar, Segment, Menu} from 'semantic-ui-react';
 import { CSSTransitionGroup } from 'react-transition-group';
 
-import PageHeader from "../pageheader";
 import CommentForm from "../comments/comment-form/index";
 import MobileMenuToggle from "./mobilemenutoggle";
 import StatusIndicator from "../status-indicator/statusindicator";
@@ -61,7 +60,10 @@ export class PushableLeftSidebar extends React.Component {
                 <MobileMenuToggle checked={this.state.visible} onChange={this.toggleVisibility}/>
                 <Sidebar.Pushable as={Segment}>
                     <Sidebar as={Menu} animation='uncover' width='wide' visible={visible} icon='labeled' vertical>
-                        <PageHeader title={this.props.submission.title} subtitle={this.props.submission.author}/>
+                        <header>
+                            <h1>{this.props.submission.title}</h1>
+                            <h3>subtitle={this.props.submission.author}</h3>
+                        </header>
                         <Menu.Item name='status'>
                             <StatusIndicator status={this.props.submission.reviewerInfo.decision}/>
                             <h2>Status</h2>

@@ -1,9 +1,9 @@
 import React from 'react';
 import {Modal, Message} from 'semantic-ui-react';
 import {Field, reduxForm} from 'redux-form';
-import MaterialInput from "./forms/form-elements/materialinput";
-import {emailFormat, required} from "../validators";
-import {login} from "../actions/auth";
+import MaterialInput from "../forms/form-elements/materialinput";
+import {emailFormat, required} from "../../validators";
+import {login} from "../../actions/auth";
 
 class Login extends React.Component {
     onSubmit(values) {

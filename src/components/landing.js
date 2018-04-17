@@ -1,6 +1,5 @@
 import React from 'react';
 import {BrowserRouter as Router} from 'react-router-dom';
-import PageHeader from "./pageheader";
 import RegistrationForm from "./forms/registration-form/registrationform";
 import Navbar from "./navbar/index";
 
@@ -9,7 +8,10 @@ export default function Landing() {
         <Router>
             <div className="App">
                 <Navbar/>
-                <PageHeader title="sublitr" subtitle="submissions simplified"/>
+                <header>
+                    <h1>sublitr</h1>
+                    <h3>submissions simplified</h3>
+                </header>
                 <section>
                     <h3>Accept, review, and manage submissions</h3>
                     <p>Reduce administrative workload, and focus on finding quality content for your journal or magazine.</p>
