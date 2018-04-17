@@ -1,9 +1,9 @@
 import React from 'react';
 import {Field, reduxForm} from 'redux-form';
-import MaterialInput from "./materialinput";
-import {required, length, nonEmpty, matches, emailFormat} from '../validators';
-import {createUser} from "../actions/users";
-import {login} from "../actions/auth";
+import MaterialInput from "../form-elements/materialinput";
+import {required, length, nonEmpty, matches, emailFormat} from '../../../validators';
+import {createUser} from "../../../actions/users";
+import {login} from "../../../actions/auth";
 const passwordLength = length({min: 8, max: 72});
 const passwordMatch = matches('password');
 

@@ -1,9 +1,9 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import './tab.css';
-import CardReview from "./cardreview";
-import {fetchSubmissions} from "../actions/submissions";
-import CubicLoadingSpinner from "./cubic-loading-spinner"
+import '../tab.css';
+import CardReview from "../../submission-cards/review-card/index";
+import {fetchSubmissions} from "../../../actions/submissions";
+import CubicLoadingSpinner from "../../loading-animations/cubic-loading-spinner"
 
 export class TabReview extends React.Component {
     constructor (props) {

@@ -2,11 +2,11 @@ import React from 'react';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import {connect} from 'react-redux';
 import './App.css';
-import Navbar from "./components/navbar";
+import Navbar from "./components/navbar/index";
 import Landing from "./components/landing";
-import Dashboard from "./components/dashboard";
-import DocViewer from "./components/docviewer";
-import SubmissionForm from "./components/submissionform";
+import Dashboard from "./components/dashboard/dashboard";
+import DocViewer from "./components/document-viewer/docviewer";
+import SubmissionForm from "./components/forms/submission-form/submissionform";
 
 export class App extends React.Component {
     componentDidMount() {

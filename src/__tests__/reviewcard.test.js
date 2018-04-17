@@ -3,7 +3,7 @@ import {shallow, mount} from 'enzyme';
 import { Router, Route } from 'react-router';
 import { createMemoryHistory } from 'history';
 
-import {ReviewCard} from '../components/cardreview'
+import {ReviewCard} from '../components/submission-cards/review-card/index'
 
 const testSubmission = {
     id: 777777,

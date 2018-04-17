@@ -1,7 +1,7 @@
 import React from 'react';
 import {shallow} from 'enzyme';
 
-import {TabList} from '../components/tablist'
+import {TabList} from '../components/dashboard/tablist'
 
 describe('TabList', () => {
     it('should render w/o crashing', () => {

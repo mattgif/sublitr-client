@@ -1,9 +1,9 @@
 import React from 'react'
 import {connect} from 'react-redux';
-import DeleteCommentConfirm from './delete-comment-confirm';
-import CircleLoadingSpinner from './circle-loading-spinner';
+import DeleteCommentConfirm from '../delete-comment-confirm';
+import CircleLoadingSpinner from '../../loading-animations/circle-loading-spinner/index';
 import './commentcard.css';
-import {formatDate} from "../actions/utils";
+import {formatDate} from "../../../actions/utils";
 
 
 export function CommentCard(props) {

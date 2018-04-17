@@ -1,6 +1,7 @@
 import {API_BASE_URL} from "../config";
 import {normalizeResponseErrors} from "./utils";
 
+// Getting submissions
 export const GET_SUBMISSIONS_REQUEST = 'GET_SUBMISSIONS_REQUEST';
 export const getSubmissionsRequest = () => ({
     type: GET_SUBMISSIONS_REQUEST
@@ -26,6 +27,7 @@ export const fetchSubmissions = () => (dispatch, getState) => {
         .then(submissions => dispatch(getSubmissionsSuccess(submissions, getState().auth.currentUser.id)))
 };
 
+// Getting doc/pdf for preview
 export const FETCH_DOCUMENT_REQUEST = 'FETCH_DOCUMENT_REQUEST';
 export const fetchDocumentRequest = () => ({
     type: FETCH_DOCUMENT_REQUEST
@@ -101,6 +103,7 @@ export const getSubmissionsAndFetchDocument = (id) => (dispatch, getState) => {
         });
 };
 
+// Handle status change
 export const UPDATE_STATUS_SUCCESS = 'UPDATE_STATUS_SUCCESS';
 export const updateStatusSuccess = (field, value, id) => ({
     type: UPDATE_STATUS_SUCCESS,
@@ -142,6 +145,41 @@ export const updateStatus = (field, value, id) => (dispatch, getState) => {
         .catch(error => dispatch(updateStatusError(error, id)))
 };
 
+// Delete submission
+export const DELETE_SUBMISSION_REQUEST = 'DELETE_SUBMISSION_REQUEST';
+export const deleteSubmissionRequest = submissionId => ({
+    type: DELETE_SUBMISSION_REQUEST,
+    submissionId
+});
+
+export const DELETE_SUBMISSION_SUCCESS = 'DELETE_SUBMISSION_SUCCESS';
+export const deleteSubmissionSuccess = submissionId => ({
+    type: DELETE_SUBMISSION_SUCCESS,
+    submissionId
+});
+
+export const DELETE_SUBMISSION_ERROR = 'DELETE_SUBMISSION_ERROR';
+export const deleteSubmissionError = error => ({
+    type: DELETE_SUBMISSION_ERROR,
+    error
+});
+
+export const deleteSubmission = submissionId => (dispatch, getState) => {
+    dispatch(deleteSubmissionRequest(submissionId));
+    fetch(`${API_BASE_URL}/submissions/${submissionId}`, {
+        method: 'DELETE',
+        headers: {
+            'Authorization': `Bearer ${getState().auth.authToken}`,
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({submissionId})
+    })
+        .then(res => normalizeResponseErrors(res))
+        .then(() => dispatch(deleteSubmissionSuccess(submissionId)))
+        .catch(err => dispatch(deleteSubmissionError(err)))
+};
+
+// Comments
 export const CREATE_COMMENT_REQUEST = 'CREATE_COMMENT_REQUEST';
 export const createCommentRequest = () => ({
     type: CREATE_COMMENT_REQUEST

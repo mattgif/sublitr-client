@@ -1,7 +1,7 @@
 import React from 'react';
 import {shallow} from 'enzyme';
 
-import {UserTable} from '../components/usertable';
+import {UserTable} from '../components/dashboard/user-pane/usertable';
 
 const testUsers = [
     {id: 'u111111', first: "Abe", last: "Abrams", email: "aabrams@example.com", editor: false},

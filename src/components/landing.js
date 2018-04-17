@@ -1,8 +1,8 @@
 import React from 'react';
 import {BrowserRouter as Router} from 'react-router-dom';
 import PageHeader from "./pageheader";
-import RegistrationForm from "./registrationform";
-import Navbar from "./navbar";
+import RegistrationForm from "./forms/registration-form/registrationform";
+import Navbar from "./navbar/index";
 
 export default function Landing() {
     return (

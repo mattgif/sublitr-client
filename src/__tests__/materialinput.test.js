@@ -1,7 +1,7 @@
 import React from 'react';
 import {shallow} from 'enzyme';
 
-import MaterialInput from '../components/materialinput';
+import MaterialInput from '../components/forms/form-elements/materialinput';
 
 const mockMeta = {
     active: false,

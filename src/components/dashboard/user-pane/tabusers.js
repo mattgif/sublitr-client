@@ -1,6 +1,6 @@
 import React from 'react';
 import UserTable from "./usertable";
-import {seedUsers} from "../actions/utils";
+import {seedUsers} from "../../../actions/utils";
 
 export default class TabUsers extends React.Component {
     constructor (props) {

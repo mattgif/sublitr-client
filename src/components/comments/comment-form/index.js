@@ -2,8 +2,8 @@ import React from 'react';
 import './commentform.css';
 import {reduxForm, Field} from 'redux-form';
 import {connect} from 'react-redux';
-import {createComment} from "../actions/submissions";
-import CircleLoadingSpinner from "./circle-loading-spinner"
+import {createComment} from "../../../actions/submissions";
+import CircleLoadingSpinner from "../../loading-animations/circle-loading-spinner/index"
 
 export class CommentForm extends React.Component {
     constructor(props) {

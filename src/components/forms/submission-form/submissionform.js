@@ -1,11 +1,11 @@
 import React from 'react';
-import PageHeader from "./pageheader";
-import MaterialInput from "./materialinput";
+import PageHeader from "../../pageheader";
+import MaterialInput from "../form-elements/materialinput";
 import {Field, reduxForm, SubmissionError} from 'redux-form';
 import Dropzone from 'react-dropzone';
 import {connect} from 'react-redux';
-import {nonEmpty, required} from "../validators";
-import {API_BASE_URL} from "../config";
+import {nonEmpty, required} from "../../../validators";
+import {API_BASE_URL} from "../../../config";
 
 export class SubmissionForm extends React.Component {
     constructor(props) {
@@ -163,6 +163,7 @@ export class SubmissionForm extends React.Component {
                         </div>
 
                     </fieldset>
+                    <button onClick={() => this.props.history.goBack()}>Cancel</button>
                     <button type="submit">Submit?</button>
                 </form>
             </main>

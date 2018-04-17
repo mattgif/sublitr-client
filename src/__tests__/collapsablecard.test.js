@@ -1,7 +1,7 @@
 import React from 'react';
 import {shallow} from 'enzyme';
 
-import CollapsableCard from '../components/collapsablecard';
+import CollapsableCard from '../components/submission-cards/collapsablecard';
 
 describe('CollapsableCard', () => {
     it('should render without crashing', () => {

@@ -1,6 +1,6 @@
 import React from 'react';
 import {shallow} from 'enzyme';
-import {RegistrationForm} from '../components/registrationform';
+import {RegistrationForm} from '../components/forms/registration-form/registrationform';
 
 describe('RegistrationForm', () => {
     it('should render without crashing', () => {

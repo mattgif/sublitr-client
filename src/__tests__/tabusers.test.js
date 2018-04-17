@@ -1,7 +1,7 @@
 import React from 'react';
 import {shallow} from 'enzyme';
 
-import TabUsers from '../components/tabusers';
+import TabUsers from '../components/dashboard/user-pane/tabusers';
 
 describe.skip('TabUsers', () => {
     it('should render without crashing', () => {

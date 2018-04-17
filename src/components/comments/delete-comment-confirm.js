@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {Confirm} from 'semantic-ui-react';
-import {deleteComment} from "../actions/submissions";
+import {deleteComment} from "../../actions/submissions";
 
 class DeleteCommentConfirm extends React.Component {
     constructor(props) {

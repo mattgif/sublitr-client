@@ -1,7 +1,7 @@
 import React from 'react';
 import {shallow} from 'enzyme';
 
-import {Navbar} from '../components/navbar';
+import {Navbar} from '../components/navbar/index';
 
 describe('Navbar', () => {
     it('should render without crashing', () => {

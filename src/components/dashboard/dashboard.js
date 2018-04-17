@@ -2,11 +2,11 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {Route, Switch} from 'react-router-dom';
 
-import PageHeader from "./pageheader";
+import PageHeader from "../pageheader";
 import TabList from "./tablist";
-import TabReview from "./tabreview";
-import TabUsers from "./tabusers";
-import TabSubmissions from "./tabsubmissions";
+import TabReview from "./review-pane/index";
+import TabUsers from "./user-pane/tabusers";
+import TabSubmissions from "./submission-pane/tabsubmissions";
 
 export function Dashboard(props) {
     let name;

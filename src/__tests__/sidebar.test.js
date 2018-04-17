@@ -1,7 +1,7 @@
 import React from 'react';
 import {shallow} from 'enzyme';
 
-import {PushableLeftSidebar} from '../components/sidebar';
+import {PushableLeftSidebar} from '../components/document-viewer/sidebar';
 
 const testSubmission = {
     id: 777777,

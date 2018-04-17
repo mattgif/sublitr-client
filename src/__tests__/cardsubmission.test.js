@@ -1,6 +1,6 @@
 import React from 'react';
 import {shallow} from 'enzyme';
-import CardSubmission from '../components/cardsubmission';
+import CardSubmission from '../components/submission-cards/basic-card/index';
 
 describe('CardSubmission', () => {
    it('should render without crashing', () => {

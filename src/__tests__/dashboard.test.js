@@ -1,7 +1,7 @@
 import React from 'react';
 import {shallow} from 'enzyme';
 
-import {Dashboard} from '../components/dashboard';
+import {Dashboard} from '../components/dashboard/dashboard';
 
 const user = {
     firstName: 'Test',

@@ -2,13 +2,13 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import {connect} from "react-redux";
 
-import {updateStatus} from "../actions/submissions";
+import {updateStatus} from "../../../actions/submissions";
 
-import CollapsableCard from "./collapsablecard";
-import StatusIndicator from "./statusindicator";
+import CollapsableCard from "../collapsablecard";
+import StatusIndicator from "../../status-indicator/statusindicator";
 
-import './card.css';
-import {formatDate} from "../actions/utils";
+import '../card.css';
+import {formatDate} from "../../../actions/utils";
 
 export class ReviewCard extends CollapsableCard {
     // CollapsableCard for Reviewer pane

@@ -1,10 +1,10 @@
 import React from 'react';
-import PageHeader from "./pageheader";
-import CubicLoadingSpinner from './cubic-loading-spinner/'
+import PageHeader from "../pageheader";
+import CubicLoadingSpinner from '../loading-animations/cubic-loading-spinner/index'
 import {connect} from 'react-redux';
 import './docviewer.css';
 import PushableLeftSidebar from "./sidebar";
-import {fetchDocument, getSubmissionsAndFetchDocument} from "../actions/submissions";
+import {fetchDocument, getSubmissionsAndFetchDocument} from "../../actions/submissions";
 
 export class DocViewer extends React.Component {
     componentDidMount() {

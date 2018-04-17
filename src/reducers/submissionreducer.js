@@ -1,6 +1,6 @@
 import {
     CREATE_COMMENT_REQUEST, CREATE_COMMENT_SUCCESS, DELETE_COMMENT_ERROR, DELETE_COMMENT_REQUEST,
-    DELETE_COMMENT_SUCCESS,
+    DELETE_COMMENT_SUCCESS, DELETE_SUBMISSION_ERROR, DELETE_SUBMISSION_REQUEST, DELETE_SUBMISSION_SUCCESS,
     FETCH_DOCUMENT_ERROR,
     FETCH_DOCUMENT_REQUEST, FETCH_DOCUMENT_SUCCESS, GET_SUBMISSIONS_REQUEST, GET_SUBMISSIONS_SUCCESS,
     UPDATE_STATUS_ERROR,
@@ -15,7 +15,8 @@ const initialState = {
     loadedFiles: {},
     updating: {},
     commenting: false,
-    deletingComment: {}
+    deletingComment: {},
+    deletingSubmission: {}
 };
 
 export const submissionReducer = (state = initialState, action) => {
@@ -77,7 +78,7 @@ export const submissionReducer = (state = initialState, action) => {
         const updating = Object.assign({}, state.updating, {
             [action.id]: false
         });
-        return Object.assign({}, state, {submissionData, updating})
+        return Object.assign({}, state, {submissionData, updating, error: null})
     }
 
     else if (action.type === UPDATE_STATUS_ERROR) {
@@ -93,7 +94,8 @@ export const submissionReducer = (state = initialState, action) => {
     else if (action.type === CREATE_COMMENT_REQUEST) {
         return {
             ...state,
-            commenting: true
+            commenting: true,
+            error: null
         }
     }
 
@@ -110,7 +112,8 @@ export const submissionReducer = (state = initialState, action) => {
                         comments: [...state.submissionData[action.submissionId].reviewerInfo.comments, action.comment]
                     }
                 }
-            }
+            },
+            error: null
         }
     }
 
@@ -120,7 +123,8 @@ export const submissionReducer = (state = initialState, action) => {
             deletingComment: {
                 ...state.deletingComment,
                 [action.commentId]: true
-            }
+            },
+            error: null
         }
     }
 
@@ -142,7 +146,8 @@ export const submissionReducer = (state = initialState, action) => {
                         )]
                     }
                 }
-            }
+            },
+            error: null
         }
     }
 
@@ -154,6 +159,42 @@ export const submissionReducer = (state = initialState, action) => {
                 [action.commentId]: true
             },
             error: action.error
+        }
+    }
+
+    else if (action.type === DELETE_SUBMISSION_REQUEST) {
+        return {
+            ...state,
+            deletingSubmission: {
+                ...state.deletingSubmission,
+                [action.submissionId]: true
+            },
+            error: null
+        }
+    }
+
+    else if (action.type === DELETE_SUBMISSION_SUCCESS) {
+        const submissionData = Object.assign({}, state.submissionData);
+        delete submissionData[action.submissionId];
+        return {
+            ...state,
+            submissionData,
+            error: null,
+            deletingSubmission: {
+                ...state.deletingSubmission,
+                [action.submissionId]: false
+            },
+        }
+    }
+
+    else if (action.type === DELETE_SUBMISSION_ERROR) {
+        return {
+            ...state,
+            error: action.error,
+            deletingSubmission: {
+                ...state.deletingSubmission,
+                [action.submissionId]: false
+            }
         }
     }
 

@@ -2,9 +2,9 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import './navbar.css';
-import Login from './login';
-import {clearAuth} from "../actions/auth";
-import {clearAuthToken} from "../localstorage";
+import Login from '../login';
+import {clearAuth} from "../../actions/auth";
+import {clearAuthToken} from "../../localstorage";
 
 export function Navbar(props) {
     const logOut = () => {

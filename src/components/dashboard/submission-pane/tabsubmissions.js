@@ -1,9 +1,9 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
-import './tab.css';
-import CardSubmission from "./cardsubmission";
-import {fetchSubmissions} from "../actions/submissions";
+import '../tab.css';
+import CardSubmission from "../../submission-cards/basic-card/index";
+import {fetchSubmissions} from "../../../actions/submissions";
 
 export class TabSubmissions extends React.Component {
     constructor (props) {

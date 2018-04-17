@@ -1,8 +1,8 @@
 import React from 'react';
-import StatusIndicator from "./statusindicator";
-import CollapsableCard from "./collapsablecard";
-import DeleteSubmissionConfirm from './deletesubmissionconfirm';
-import {formatDate} from "../actions/utils";
+import StatusIndicator from "../../status-indicator/statusindicator";
+import CollapsableCard from "../collapsablecard";
+import DeleteSubmissionConfirm from '../../dashboard/submission-pane/deletesubmissionconfirm';
+import {formatDate} from "../../../actions/utils";
 
 
 export default class CardSubmission extends CollapsableCard {

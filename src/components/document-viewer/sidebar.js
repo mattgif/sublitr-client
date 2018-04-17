@@ -3,16 +3,16 @@ import {connect} from 'react-redux';
 import { Sidebar, Segment, Menu} from 'semantic-ui-react';
 import { CSSTransitionGroup } from 'react-transition-group';
 
-import PageHeader from "./pageheader";
-import CommentForm from "./commentform";
+import PageHeader from "../pageheader";
+import CommentForm from "../comments/comment-form/index";
 import MobileMenuToggle from "./mobilemenutoggle";
-import StatusIndicator from "./statusindicator";
-import CommentCard from "./commentcard";
+import StatusIndicator from "../status-indicator/statusindicator";
+import CommentCard from "../comments/comment-card/index";
 
-import {updateStatus} from "../actions/submissions";
+import {updateStatus} from "../../actions/submissions";
 
 import './sidebar.css';
-import {formatDate} from "../actions/utils";
+import {formatDate} from "../../actions/utils";
 
 export class PushableLeftSidebar extends React.Component {
     constructor(props) {

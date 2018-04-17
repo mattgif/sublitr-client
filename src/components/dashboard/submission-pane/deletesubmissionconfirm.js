@@ -1,31 +1,40 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {Confirm} from 'semantic-ui-react';
-import {deleteUser} from "../actions/users";
+import {deleteSubmission} from "../../../actions/submissions";
 
-class DeleteUserConfirm extends React.Component {
+class DeleteSubmissionConfirm extends React.Component {
     constructor(props) {
         super(props);
         this.state = { open: false }
     };
 
-    show = () => this.setState({ open: true });
+    id = this.props.id;
+
+    show = (e) => {
+        //stopProp to keep card from toggling collapse state
+        e.stopPropagation();
+        this.setState({ open: true });
+    };
+
     handleConfirm = () => {
-        this.props.dispatch(deleteUser(this.props.user.id));
+        this.props.dispatch(deleteSubmission(this.id));
         this.setState({ open: false });
     };
+
     handleCancel = () => this.setState({ open: false });
 
     render() {
+        const title = this.props.title;
         return (
             <div>
-                <button onClick={() => this.show()}>Delete</button>
+                <button onClick={(e) => this.show(e)}>Delete</button>
                 <Confirm
                     open={this.state.open}
                     onCancel={this.handleCancel}
                     onConfirm={this.handleConfirm}
-                    content={`Delete ${this.props.user.first} ${this.props.user.last}?`}
-                    confirmButton='Delete user'
+                    content={`Delete ${title}?`}
+                    confirmButton='Delete submission'
                     size='tiny'
                 />
             </div>
@@ -33,4 +42,4 @@ class DeleteUserConfirm extends React.Component {
     }
 }
 
-export default connect()(DeleteUserConfirm)
+export default connect()(DeleteSubmissionConfirm)
