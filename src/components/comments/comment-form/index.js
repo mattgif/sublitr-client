@@ -18,6 +18,7 @@ export class CommentForm extends React.Component {
     handleSubmit(values) {
         const comment = values['newComment'];
         const submissionId = this.props.submissionID;
+        this.setState({comment: ''});
         this.props.dispatch(createComment(submissionId, comment));
     }
 
