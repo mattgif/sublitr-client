@@ -68,6 +68,14 @@
     margin-right: 35px;
 }
 
+.status__info,
+.basic__info {
+    border: 1px solid rgba(0, 0, 0, .4);
+    border-radius: 3px;
+    width: 100%;
+    padding: 15px;
+}
+
 .card .expand {
     margin-left: auto;
     margin-top: auto;
@@ -106,5 +114,28 @@
     color: #fff;
     background-color: #008CBA;
 }
+
+.submission__delete__wrapper {
+    margin-left: auto;
+}
+
+.submission__delete__wrapper button {
+    color: #fff;
+    background-color: #d9534f;
+    border: 1px solid #d43f3a;
+    transition: .15s ease-in;
+    height: 44px;
+    width: 75px;
+    border-radius: 3px;
+}
+
+.submission__delete__wrapper button:hover {
+    color: #fff;
+    background-color: #c9302c;
+    border-color: #ac2925;
+}
+
+
+
 
 
