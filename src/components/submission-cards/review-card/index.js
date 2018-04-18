@@ -4,7 +4,7 @@ import {connect} from "react-redux";
 
 import {updateStatus} from "../../../actions/submissions";
 
-import { Dropdown, Icon } from 'semantic-ui-react';
+import { Dropdown, Icon, Button } from 'semantic-ui-react';
 import StatusIndicator from "../../status-indicator/statusindicator";
 
 import '../card.css';
@@ -27,10 +27,8 @@ export class ReviewCard extends React.Component {
         this.setState({ expanded: !this.state.expanded});
     };
 
-    handleStatusChange = (e, changedField) => {
+    handleStatusChange = (changedField) => {
         // triggered by confirm buttons after changing dropdown
-        e.stopPropagation();
-        // keep the card from collapsing
         this.props.dispatch(
             updateStatus(changedField, this.state[changedField], this.props.submission.id)
         );
@@ -38,8 +36,7 @@ export class ReviewCard extends React.Component {
         this.setState({[needsUpdate]: false})
     };
 
-    cancelStatusChange (e, canceledField) {
-        e.stopPropagation();
+    cancelStatusChange (canceledField) {
         // keep the card from collapsing
         console.log('canceledField', canceledField);
         const needsUpdate = canceledField === 'decision' ? 'newDecision' : 'newRecommendation';
@@ -65,9 +62,12 @@ export class ReviewCard extends React.Component {
         if (this.state.newDecision) {
             confirmFinalDecision =
                 <div className="confirm">
-                    <button onClick={e => this.cancelStatusChange(e, 'decision')}>Cancel</button>
-                    <button onClick={e => this.handleStatusChange(e, 'decision')}>Send final decision</button>
-                    <p>The submitter WILL see a new status</p>
+                    <Button.Group>
+                        <Button onClick={() => this.cancelStatusChange('decision')}>Cancel</Button>
+                        <Button.Or/>
+                        <Button positive onClick={() => this.handleStatusChange('decision')}>Send final decision</Button>
+                    </Button.Group>
+                    <p className="caution">The submitter WILL see a new status</p>
                 </div>
         }
 
@@ -75,8 +75,11 @@ export class ReviewCard extends React.Component {
         if (this.state.newRecommendation) {
             confirmNewRecommendation =
                 <div className="confirm">
-                    <button onClick={e => this.cancelStatusChange(e, 'recommendation')}>Cancel</button>
-                    <button onClick={e => this.handleStatusChange(e, 'recommendation')}>Update recommendation</button>
+                    <Button.Group>
+                        <Button onClick={() => this.cancelStatusChange('recommendation')}>Cancel</Button>
+                        <Button.Or/>
+                        <Button positive onClick={() => this.handleStatusChange('recommendation')}>Update recommendation</Button>
+                    </Button.Group>
                     <p>The submitter will NOT see this change</p>
                 </div>
         }
@@ -91,39 +94,48 @@ export class ReviewCard extends React.Component {
                     <li className='author'>{this.props.submission.author}</li>
                 </ul>
                 <Link className="view-submission-button" to={`/submission/${this.props.submission.id}`}>View submission</Link>
-                <dl className={this.state.expanded ? "additional" : "hidden additional"}>
-                    <dt>Decision:</dt>
-                    <dd>
-                        <Dropdown className="status__updater"
-                                  options={this.props.statusLists.decision}
-                                  value={this.state.decision}
-                                  id='newDecision'
-                                  disabled={!!this.props.updating}
-                                  onChange={(e, data) => this.showConfirm(data)}
-                                  selection
-                        />
-                        {confirmFinalDecision}
+                <div className={this.state.expanded ? "additional reviewer visible" : "hidden additional reviewer"}>
+                    <dl className="status__info">
+                        <h3>Current status:</h3>
+                        <p className="status__info__note">Use dropdowns to change status</p>
+                        <dt>Decision (visible to submitter):</dt>
+                        <dd className="status__updater__wrapper">
+                            <div>
+                                <Dropdown className="status__updater"
+                                          options={this.props.statusLists.decision}
+                                          value={this.state.decision}
+                                          id='newDecision'
+                                          disabled={!!this.props.updating}
+                                          onChange={(e, data) => this.showConfirm(data)}
+                                          selection
+                                />
+                            </div>
+                            {confirmFinalDecision}
+                        </dd>
+                        <dt>Recommendation:</dt>
+                        <dd className="status__updater__wrapper">
+                            <div>
+                                <Dropdown className="status__updater"
+                                          options={this.props.statusLists.recommendation}
+                                          value={this.state.recommendation}
+                                          id='newRecommendation'
+                                          disabled={!!this.props.updating}
+                                          onChange={(e, data) => this.showConfirm(data)}
+                                          selection
+                                />
+                            </div>
+                            {confirmNewRecommendation}
+                        </dd>
+                    </dl>
+                    <dl className="basic__info">
+                        <h3>Submission info:</h3>
+                        <dt>Submitted:</dt>
+                        <dd><time dateTime={this.props.submission.submitted}>{submittedDate}</time></dd>
 
-                    </dd>
-                    <dt>Recommendation:</dt>
-                    <dd>
-                        <Dropdown className="status__updater"
-                                  options={this.props.statusLists.recommendation}
-                                  value={this.state.recommendation}
-                                  id='newRecommendation'
-                                  disabled={!!this.props.updating}
-                                  onChange={(e, data) => this.showConfirm(data)}
-                                  selection
-                        />
-                        {confirmNewRecommendation}
-                    </dd>
-
-                    <dt>Submitted:</dt>
-                    <dd><time dateTime={this.props.submission.submitted}>{submittedDate}</time></dd>
-
-                    <dt>Last action:</dt>
-                    <dd><time dateTime={this.props.submission.reviewerInfo.lastAction}>{lastActionDate}</time></dd>
-                </dl>
+                        <dt>Last action:</dt>
+                        <dd><time dateTime={this.props.submission.reviewerInfo.lastAction}>{lastActionDate}</time></dd>
+                    </dl>
+                </div>
                 <div className="expand">
                     <button onClick={() => this.toggleExpand()}>
                         <Icon size={'big'} name={this.state.expanded ? 'compress' : 'expand'}/>

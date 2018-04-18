@@ -13,10 +13,6 @@
     align-items: flex-start;
 }
 
-.card p {
-    margin: 0 20px;
-}
-
 .card .publication {
     font-style: italic;
 }
@@ -29,21 +25,47 @@
     width: 100%;
     margin-top: 15px;
     padding: 20px;
-    border: 1px solid #333;
     border-radius: 3px;
-    background-color: #aaa;
+    background-color: #dee8f9;
     list-style: none;
 }
 
-.card .additional p {
-    display: inline-block;
-    margin: 0 15px 0 0;
+.card .additional.reviewer dd,
+.card .additional.reviewer dt {
+    margin-bottom: 8px;
+}
+
+.card .additional.reviewer dt {
+    font-size: 16px;
+}
+
+.confirm {
+    margin: 0 15px;
+}
+
+.caution {
+    margin-top: 5px;
+    color: firebrick;
+}
+
+.status__updater__wrapper {
+    display: flex;
+    align-items: flex-start;
+}
+
+.status__info__note {
+    margin-bottom: 15px;
+    font-style: italic;
 }
 
 .card__list {
     list-style: none;
     margin-right: 35px;
     margin-bottom: 15px;
+}
+
+.status__info {
+    margin-right: 35px;
 }
 
 .card .expand {
