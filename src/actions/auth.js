@@ -12,8 +12,9 @@ export const setAuthToken = authToken => ({
 });
 
 export const AUTH_REQUEST = 'AUTH_REQUEST';
-export const authRequest = () => ({
-    type: AUTH_REQUEST
+export const authRequest = modalOpen => ({
+    type: AUTH_REQUEST,
+    modalOpen
 });
 
 export const AUTH_SUCCESS = 'AUTH_SUCCESS';
@@ -35,8 +36,9 @@ function storeAuthInfo (authToken, dispatch) {
     saveAuthToken(authToken);
 }
 
-export const login = (email, password) => dispatch => {
-    dispatch(authRequest());
+export const login = (email, password, _modalOpen) => dispatch => {
+    const modalOpen = !!_modalOpen;
+    dispatch(authRequest(modalOpen));
     return (
         fetch(`${API_BASE_URL}/auth/login`, {
             method: 'POST',

@@ -1,0 +1,182 @@
+.landing__hero {
+    background-color: rgb(148, 104, 174);
+    height: 100%;
+}
+
+.landing__hero__wrapper {
+    height: 100%;
+    width: 100%;
+    max-width: 900px;
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    color: #F8EEE7;
+    justify-content: center;
+    align-content: center;
+    flex-wrap: wrap;
+    padding: 30px;
+}
+
+h1.landing__hero__title {
+    font-family: 'Merriweather', serif;
+    width: 100%;
+    font-size: 35px;
+    z-index: 1;
+}
+
+h3.landing__hero__subtitle {
+    font-family: 'Merriweather', serif;
+    width: 100%;
+    font-size: 25px;
+    z-index: 1;
+}
+
+button.landing__hero__scroll__button {
+    border-radius: 3px;
+    height: 60px;
+    width: 150px;
+    margin: 35px 5px;
+    color: #F8EEE7;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 16px;
+    background-color: rgb(148, 104, 174);
+    padding: 5px 10px;
+    text-transform: uppercase;
+    z-index: 1;
+    cursor: pointer;
+}
+
+button.landing__hero__scroll__signup {
+    border: 2px solid #F8EEE7;
+}
+
+button.landing__hero__scroll__more {
+    background-color: #49274A;
+    border: 2px solid #49274A;
+}
+
+.landing__hero__color__image {
+    position: absolute;
+    right: 30px;
+    top: 10px;
+    height: 90%;
+    width: 50%;
+    background: url("./assets/stolasPurp.png") no-repeat center right;
+    background-size: contain;
+}
+
+.editor-info {
+    padding: 30px;
+    background-color: #F8EEE7;
+    color: #333;
+    font-family: Montserrat, sans-serif;
+}
+
+.editor-info__body h3 {
+    font-size: 25px;
+}
+
+.editor-info__body li {
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.editor-info__wrapper {
+    width: 100%;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.editor-info__body {
+    width: 100%;
+}
+
+.editor-info__image {
+    height: 150px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.editor-info__image img {
+    height: 100%;
+}
+
+.app-preview {
+    text-align: center;
+    background-color: #F4DECB;
+    padding: 30px;
+    color: #333;
+}
+
+.app-preview__wrapper {
+    width: 100%;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.app-preview__image img {
+    width: 100%;
+}
+
+.signup {
+    background-color: rgb(148, 104, 174);
+    padding: 30px;
+}
+
+.signup__wrapper {
+    width: 100%;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.signup__wrapper h3 {
+    color: #F8EEE7;
+    text-align: center;
+    font-family: "Open Sans", serif;
+    font-weight: normal;
+    font-size: 30px;
+    padding-bottom: 12px;
+    border-bottom: 2px dotted #F8EEE7;
+}
+
+@media screen and (min-width: 450px) {
+    .landing__hero {
+        max-height: 500px;
+        text-align: center;
+    }
+
+    h1.landing__hero__title {
+        font-size: 55px;
+    }
+
+    h3.landing__hero__subtitle {
+        font-size: 18px;
+    }
+
+    button.landing__hero__scroll__button {
+        display: none;
+    }
+}
+
+@media screen and (min-width: 650px) {
+    .editor-info__body {
+        margin-left: 30px;
+        width: 600px;
+    }
+
+    .editor-info__wrapper {
+        flex-wrap: nowrap;
+    }
+
+    .editor-info__image {
+        height: 300px;
+        margin: 0;
+        order: -1;
+    }
+}

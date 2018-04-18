@@ -1,0 +1,52 @@
+.registration-form {
+    max-width: 900px;
+}
+
+.ui.input {
+    width: 100%;
+}
+
+.registration-form input {
+    width: 100%
+}
+
+.submit__wrapper {
+    width: 100%;
+    text-align: center;
+}
+
+.submit__button {
+    width: 125px;
+    height: 50px;
+    font-family: "Open Sans", sans-serif;
+    padding: 5px 8px;
+    background-color: #49274A;
+    color: #F8EEE7;
+    transition: .15s ease-in;
+    border: none;
+    border-radius: 3px;
+    font-size: 18px;
+}
+
+.submit__button:hover {
+    color: #F4DECB;
+    background-color: #49273B;
+    cursor: pointer;
+}
+
+@media screen and (min-width: 650px) {
+    .registration-form {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .ui.input {
+        width: 100%;
+    }
+
+    .field {
+        width: 40%;
+        margin: 0 20px;
+    }
+}

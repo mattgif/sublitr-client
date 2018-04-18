@@ -1,0 +1,233 @@
+.login__image {
+    display: none;
+}
+
+form.login__form {
+    width: 90%;
+}
+
+#login__modal__login__button {
+    background: transparent;
+    border: 2px solid #F8EEE7;
+    color: #F8EEE7;
+    font-family: "Open Sans", sans-serif;
+    font-size: 16px;
+    padding: 5px 20px;
+    height: 44px;
+    margin-left: 10px;
+    transition: .15s ease-in;
+}
+
+#login__modal__login__button:hover {
+    cursor: pointer;
+    background-color: #49274A;
+}
+
+#login__modal__login__button:disabled {
+    border-color: transparent;
+    background-color: #967592;
+}
+
+.login__modal__button__wrapper {
+    width: 90%;
+    text-align: right;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.login__modal__button__wrapper .sk-fading-circle {
+    margin: 0;
+}
+
+.login__modal__error {
+    color: #F8EEE7;
+    margin-bottom: 5px;
+}
+
+@media screen and (min-width: 650px) {
+    .login__image {
+        display: inline-block;
+        padding-left: 10px;
+        height: 100px;
+        margin-left: auto;
+    }
+
+    .login__image img {
+        height: 100%;
+    }
+
+    form.login__form {
+        width: 100%;
+    }
+
+    form.login__form .field {
+        width: 90%;
+    }
+}
+
+.login__modal.ui.modal>.content {
+    width: 100%;
+    font-size: 1em;
+    line-height: 1.4;
+    padding: 1.5rem;
+    background: #94618E;
+}
+
+.login__modal__main {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.login__modal__has__error {
+    animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both;
+    transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+}
+
+@keyframes shake {
+    10%, 90% {
+        transform: translate3d(-1px, 0, 0);
+    }
+
+    20%, 80% {
+        transform: translate3d(2px, 0, 0);
+    }
+
+    30%, 50%, 70% {
+        transform: translate3d(-4px, 0, 0);
+    }
+
+    40%, 60% {
+        transform: translate3d(4px, 0, 0);
+    }
+}
+
+
+/*!
+ * # Semantic UI 2.2.12 - Modal
+ * http://github.com/semantic-org/semantic-ui/
+ *
+ *
+ * Released under the MIT license
+ * http://opensource.org/licenses/MIT
+ *
+ */
+
+.ui.modal>.icon:first-child+*,
+.ui.modal>:first-child:not(.icon) {
+    border-top-left-radius: .28571429rem;
+    border-top-right-radius: .28571429rem
+}
+
+.ui.modal>:last-child {
+    border-bottom-left-radius: .28571429rem;
+    border-bottom-right-radius: .28571429rem
+}
+
+.ui.modal>.close {
+    cursor: pointer;
+    position: absolute;
+    top: -2.5rem;
+    right: -2.5rem;
+    z-index: 1;
+    opacity: .8;
+    font-size: 1.25em;
+    color: #F4DECB;
+    width: 2.25rem;
+    height: 2.25rem;
+    padding: .625rem 0 0 0
+}
+
+.ui.modal>.close:hover {
+    opacity: 1
+}
+
+.login__modal.ui.modal>.header {
+    display: block;
+    font-family: "Open Sans", sans-serif;
+    font-weight:  normal;
+    background: #94618E;
+    margin: 0;
+    padding: 1.25rem 1.5rem;
+    box-shadow: none;
+    color: #F8EEE7;
+    border-bottom: 1px solid rgba(34, 36, 38, .15)
+}
+
+@media only screen and (max-width:767px) {
+    .ui.modal {
+        width: 95%;
+        margin: 0 0 0 -47.5%
+    }
+}
+
+@media only screen and (min-width:768px) {
+    .ui.modal {
+        width: 88%;
+        margin: 0 0 0 -44%
+    }
+}
+
+@media only screen and (min-width:992px) {
+    .ui.modal {
+        width: 850px;
+        margin: 0 0 0 -425px
+    }
+}
+
+@media only screen and (min-width:1200px) {
+    .ui.modal {
+        width: 900px;
+        margin: 0 0 0 -450px
+    }
+}
+
+@media only screen and (min-width:1920px) {
+    .ui.modal {
+        width: 950px;
+        margin: 0 0 0 -475px
+    }
+}
+
+@media only screen and (max-width:991px) {
+    .ui.modal>.header {
+        padding-right: 2.25rem
+    }
+    .ui.modal>.close {
+        top: 1.0535rem;
+        right: 1rem;
+        color: rgba(0, 0, 0, .87)
+    }
+}
+
+@media only screen and (max-width:767px) {
+    .ui.modal>.header {
+        padding: .75rem 1rem!important;
+        padding-right: 2.25rem!important
+    }
+    .ui.modal>.content {
+        display: block;
+        padding: 1rem!important
+    }
+    .ui.modal>.close {
+        top: .5rem!important;
+        right: .5rem!important
+    }
+    .ui.modal .content>.description {
+        display: block;
+        width: 100%!important;
+        margin: 0!important;
+        padding: 1rem 0!important;
+        box-shadow: none
+    }
+    .ui.modal>.actions {
+        padding: 1rem 1rem 0!important
+    }
+    .ui.modal .actions>.button,
+    .ui.modal .actions>.buttons {
+        margin-bottom: 1rem
+    }
+}

@@ -3,8 +3,9 @@ import {AUTH_ERROR, AUTH_REQUEST, AUTH_SUCCESS, CLEAR_AUTH, SET_AUTH_TOKEN} from
 const initialState = {
     authToken: null,
     currentUser: null,
-    loading: true,
-    error: null
+    loading: false,
+    error: null,
+    modalOpen: false
 };
 
 export default function reducer (state = initialState, action) {
@@ -20,16 +21,19 @@ export default function reducer (state = initialState, action) {
     } else if (action.type === AUTH_REQUEST) {
         return Object.assign({}, state, {
             loading: true,
+            modalOpen: action.modalOpen,
             error: null
         });
     } else if (action.type === AUTH_SUCCESS) {
         return Object.assign({}, state, {
             loading: false,
+            modalOpen: false,
             currentUser: action.currentUser
         });
     } else if (action.type === AUTH_ERROR) {
         return Object.assign({}, state, {
             loading: false,
+            modalOpen: false,
             error: action.error
         });
     }

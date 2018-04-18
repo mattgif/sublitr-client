@@ -1,9 +1,11 @@
 import React from 'react';
 import {Field, reduxForm} from 'redux-form';
-import MaterialInput from "../form-elements/materialinput";
+import Input from "../form-elements/semantic-form-field";
 import {required, length, nonEmpty, matches, emailFormat} from '../../../validators';
 import {createUser} from "../../../actions/users";
 import {login} from "../../../actions/auth";
+import './registration-form.css';
+
 const passwordLength = length({min: 8, max: 72});
 const passwordMatch = matches('password');
 
@@ -17,42 +19,44 @@ export class RegistrationForm extends React.Component {
 
     render() {
         return (
-            <form onSubmit={this.props.handleSubmit(values =>
+            <form className='registration-form' onSubmit={this.props.handleSubmit(values =>
                 this.onSubmit(values)
             )}>
                 <div className="form__error"/>
                 <Field
                     name="firstName"
                     type="text"
-                    component={MaterialInput}
-                    label="First name"
+                    component={Input}
+                    placeholder="First name"
                     validate={[required, nonEmpty]}/>
                 <Field
                     name="lastName"
                     type="text"
-                    component={MaterialInput}
-                    label="Last name"
+                    component={Input}
+                    placeholder="Last name"
                     validate={[required, nonEmpty]}/>
                 <Field
                     name="email"
                     type="email"
-                    component={MaterialInput}
-                    label="Email"
+                    component={Input}
+                    placeholder="Email"
                     validate={[required, nonEmpty, emailFormat]}/>
                 <Field
                     name="password"
                     type="password"
-                    component={MaterialInput}
-                    label="Password"
+                    component={Input}
+                    placeholder="Password"
                     validate={[required, passwordLength, nonEmpty]}/>
                 <Field
                     name="passwordConfirm"
                     type="password"
-                    component={MaterialInput}
-                    label="Confirm password"
+                    component={Input}
+                    placeholder="Confirm password"
                     validate={[required, nonEmpty, passwordMatch]}
                 />
-                <button type="submit" disabled={this.props.pristine || this.props.submitting}>Join</button>
+                <div className="submit__wrapper">
+                    <button className="submit__button" type="submit" disabled={this.props.pristine || this.props.submitting}>Join</button>
+                </div>
             </form>
         );
     }

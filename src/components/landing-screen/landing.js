@@ -2,40 +2,60 @@ import React from 'react';
 import {BrowserRouter as Router} from 'react-router-dom';
 import RegistrationForm from "../forms/registration-form/registrationform";
 import Navbar from "../navbar/index";
+import "./landing.css";
+import editorInfoImage from './assets/letter_cat.png';
+import previewImage from './assets/preview_placeholder.png'
 
 export default function Landing() {
+    const scrollTo = sectionId => {
+        const scrollToSection = document.getElementById(sectionId);
+        scrollToSection.scrollIntoView()
+    };
+
     return (
         <Router>
             <div className="App">
                 <Navbar/>
-                <header>
-                    <h1>sublitr</h1>
-                    <h3>submissions simplified</h3>
+                <header role="banner" className="landing__hero">
+                    <div className="landing__hero__wrapper">
+                        <h1 className="landing__hero__title">Submissions simplified</h1>
+                        <h3 className="landing__hero__subtitle">Accept, review, and manage your journal or magazine's submissions</h3>
+                        <button className="landing__hero__scroll__button landing__hero__scroll__signup" onClick={() => scrollTo("signup")}>Join</button>
+                        <button className="landing__hero__scroll__button landing__hero__scroll__more" onClick={() => scrollTo("editor-info")}>Learn more</button>
+                        <div className="landing__hero__color__image"/>
+                    </div>
                 </header>
-                <section>
-                    <h3>Accept, review, and manage submissions</h3>
-                    <p>Reduce administrative workload, and focus on finding quality content for your journal or magazine.</p>
-                    <p>[<strong>Placeholder for image of journal submission interface</strong>]</p>
-                    <p>sublitr simplifies the flow of the submission process.</p>
-                    <ul>
-                        <li>Automatically open and close submission windows, and notify writers about approaching deadlines</li>
-                        <li>Track submissions through the selection process</li>
-                        <li>Collaborate with your review team with in-app viewing and comments</li>
-                        <li>Notify submitters with customizable feedback</li>
-                    </ul>
+                <section id="editor-info" className="editor-info">
+                    <div className="editor-info__wrapper">
+                        <div className="editor-info__body">
+                            <h3>Streamline your review process</h3>
+                            <ul>
+                                <li>View documents on the cloud, with nothing to download</li>
+                                <li>Collaborate with your editorial team with real-time comments</li>
+                                <li>Assign and track statuses throughout your internal review</li>
+                                <li>Automatically notify submitters once a final decision is made</li>
+                            </ul>
+                        </div>
+                        <div className="editor-info__image">
+                            <img src={editorInfoImage} alt="cat carrying letters"/>
+                        </div>
+                    </div>
                 </section>
-                <section>
-                    <h3>Get your work out there</h3>
-                    <p>sublitr makes it easy to submit your work to the journals and magazines you love.</p>
-                    <p>[<strong>Placeholder for image of user submission interface</strong>]</p>
-                    <ul>
-                        <li>Submit to multiple journals, magazines, and contests with the click of a button</li>
-                        <li>Always have the latest information on your submission's status</li>
-                    </ul>
+                <section className="app-preview">
+                    <div className="app-preview__wrapper">
+                        <h2>Submission info at a glance</h2>
+                        <p>Access your submission info any time from your Mac, PC, tablet or phone.</p>
+                        <div className="app-preview__image">
+                            <img src={previewImage} alt="sublitr app on phone, pc, and tablet"/>
+                        </div>
+                    </div>
                 </section>
-                <section>
-                    <h3>Join sublitr</h3>
-                    <RegistrationForm/>
+                <section id="signup" className="signup">
+                    <div className="signup__wrapper">
+                        <h3>Join sublitr</h3>
+                        <RegistrationForm/>
+                    </div>
+
                 </section>
             </div>
         </Router>

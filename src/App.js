@@ -47,7 +47,7 @@ export class App extends React.Component {
 const mapStateToProps = state => ({
     user: state.auth.currentUser,
     active: state.sublitr.dashboard.activeTab,
-    loggingIn: state.auth.loading,
+    loggingIn: (state.auth.loading && !state.auth.modalOpen)
 });
 
 export default connect(mapStateToProps)(App);
