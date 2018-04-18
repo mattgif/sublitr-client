@@ -1,7 +1,7 @@
 import React from 'react';
 import {shallow} from 'enzyme';
 
-import TabSubmissions from '../components/dashboard/submission-pane/tabsubmissions';
+import TabSubmissions from '../components/dashboard/submission-pane/submission-pane';
 
 describe.skip('TabSubmissions', () => {
     it('should render without crashing', () => {

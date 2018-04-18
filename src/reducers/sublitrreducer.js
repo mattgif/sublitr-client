@@ -6,75 +6,27 @@ const initialState = {
     dashboard: {activeTab: 'submissions'},
     statusLists: {
         decision: [
-            {
-                short: 'pending',
-                long: 'No decision'
-            },
-            {
-                short: 'revise',
-                long: 'Revise & resubmit'
-            },
-            {
-                short: 'accepted',
-                long: 'Accepted'
-            },
-            {
-                short: 'declined',
-                long: 'Declined'
-            }
+            {text:'Pending review', value: 'pending', icon: 'hourglass full'},
+            {text:'Revise & Resubmit', value: 'revise', icon: 'flag'},
+            {text:'Accepted', value: 'accepted', icon: 'thumbs up'},
+            {text:'Declined', value: 'declined', icon: 'remove circle outline'}
         ],
         recommendation: [
-            {
-                short: 'none',
-                long: 'Not reviewed'
-            },
-            {
-                short: 'underReview',
-                long: 'Under review'
-            },
-            {
-                short: 'accept',
-                long: 'Accept'
-            },
-            {
-                short: 'revise',
-                long: 'Revise & Resubmit'
-            },
-            {
-                short: 'consider',
-                long: 'Consider'
-            },
-            {
-                short: 'decline',
-                long: 'Decline'
-            }
+            {text: 'Not reviewed', value: 'none'},
+            {text: 'Under review', value: 'underReview'},
+            {text: 'Accept', value: 'accept'},
+            {text: 'Revise & Resubmit', value: 'revise'},
+            {text: 'Consider', value: 'consider'},
+            {text: 'Decline', value: 'decline'}
         ]
     },
-    publications: [
-        {
-            "title": "Jellyfish Magazine",
-            "abbr": "jfm"
-        },
-        {
-            "title": "Journal of Poetry",
-            "abbr": "jop"
-        },
-        {
-            "title": "Literature Review",
-            "abbr": "litrev"
-        },
-        {
-            "title": "Jubilat",
-            "abbr": "jubilat"
-        },
-        {
-            "title": "Writer's Digest",
-            "abbr": "wd"
-        },
-        {
-            "title": "Prose Studies",
-            "abbr": "prosestudies"
-        }
+    publications:[
+        {text: 'Jellyfish Magazine', value: 'jfm'},
+        {text: 'Journal of Poetry', value: 'jop'},
+        {text: 'Literature Review', value: 'litrev'},
+        {text: 'Jubilat', value: 'jubilat'},
+        {text: 'Writer\'s Digest', value: 'wd'},
+        {text: 'Prose Studies', value:'prosestudies'}
     ],
     filterValues: {
         recommendationFilter: ["all"],

@@ -1,0 +1,54 @@
+.tabList {
+    border-bottom: 1px solid rgba(0, 0, 0, .3);
+    margin-bottom: 0;
+}
+.tabList__list {
+    list-style: none;
+    text-align: left;
+    display: flex;
+    padding-left: 0;
+    margin-bottom: 0;
+}
+
+.tabList__item {
+    display: inline-block;
+    font-size: 16px;
+    text-align: center;
+    height: 40px;
+    line-height: 40px;
+    width: 115px;
+    padding-bottom: 4px;
+    margin-bottom: -1px;
+    margin-right: 8px;
+    margin-left: 4px;
+    border: 1px solid rgba(0, 0, 0, .3);
+    background-color: #F4DECB;
+}
+
+.tabList__item:hover {
+    background-color: #49274A;
+    cursor: pointer;
+}
+
+.tabList__item:hover a {
+    color: #F8EEE7;
+}
+
+.tabList__item.active {
+    background-color: #F8EEE7;
+    border-bottom: none;
+}
+
+.tabList__item.active:hover a {
+    color: #333;
+}
+
+.tabList__link {
+    display: block;
+    color: #333;
+}
+
+.tabList__link:hover {
+    color: #333;
+}
+

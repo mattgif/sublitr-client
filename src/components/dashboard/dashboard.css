@@ -1,0 +1,85 @@
+.dashboard {
+    background-color: #fff;
+    height: 100%;
+    padding: 30px;
+    font-family: "Open Sans", Lato, sans-serif;
+}
+
+.dashboard__header {
+    font-family: "Open Sans", Lato, sans-serif;
+}
+
+.pane {
+    background-color: #F8EEE7;
+    padding-top: 25px;
+    padding-bottom: 50px;
+    border: 1px solid rgba(0, 0, 0, .3);
+    border-top: none;
+}
+
+.pane > * {
+    margin: 20px;
+}
+
+.pane__header__title {
+    width: 100%;
+}
+
+.pane__header {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: space-between;
+}
+
+.submissionList {
+    list-style: none;
+    text-align: left;
+    padding-left: 0;
+}
+
+.submissionList li {
+    width: 100%;
+}
+
+.new-submission-button {
+    display: inline-block;
+    color: #fff;
+    background-color: #008CBA;
+    border: 2px solid #008CBA;
+    font-size: 18px;
+    height: 44px;
+    line-height: 38px;
+    padding: 2px 10px;
+    border-radius: 4px;
+    transition: .15s ease-in;
+}
+
+@media screen and (min-width: 500px) {
+    .pane__header .new-submission-button {
+        margin-left: 35px;
+        margin-top: -10px;
+    }
+
+    .pane__header__title {
+        width: auto;
+    }
+}
+
+.new-submission-button:hover {
+    background-color: #fff;
+    color: #008CBA;
+}
+
+.filter__list .filter {
+    margin-bottom: 8px;
+}
+
+@media screen and (min-width: 650px) {
+    .filter__list {
+        list-style: none;
+        display: flex;
+        justify-content: space-between;
+        max-width: 600px;
+    }
+}

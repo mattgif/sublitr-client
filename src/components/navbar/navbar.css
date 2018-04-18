@@ -8,6 +8,14 @@
     background-color: rgb(148, 104, 174);
 }
 
+.navbar__shadow {
+    -webkit-box-shadow: 0 1px 6px 3px #999;
+    -moz-box-shadow: 0 1px 6px 3px #999;
+    box-shadow: 0 1px 6px 3px #999;
+    position: sticky;
+    top: 0;
+}
+
 .navbar__brand {
     margin-right: auto;
     font-size: 30px;

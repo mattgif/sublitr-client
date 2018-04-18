@@ -1,9 +1,9 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import '../tab.css';
 import CardReview from "../../submission-cards/review-card/index";
 import {fetchSubmissions} from "../../../actions/submissions";
-import CubicLoadingSpinner from "../../loading-animations/cubic-loading-spinner"
+import CubicLoadingSpinner from "../../loading-animations/cubic-loading-spinner";
+import { Dropdown } from 'semantic-ui-react';
 
 export class TabReview extends React.Component {
     constructor (props) {
@@ -19,21 +19,8 @@ export class TabReview extends React.Component {
         this.props.dispatch(fetchSubmissions())
     }
 
-    // options for publications, recommendation status, and decision status are defined in state
-    // so they can be customized by user
-    pubOptions = this.props.publications.map((pub, index) => {
-        return (<option key={index} value={pub.name}>{pub.name}</option>)
-    });
-
-    recOptions = this.props.statusLists.recommendation.map((status, index) => {
-        return <option key={index} value={status.short}>{status.long}</option>
-    });
-
-    decOptions = this.props.statusLists.decision.map((status, index) => {
-        return <option key={index} value={status.short}>{status.long}</option>
-    });
-
-    updateFilter = e => {this.setState({[e.target.id]: e.target.value})};
+    updateFilter = data => {
+        this.setState({[data.id]: data.value})};
 
     matchesField = (targetField, filterValue) => {
         return targetField === filterValue || filterValue === "all"
@@ -66,47 +53,45 @@ export class TabReview extends React.Component {
                 {this.formattedSubmissions(this.filteredSubmissions(this.props.submissions, this.state))}
             </ul>
         }
+
+        const decisionOptions = [{text: 'Any decision', value: 'all'}, ...this.props.statusLists.decision];
+        const recOptions = [{text: 'Any recommendation', value: 'all'}, ...this.props.statusLists.recommendation]
+        const pubOptions = [{text: 'Any publication', value: 'all'}, ...this.props.publications];
         return (
-            <section className={this.props.hidden ? "tab hidden" : "tab"}>
+            <section className={this.props.hidden ? "pane hidden" : "pane"}>
                 <h2>Review submissions</h2>
+                <div className="filter__section">
+                    <h4>Filter by:</h4>
+                    <ul className="filter__list">
+                        <li>
+                            <Dropdown className="filter"
+                                      name="decisionFilter"
+                                      id="decisionFilter"
+                                      placeholder="Final decision"
+                                      options={decisionOptions}
+                                      onChange={(e, data) => this.updateFilter(data)}
+                            />
+                        </li>
+                        <li>
+                            <Dropdown className="filter"
+                                      name="recommendationFilter"
+                                      id="recommendationFilter"
+                                      placeholder="Reviewer recommendation"
+                                      options={recOptions}
+                                      onChange={(e, data) => this.updateFilter(data)}
+                            />
+                        </li>
+                        <li>
+                            <Dropdown className="filter"
+                                      name="publicationFilter"
+                                      id="publicationFilter"
+                                      placeholder="Publication"
+                                      options={pubOptions}
+                                      onChange={(e, data) => this.updateFilter(data)}
+                            />
+                        </li>
+                    </ul>
 
-                <div>
-                    <div>
-                        <label htmlFor="decisionFilter">Final decision</label>
-                        <select className="filter" name="decisionFilter" id="decisionFilter"
-                                value={this.state.decisionFilter}
-                                onChange={e => this.updateFilter(e)}
-                        >
-                            <option value="all">All submissions</option>
-                            {this.decOptions}
-                        </select>
-                    </div>
-
-                    <div>
-                        <p><label htmlFor="recommendationFilter">Reviewer recommendation</label></p>
-                        <select className="filter"
-                                name="recommendationFilter"
-                                id="recommendationFilter"
-                                value={this.state.recommendationFilter}
-                                onChange={e => this.updateFilter(e)}
-                        >
-                            <option value="all">All submissions</option>
-                            {this.recOptions}
-                        </select>
-                    </div>
-
-                    <div>
-                        <label htmlFor="publicationFilter">Publication</label>
-                        <select className="filter"
-                                name="publicationFilter"
-                                id="publicationFilter"
-                                value={this.state.publicationFilter}
-                                onChange={e => this.updateFilter(e)}
-                        >
-                            <option value="all">All publications</option>
-                            {this.pubOptions}
-                        </select>
-                    </div>
                 </div>
                 {submissionList}
             </section>

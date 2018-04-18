@@ -2,10 +2,12 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {Route, Switch} from 'react-router-dom';
 
-import TabList from "./tablist";
+import TabList from "./tabs/tablist";
 import TabReview from "./review-pane/index";
-import TabUsers from "./user-pane/tabusers";
-import TabSubmissions from "./submission-pane/tabsubmissions";
+import TabUsers from "./user-pane/user-pane";
+import TabSubmissions from "./submission-pane/submission-pane";
+
+import './dashboard.css';
 
 export function Dashboard(props) {
     let name;
@@ -15,8 +17,8 @@ export function Dashboard(props) {
 
     if (props.user.admin || props.user.editor) {
         return (
-            <div>
-                <header>
+            <div className="dashboard">
+                <header className="dashboard__header">
                     <h1>{name}</h1>
                 </header>
                 <TabList active={props.active}/>
@@ -30,7 +32,10 @@ export function Dashboard(props) {
     }
 
     return (
-        <div>
+        <div className="dashboard">
+            <header className="dashboard__header">
+                <h1>My dashboard</h1>
+            </header>
             <TabSubmissions/>
         </div>
     )

@@ -1,11 +1,12 @@
 .card {
-    border: 1px solid #333;
+    border: 1px solid rgba(0, 0, 0, 0.5);
     border-radius: 3px;
     margin-bottom: 10px;
     padding: 5px 10px;
     display: flex;
     align-items: center;
     flex-wrap: wrap;
+    background-color: #fff;
 }
 
 .card.expanded {
@@ -41,6 +42,47 @@
 
 .card__list {
     list-style: none;
+    margin-right: 35px;
+    margin-bottom: 15px;
+}
+
+.card .expand {
+    margin-left: auto;
+    margin-top: auto;
+    color: #333;
+}
+
+.card .expand button {
+    background: none;
+    border: none;
+    height: 44px;
+    width: 44px;
+    padding: 4px;
+    transition: .15s ease-in;
+}
+
+.card .expand button:hover {
+    color: #49274A;
+    border: 2px solid #49274A;
+    border-radius: 4px;
+}
+
+.view-submission-button {
+    display: inline-block;
+    color: #008CBA;
+    background-color: transparent;
+    border: 1px solid #008CBA;
+    font-size: 14px;
+    height: 44px;
+    line-height: 38px;
+    padding: 2px 10px;
+    border-radius: 4px;
+    transition: .25s ease-in;
+}
+
+.view-submission-button:hover {
+    color: #fff;
+    background-color: #008CBA;
 }
 
 

@@ -18,7 +18,7 @@ export default class TabUsers extends React.Component {
 
     render() {
         return (
-            <section className={this.props.hidden ? "tab hidden" : "tab"}>
+            <section className={this.props.hidden ? "pane hidden" : "pane"}>
                 <h2>Users</h2>
                 <button style={this.hiddenStyle} onClick={() => seedUsers()}>Seed users</button>
                 <label htmlFor="userFilter">User roles</label>

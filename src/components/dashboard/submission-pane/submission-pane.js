@@ -1,9 +1,9 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
-import '../tab.css';
 import CardSubmission from "../../submission-cards/basic-card/index";
 import {fetchSubmissions} from "../../../actions/submissions";
+import { Icon, Dropdown} from 'semantic-ui-react';
 
 export class TabSubmissions extends React.Component {
     constructor (props) {
@@ -17,32 +17,23 @@ export class TabSubmissions extends React.Component {
         this.props.dispatch(fetchSubmissions())
     }
 
-    filterList = (e) => {
-        const val = e.target.value;
+    filterList = (data) => {
+        const val = data.value;
         this.setState({filter: val})
     };
 
     render() {
+        const options = [{text:'All Submissions', value: 'all'}, ...this.props.decisions];
         return(
-            <section className={this.props.hidden ? "tab hidden" : "tab"}>
-                <h2>My submissions</h2>
+            <section className={this.props.hidden ? "pane hidden" : "pane"}>
+                <header className="pane__header">
+                    <h2 className="pane__header__title">My submissions</h2>
 
-                <Link to='/submit'>+ New submission</Link>
-
+                    <Link className="new-submission-button" to='/submit'><Icon name="plus"/> New submission</Link>
+                </header>
                 <div>
-                    <label htmlFor="submissionFilter">Status</label>
-                    <select className="filter"
-                            name="submissionFilter"
-                            id="submissionFilter"
-                            value={this.state.filter}
-                            onChange={e => this.filterList(e)}
-                    >
-                        <option value="all">All submissions</option>
-                        <option value="pending">Pending review</option>
-                        <option value="revise">Revise &amp; Resubmit</option>
-                        <option value="accepted">Accepted</option>
-                        <option value="declined">Declined</option>
-                    </select>
+                    <h4>Filter by:</h4>
+                    <Dropdown placeholder='Submission status' options={options} onChange={(e, data) => this.filterList(data)}/>
                 </div>
 
                 <ul className="submissionList">
@@ -76,7 +67,8 @@ const mapStateToProps = state => ({
              hash[key] = state.submissions.submissionData[key]
         }
         return hash;
-    }, {})
+    }, {}),
+    decisions: state.sublitr.statusLists.decision
 });
 
 export default connect(mapStateToProps)(TabSubmissions)

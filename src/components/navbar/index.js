@@ -13,8 +13,13 @@ export function Navbar(props) {
         clearAuthToken();
     };
 
+    let shadow = '';
+    if (props.user) {
+        // add drop shadow when not showing landing
+        shadow = ' navbar__shadow'
+    }
     return (
-        <nav className="navbar">
+        <nav className={"navbar" + shadow}>
             <Link className="navbar__brand" to='/'><Icon name="strikethrough"/> <span
                 className="navbar__brand__outer">sub</span><span
                 className="navbar__brand__inner">lit</span><span

@@ -33,15 +33,13 @@ export default class SortableTable extends React.Component {
     formattedHeaders = (sortBy, reverse) => this.props.headers.map(header => {
         let sortIcon = ' ';
         if (header.key === sortBy) {
-            sortIcon = reverse ? <Icon name="chevron up"/> : <Icon name="chevron down"/>;
+            sortIcon = reverse ? <Icon name="caret up"/> : <Icon name="caret down"/>;
         }
         return <th key={header.key} onClick={() => this.sortTable(header.key)}>{header.label} {sortIcon}</th>
     });
 
     render() {
-
         const tableData = this.props.formatData(this.props.data);
-        console.log(tableData);
         return (
             <table id={this.props.tableId}>
                 <thead>
