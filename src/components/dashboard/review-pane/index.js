@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import CardReview from "../../submission-cards/review-card/index";
 import {fetchSubmissions} from "../../../actions/submissions";
 import CubicLoadingSpinner from "../../loading-animations/cubic-loading-spinner";
-import { Dropdown } from 'semantic-ui-react';
+import { Dropdown, Icon } from 'semantic-ui-react';
 
 export class TabReview extends React.Component {
     constructor (props) {
@@ -49,17 +49,25 @@ export class TabReview extends React.Component {
         if (this.props.loading) {
             submissionList = <CubicLoadingSpinner/>
         } else {
-            submissionList =  <ul className="submissionList">
-                {this.formattedSubmissions(this.filteredSubmissions(this.props.submissions, this.state))}
-            </ul>
+            try {
+                submissionList = <ul className="submissionList">
+                    {this.formattedSubmissions(this.filteredSubmissions(this.props.submissions, this.state))}
+                </ul>
+            }
+            catch(err) {
+                console.error(err)
+                // stale mount from switching between user/editors - need to refresh submissions with editor creds
+                this.props.dispatch(fetchSubmissions())
+            }
         }
 
-        const decisionOptions = [{text: 'Any decision', value: 'all'}, ...this.props.statusLists.decision];
-        const recOptions = [{text: 'Any recommendation', value: 'all'}, ...this.props.statusLists.recommendation]
-        const pubOptions = [{text: 'Any publication', value: 'all'}, ...this.props.publications];
+        const decisionOptions = [{text: 'Any decision', value: 'all', key: 'all'}, ...this.props.statusLists.decision];
+        const recOptions = [{text: 'Any recommendation', value: 'all', key: 'all'}, ...this.props.statusLists.recommendation]
+        const pubOptions = [{text: 'Any publication', value: 'all', key: 'all'}, ...this.props.publications];
         return (
             <section className={this.props.hidden ? "pane hidden" : "pane"}>
                 <h2>Review submissions</h2>
+                <p>Select the <Icon name='expand'/> icon to view and update submission statuses</p>
                 <div className="filter__section">
                     <h4>Filter by:</h4>
                     <ul className="filter__list">

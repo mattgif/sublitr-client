@@ -93,7 +93,12 @@ export class ReviewCard extends React.Component {
                     <li className='title'>{this.props.submission.title}</li>
                     <li className='author'>{this.props.submission.author}</li>
                 </ul>
-                <Link className="view-submission-button" to={`/submission/${this.props.submission.id}`}>View submission</Link>
+                <div className="expand">
+                    <Link className="view-submission-button" to={`/submission/${this.props.submission.id}`}>View submission</Link>
+                    <button onClick={() => this.toggleExpand()}>
+                        <Icon size={'big'} name={this.state.expanded ? 'compress' : 'expand'}/>
+                    </button>
+                </div>
                 <div className={this.state.expanded ? "additional reviewer visible" : "hidden additional reviewer"}>
                     <dl className="status__info">
                         <h3>Current status:</h3>
@@ -135,11 +140,6 @@ export class ReviewCard extends React.Component {
                         <dt>Last action:</dt>
                         <dd><time dateTime={this.props.submission.reviewerInfo.lastAction}>{lastActionDate}</time></dd>
                     </dl>
-                </div>
-                <div className="expand">
-                    <button onClick={() => this.toggleExpand()}>
-                        <Icon size={'big'} name={this.state.expanded ? 'compress' : 'expand'}/>
-                    </button>
                 </div>
             </div>
         )

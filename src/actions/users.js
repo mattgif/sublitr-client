@@ -111,3 +111,9 @@ export const createUser = user => dispatch => {
             }
         })
 };
+
+export const USER_SORT_BY = 'USER_SORT_BY';
+export const userSortBy = key => ({
+    type: USER_SORT_BY,
+    key
+});

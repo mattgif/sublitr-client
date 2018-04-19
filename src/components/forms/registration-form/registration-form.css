@@ -41,11 +41,11 @@
         justify-content: center;
     }
 
-    .ui.input {
+    .registration-form .ui.input {
         width: 100%;
     }
 
-    .field {
+    .registration-form .field {
         width: 40%;
         margin: 0 20px;
     }

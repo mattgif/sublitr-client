@@ -12,4 +12,4 @@ export const matches = field => (value, allValues) =>
     field in allValues && value.trim() === allValues[field].trim() ? undefined : 'Does not match';
 
 const emailPattern = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
-export const emailFormat = value => (value.match(emailPattern) ? undefined : 'Invalid email format');
+export const emailFormat = value => (value.match(emailPattern) ? undefined : 'Invalid email');

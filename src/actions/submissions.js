@@ -1,5 +1,6 @@
 import {API_BASE_URL} from "../config";
 import {normalizeResponseErrors} from "./utils";
+import {SubmissionError} from "redux-form";
 
 // Getting submissions
 export const GET_SUBMISSIONS_REQUEST = 'GET_SUBMISSIONS_REQUEST';
@@ -253,3 +254,41 @@ export const deleteComment = (submissionId, commentId) => (dispatch, getState) =
         .then(() => dispatch(deleteCommentSuccess(submissionId, commentId)))
         .catch(error => dispatch(deleteCommentError(commentId, error)))
 };
+
+// create submission
+export const CREATE_SUBMISSION_REQUEST = 'CREATE_SUBMISSION_REQUEST';
+export const createSubmissionRequest = () => ({
+    type: CREATE_COMMENT_REQUEST
+})
+
+export const CREATE_SUBMISSION_SUCCESS = 'CREATE_SUBMISSION_SUCCESS';
+export const createSubmissionSuccess = submission => ({
+    type: CREATE_SUBMISSION_SUCCESS,
+    submission
+});
+
+export const createSubmission = formData => (dispatch, getState) => {
+    dispatch(createSubmissionRequest());
+    fetch(`${API_BASE_URL}/submissions`, {
+        method: 'POST',
+        body: formData,
+        headers: {
+            Authorization: `Bearer ${getState().auth.authToken}`
+        }
+    })
+        .then(res => normalizeResponseErrors(res))
+        .then(res => res.json())
+        .then(res => dispatch(createSubmissionSuccess(res.body)))
+        .catch(err => {
+            const {reason, message, location} = err;
+            if (reason === 'ValidationError') {
+                return Promise.reject(
+                    new SubmissionError({
+                        [location]: message
+                    })
+                )
+            }
+        })
+}
+
+

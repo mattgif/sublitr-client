@@ -21,6 +21,7 @@
     box-shadow: 0 1px 6px 3px #999;
     position: sticky;
     top: 0;
+    z-index: 900;
 }
 
 .navbar__brand {
@@ -64,4 +65,9 @@ a.navbar__brand i {
     cursor: pointer;
     color: #49274A;
     border-bottom: 3px solid #49274A;
+}
+
+#navbar__logo {
+    height: 25px;
+    margin-left: 8px;
 }

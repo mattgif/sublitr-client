@@ -1,5 +1,5 @@
 import React from 'react';
-import { Icon } from 'semantic-ui-react';
+import { Icon, Header, Table, Button, Checkbox } from 'semantic-ui-react';
 
 export default class SortableTable extends React.Component {
     // takes prop headers / array of k/v pairs for label and key
@@ -31,26 +31,41 @@ export default class SortableTable extends React.Component {
     }
 
     formattedHeaders = (sortBy, reverse) => this.props.headers.map(header => {
-        let sortIcon = ' ';
+        let sortIcon = '   ';
         if (header.key === sortBy) {
             sortIcon = reverse ? <Icon name="caret up"/> : <Icon name="caret down"/>;
         }
-        return <th key={header.key} onClick={() => this.sortTable(header.key)}>{header.label} {sortIcon}</th>
+        return <Table.HeaderCell key={header.key} onClick={() => this.sortTable(header.key)}>{header.label} {sortIcon}</Table.HeaderCell>
     });
 
     render() {
         const tableData = this.props.formatData(this.props.data);
         return (
-            <table id={this.props.tableId}>
-                <thead>
-                <tr>
-                    {this.formattedHeaders(this.state.sortBy, this.state.reverse)}
-                </tr>
-                </thead>
-                <tbody>
+            <Table compact celled>
+                <Table.Header>
+                    <Table.Row>
+                        {this.formattedHeaders(this.state.sortBy, this.state.reverse)}
+                        <Table.HeaderCell/>
+                    </Table.Row>
+                </Table.Header>
+
+                <Table.Body>
                     {tableData}
-                </tbody>
-            </table>
+                </Table.Body>
+
+                <Table.Footer fullWidth>
+                    <Table.Row>
+                        <Table.HeaderCell colSpan='4'>
+                            <Button floated='right' icon labelPosition='left' primary size='small'>
+                                <Icon name='user' /> Add User
+                            </Button>
+                            <Button size='small'>Approve</Button>
+                            <Button disabled size='small'>Approve All</Button>
+                        </Table.HeaderCell>
+                        <Table.HeaderCell />
+                    </Table.Row>
+                </Table.Footer>
+            </Table>
         )
     }
 }

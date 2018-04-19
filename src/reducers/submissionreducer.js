@@ -1,5 +1,7 @@
 import {
-    CREATE_COMMENT_REQUEST, CREATE_COMMENT_SUCCESS, DELETE_COMMENT_ERROR, DELETE_COMMENT_REQUEST,
+    CREATE_COMMENT_REQUEST, CREATE_COMMENT_SUCCESS, CREATE_SUBMISSION_REQUEST, CREATE_SUBMISSION_SUCCESS,
+    DELETE_COMMENT_ERROR,
+    DELETE_COMMENT_REQUEST,
     DELETE_COMMENT_SUCCESS, DELETE_SUBMISSION_ERROR, DELETE_SUBMISSION_REQUEST, DELETE_SUBMISSION_SUCCESS,
     FETCH_DOCUMENT_ERROR,
     FETCH_DOCUMENT_REQUEST, FETCH_DOCUMENT_SUCCESS, GET_SUBMISSIONS_REQUEST, GET_SUBMISSIONS_SUCCESS,
@@ -196,6 +198,17 @@ export const submissionReducer = (state = initialState, action) => {
                 [action.submissionId]: false
             }
         }
+    }
+
+    else if (action.type === CREATE_SUBMISSION_REQUEST) {
+        return {
+            ...state,
+            loading: true
+        }
+    }
+
+    else if (action.type === CREATE_SUBMISSION_SUCCESS) {
+        console.log(action);
     }
 
     return state;

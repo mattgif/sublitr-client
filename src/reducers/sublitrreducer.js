@@ -6,27 +6,27 @@ const initialState = {
     dashboard: {activeTab: 'submissions'},
     statusLists: {
         decision: [
-            {text:'Pending review', value: 'pending', icon: 'hourglass full'},
-            {text:'Revise & Resubmit', value: 'revise', icon: 'flag'},
-            {text:'Accepted', value: 'accepted', icon: 'thumbs up'},
-            {text:'Declined', value: 'declined', icon: 'remove circle outline'}
+            {text:'Pending review', value: 'pending', icon: 'hourglass full', key:'pending'},
+            {text:'Revise & Resubmit', value: 'revise', icon: 'flag', key:'revise'},
+            {text:'Accepted', value: 'accepted', icon: 'thumbs up', key: 'accepted'},
+            {text:'Declined', value: 'declined', icon: 'remove circle outline', key: 'declined'}
         ],
         recommendation: [
-            {text: 'Not reviewed', value: 'none'},
-            {text: 'Under review', value: 'underReview'},
-            {text: 'Accept', value: 'accept'},
-            {text: 'Revise & Resubmit', value: 'revise'},
-            {text: 'Consider', value: 'consider'},
-            {text: 'Decline', value: 'decline'}
+            {text: 'Not reviewed', value: 'none', key: 'none'},
+            {text: 'Under review', value: 'underReview', key: 'underReview'},
+            {text: 'Accept', value: 'accept', key: 'accept'},
+            {text: 'Revise & Resubmit', value: 'revise', key: 'revise'},
+            {text: 'Consider', value: 'consider', key: 'consider'},
+            {text: 'Decline', value: 'decline', key:'decline'}
         ]
     },
     publications:[
-        {text: 'Jellyfish Magazine', value: 'jfm'},
-        {text: 'Journal of Poetry', value: 'jop'},
-        {text: 'Literature Review', value: 'litrev'},
-        {text: 'Jubilat', value: 'jubilat'},
-        {text: 'Writer\'s Digest', value: 'wd'},
-        {text: 'Prose Studies', value:'prosestudies'}
+        {text: 'Jellyfish Magazine', value: 'jfm', key: 'jfm'},
+        {text: 'Journal of Poetry', value: 'jop', key: 'jop'},
+        {text: 'Literature Review', value: 'litrev', key: 'litrev'},
+        {text: 'Jubilat', value: 'jubilat', key: 'jublat'},
+        {text: 'Writer\'s Digest', value: 'wd', key: 'wd'},
+        {text: 'Prose Studies', value:'prosestudies', key: 'prosestudies'}
     ],
     filterValues: {
         recommendationFilter: ["all"],
@@ -35,7 +35,7 @@ const initialState = {
         userFilter: "all"
     },
     showSidebar: false,
-    allowedFileTypes: ["application/pdf", "application/vnd.openxmlformats-officedocument.wordprocessingml.document"]
+    allowedFileTypes: ["application/pdf"]
 };
 
 export const sublitrReducer = (state = initialState, action) => {

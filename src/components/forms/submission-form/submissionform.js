@@ -1,16 +1,18 @@
 import React from 'react';
-import MaterialInput from "../form-elements/materialinput";
-import {Field, reduxForm, SubmissionError} from 'redux-form';
+import Input from "../form-elements/semantic-form-field";
+import {Field, reduxForm} from 'redux-form';
+import { Dropdown, Form, TextArea } from 'semantic-ui-react';
 import Dropzone from 'react-dropzone';
 import {connect} from 'react-redux';
 import {nonEmpty, required} from "../../../validators";
-import {API_BASE_URL} from "../../../config";
+import './submission-form.css';
+import {createSubmission} from "../../../actions/submissions";
 
 export class SubmissionForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            coverLetter: "Write a short cover letter to the editors of the publication.",
+            coverLetter: '',
             uploadedFiles: [],
             fileError: false
         };
@@ -48,49 +50,32 @@ export class SubmissionForm extends React.Component {
         if (values.cover) {
             data.append('coverLetter', values.cover);
         }
-        data.append('doc', this.state.uploadedFiles[0]);
-        return fetch(`${API_BASE_URL}/submissions`, {
-            method: 'POST',
-            body: data,
-            headers: {
-                Authorization: `Bearer ${this.props.authToken}`
-            }
-        })
-            .then(res => {
-                if (!(res.status === 201)) {
-                    if (res.headers.has('content-type') &&
-                        res.headers.get('content-type').startsWith('application/json')
-                    ) {
-                        // it's a JSON error with a custom message
-                        return res.json().then(Promise.reject)
-                    }
-                    // it's an express error
-                    return Promise.reject({
-                        code: res.status,
-                        message: res.statusText
-                    });
-                }
-            })
-            .catch(err => {
-                const {reason, message, location} = err;
-                if (reason === 'ValidationError') {
-                    return Promise.reject(
-                        new SubmissionError({
-                            [location]: message
-                        })
-                    )
-                }
-            })
+        if (this.state.uploadedFiles.length) {
+            // file has been attached & validated
+            data.append('doc', this.state.uploadedFiles[0]);
+            this.props.dispatch(createSubmission(data));
+        } else {
+            this.setState({fileError: 'Looks like you forgot to attach a file'})
+        }
     }
 
     render() {
-        const pubOptions = this.props.publications.map((pub, index) => {
-            return (<option key={index} value={pub.title}>{pub.title}</option>)
-        });
+        const DropDownFormField = props => (
+            <Form.Field>
+                <Dropdown selection search
+                          {...props.input}
+                          value={props.input.value}
+                          onChange={(param, data) => props.input.onChange(data.value)}
+                          placeholder={props.label}
+                          options={props.options}
+                          error={props.error}
+                />
+            </Form.Field>
+        );
 
         let fileError;
         if (this.state.fileError) {
-            fileError = <div className="input__error">{this.state.fileError}</div>
+            fileError = <p className="tip">{this.state.fileError}</p>
         }
 
         let filePreviews;
@@ -101,6 +86,7 @@ export class SubmissionForm extends React.Component {
         let successMessage;
         if (this.props.submitSucceeded) {
             successMessage = (
+                // TODO: redirect to submission
                 <div className="message message__success">
                     Successfully submitted!
                 </div>
@@ -115,58 +101,71 @@ export class SubmissionForm extends React.Component {
                 </div>
             )
         }
-
         return (
-            <main>
-                <header>
-                    <h1>New submission</h1>
-                </header>
-                <form onSubmit={this.props.handleSubmit(values => this.onSubmit(values))}>
-                    <div className="form__message">
-                        {successMessage}
-                        {errorMessage}
-                    </div>
-                    <fieldset>
-                        <legend>Submission Info</legend>
-                        <Field
-                            name="title"
-                            label="Submission title"
-                            type="text"
-                            component={MaterialInput}
-                            validate={[required, nonEmpty]}
-                        />
-                        <label htmlFor="publication">Submit to which publication?</label>
-                        <Field
-                            name="publication"
-                            component="select"
-                            validate={[required]}
-                        >
-                            <option/>
-                            {pubOptions}
-                        </Field>
-                    </fieldset>
-                    <fieldset>
-                        <legend>Cover letter</legend>
-                        <textarea name="cover" value={this.state.coverLetter} onChange={this.handleCoverLetterEntry}/>
-                    </fieldset>
-                    <fieldset>
-                        <legend>Upload document(s)</legend>
-                        {fileError}
-                        <p className="tip">Documents must be in .pdf, .doc, or .docx formats.</p>
-                        <Dropzone onDrop={files => this.onDrop(files)} multiple={false}>
-                            <div>Drop your file here, or click to select file to upload.</div>
-                        </Dropzone>
-                        <div>
-                            <h4>Uploaded files:</h4>
-                            <ul>
-                                {filePreviews}
-                            </ul>
+            <main className="submission__form">
+                <div className="submission__form wrapper">
+                    <header className="submission__form">
+                        <h1>New submission</h1>
+                    </header>
+                    <form onSubmit={this.props.handleSubmit(values => this.onSubmit(values))}>
+                        <div className="form__message">
+                            {successMessage}
+                            {errorMessage}
                         </div>
+                        <fieldset>
+                            <legend>Submission Info</legend>
+                            <Field
+                                name="title"
+                                placeholder="Submission title"
+                                type="text"
+                                component={Input}
+                                validate={[required, nonEmpty]}
+                                id="title__input"
+                            />
+                            <label htmlFor="publication">Submit to which publication?</label>
+                            <Field
+                                name="publication"
+                                label="Publication"
+                                component={DropDownFormField}
+                                validate={[required]}
+                                options={this.props.publications}
+                                id="publication__dropdown"
+                            >
+                            </Field>
+                        </fieldset>
+                        <fieldset>
+                            <legend>Cover letter</legend>
+                            <TextArea name="cover" autoHeight
+                                      placeholder='Write a short cover letter to the editors of the publication.'
+                                      style={{ minHeight: 100, width: '100%' }}
+                                      value={this.state.coverLetter}
+                                      onChange={this.handleCoverLetterEntry} />
+                        </fieldset>
+                        <fieldset>
+                            <legend>Upload document</legend>
+                            <p className={this.state.uploadedFiles.length > 0 ? 'hidden' : 'visible'}>Documents must be in PDF format</p>
+                            <section className={this.state.uploadedFiles.length > 0 ? 'hidden dropzone' : 'dropzone visible'}>
+                                {fileError}
+                                <Dropzone onDrop={files => this.onDrop(files)}
+                                          multiple={false}
+                                >
+                                    <div>Drop your file here, or click to select file to upload.</div>
+                                </Dropzone>
+                            </section>
+                            <section className={this.state.uploadedFiles.length > 0 ? 'uploaded__files visible' : 'uploaded__files hidden'}>
+                                <h4>Uploaded file:</h4>
+                                <ul>
+                                    {filePreviews}
+                                </ul>
+                            </section>
 
-                    </fieldset>
-                    <button onClick={() => this.props.history.goBack()}>Cancel</button>
-                    <button type="submit">Submit?</button>
-                </form>
+                        </fieldset>
+                        <section className="submission__form buttons">
+                            <button className="cancel" onClick={() => this.props.history.goBack()}>Cancel</button>
+                            <button className="primary" type="submit">Submit</button>
+                        </section>
+                    </form>
+                </div>
             </main>
         )
     }
@@ -174,8 +173,7 @@ export class SubmissionForm extends React.Component {
 
 const mapStateToProps = state => ({
     publications: state.sublitr.publications,
-    allowedFileTypes: state.sublitr.allowedFileTypes,
-    authToken: state.auth.authToken
+    allowedFileTypes: state.sublitr.allowedFileTypes
 });
 
 SubmissionForm = connect(mapStateToProps)(SubmissionForm);

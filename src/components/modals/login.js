@@ -18,7 +18,7 @@ class Login extends React.Component {
         let loginError;
         let shake = '';
         if (this.props.error) {
-            loginError = <Message error header={this.props.error} />
+            loginError = <Message error content={this.props.error} />
             shake = ' login__modal__has__error'
         }
 

@@ -23,13 +23,13 @@ export class TabSubmissions extends React.Component {
     };
 
     render() {
-        const options = [{text:'All Submissions', value: 'all'}, ...this.props.decisions];
+        const options = [{text:'All Submissions', value: 'all', key: 'all'}, ...this.props.decisions];
         return(
             <section className={this.props.hidden ? "pane hidden" : "pane"}>
                 <header className="pane__header">
                     <h2 className="pane__header__title">My submissions</h2>
 
-                    <Link className="new-submission-button" to='/submit'><Icon name="plus"/> New submission</Link>
+                    <Link className="new-submission-button primary" to='/submit'><Icon name="plus"/> New submission</Link>
                 </header>
                 <div>
                     <h4>Filter by:</h4>

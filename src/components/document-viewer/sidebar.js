@@ -41,7 +41,6 @@ export class PushableLeftSidebar extends React.Component {
 
         return (
             <div className="sidebar">
-                <MobileMenuToggle checked={this.state.visible} onChange={this.toggleVisibility}/>
                 <Sidebar.Pushable as={Segment}>
                     <Sidebar as={Menu} animation='uncover' width='wide' visible={visible} icon='labeled' vertical>
                         <header>
@@ -77,6 +76,7 @@ export class PushableLeftSidebar extends React.Component {
                         </Menu.Item>
                     </Sidebar>
                     <Sidebar.Pusher>
+                        <MobileMenuToggle checked={this.state.visible} onChange={this.toggleVisibility}/>
                         {this.props.children}
                     </Sidebar.Pusher>
                 </Sidebar.Pushable>
