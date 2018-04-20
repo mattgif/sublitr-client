@@ -1,14 +1,4 @@
-.submission__form.wrapper {
-    background-color: #fff;
-    height: 100%;
-    padding: 30px;
-    font-family: "Open Sans", Lato, sans-serif;
-    max-width: 900px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.submission__form fieldset {
+.submission__form__wrapper fieldset {
     border-radius: 3px;
     padding: 20px;
     margin-bottom: 25px;
@@ -18,7 +8,7 @@ header.submission__form {
     margin: 20px;
 }
 
-.submission__form .field {
+.submission__form__wrapper .field {
     margin-left: 0;
 }
 
@@ -34,27 +24,20 @@ header.submission__form {
 
 }
 
-.submission__form label+.field {
+.submission__form__wrapper label+.field {
     display: inline-block;
 }
 
-.submission__form label {
+.submission__form__wrapper label {
     margin-right: 15px;
 }
 
-.submission__form .error {
+.submission__form__wrapper .error {
     color: firebrick;
     font-weight: 700;
     font-style: italic;
     width: 100%;
     margin: 5px;
-}
-
-fieldset section.dropzone {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    text-align: center;
 }
 
 section.submission__form.buttons {
@@ -63,8 +46,4 @@ section.submission__form.buttons {
 
 section.submission__form.buttons button {
     margin-left: 20px;
-}
-
-.hidden {
-    display: none!important;
 }

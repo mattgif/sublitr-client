@@ -11,10 +11,16 @@ export default function CubicLoadingSpinner(props) {
         return className + prefixed
     };
 
+    let text;
+    if (props.text) {
+        text = <p className={prefixedClassName("loading__text")}>Text</p>
+    }
+
     return (
         <div className={prefixedClassName("spinner")}>
             <div className={prefixedClassName("cube1")}/>
             <div className={prefixedClassName("cube2")}/>
+            {text}
         </div>
     )
 }

@@ -103,3 +103,49 @@ button.user__delete:hover {
 .user__delete__wrapper {
     text-align: center;
 }
+
+section.submission__form__wrapper {
+    padding: 10px;
+    background-color: white;
+    border-radius: 3px;
+    margin: 4px;
+}
+
+#doc {
+    display: none;
+}
+
+@media screen and (min-width: 600px) {
+    #doc {
+        display: block;
+    }
+
+    .custom__file__button {
+        display: none;
+    }
+}
+
+/* new submission transitions */
+.submissionForm-enter {
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+}
+
+.submissionForm-enter.submissionForm-enter-active {
+    opacity: 1;
+    max-height: 900px;
+    transition: 1000ms ease-in;
+}
+
+.submissionForm-leave {
+    opacity: 1;
+    max-height: 900px;
+}
+
+.submissionForm-leave.submissionForm-leave-active {
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: 1000ms ease-in;
+}

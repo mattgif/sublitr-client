@@ -1,5 +1,6 @@
 import {
-    DELETE_SUBMISSION, FETCH_PUBLICATIONS_SUCCESS, FETCH_PUBLICATIONS_ERROR
+    SHOW_DASHBOARD_MESSAGE,
+    TOGGLE_SUBMISSION_FORM
 } from "../actions";
 
 const initialState = {
@@ -35,29 +36,27 @@ const initialState = {
         userFilter: "all"
     },
     showSidebar: false,
-    allowedFileTypes: ["application/pdf"]
+    allowedFileTypes: ["application/pdf"],
+    showNewSubmissionForm: false,
+    dashboardMessage: undefined
 };
 
 export const sublitrReducer = (state = initialState, action) => {
-    if (action.type === DELETE_SUBMISSION) {
-        // TODO: async
-        const updatedSubmissions = state.submissions.filter(submission =>
-            submission.id !== action.id);
-
+    if (action.type === TOGGLE_SUBMISSION_FORM) {
         return Object.assign({}, state, {
-            submissions: updatedSubmissions
+            showNewSubmissionForm: !state.showNewSubmissionForm
         })
     }
 
-    else if (action.type === FETCH_PUBLICATIONS_SUCCESS) {
+    else if (action.type === SHOW_DASHBOARD_MESSAGE) {
         return Object.assign({}, state, {
-            publications: action.publications
+            dashboardMessage: action.message
         })
     }
 
-    else if (action.type === FETCH_PUBLICATIONS_ERROR) {
+    else if (action.type === SHOW_DASHBOARD_MESSAGE) {
         return Object.assign({}, state, {
-            error: action.error
+            dashboardMessage: undefined
         })
     }
 

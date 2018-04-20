@@ -45,41 +45,6 @@ body {
     height: 100%;
 }
 
-button.primary, a.primary {
-    height: 50px;
-    padding: 5px 25px;
-    color: #F8EEE7;
-    background-color: #1a69a4;
-    font-family: "Open Sans", Lato, sans-serif;
-    font-size: 14px;
-    border: 2px solid #1a69a4;
-    border-radius: 3px;
-    transition: .15s ease-in;
-}
-
-button.primary:active, a.primary:active {
-    background-color: #fff;
-    color: #1a69a4;
+button:hover {
     cursor: pointer;
-}
-
-button.cancel, a.cancel {
-    height: 44px;
-    padding: 5px 25px;
-    color: #333;
-    background-color: lightgray;
-    font-family: "Open Sans", Lato, sans-serif;
-    font-size: 14px;
-    border: none;
-    border-radius: 3px;
-    transition: .15s ease-in;
-    cursor: pointer;
-}
-
-button.cancel:hover, a.cancel:hover {
-    background-color: darkgray;
-}
-
-a.cancel, a.primary {
-    line-height: 40px;
 }

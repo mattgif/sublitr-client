@@ -1,12 +1,15 @@
 import React from 'react';
 import Input from "../form-elements/semantic-form-field";
-import {Field, reduxForm, reset } from 'redux-form';
+import {Field, reduxForm } from 'redux-form';
 import { TextArea, Button, Message } from 'semantic-ui-react';
 import {connect} from 'react-redux';
 import {isPDF, nonEmpty, required} from "../../../validators";
 import {createSubmission} from "../../../actions/submissions";
 import FileInput from "../form-elements/file-upload";
 import ReduxValidatedDropdown from "../form-elements/redux-validated-dropdown";
+import './submission-form.css'
+import CustomFileButton from "../form-elements/custom-file-button";
+import {showDashboardMessage, toggleSubmissionForm} from "../../../actions";
 
 export class SubmissionForm extends React.Component {
     constructor(props) {
@@ -20,14 +23,20 @@ export class SubmissionForm extends React.Component {
         this.handleCoverLetterEntry = this.handleCoverLetterEntry.bind(this);
         this.handleUpload = this.handleUpload.bind(this);
         this.handleCancel = this.handleCancel.bind(this);
+        this.handleCustomFileButtonClick = this.handleCustomFileButtonClick.bind(this);
     }
 
     handleCoverLetterEntry(e) { this.setState({coverLetter:e.target.value}) }
 
     handleUpload(e) { this.setState({ uploadedFile: e.target.files[0]}); }
 
+    handleCustomFileButtonClick() {
+        console.log('click')
+        document.getElementById('doc').click();
+    }
+
     handleCancel() {
-        window.location = '/'
+        return this.props.dispatch(toggleSubmissionForm())
     }
 
     onSubmit(values) {
@@ -38,7 +47,15 @@ export class SubmissionForm extends React.Component {
         if (values.cover) {
             data.append('coverLetter', values.cover);
         }
-        return this.props.dispatch(createSubmission(data)).then(() => window.location='/');
+        return this.props
+            .dispatch(createSubmission(data))
+            .then(() => this.props.dispatch(showDashboardMessage({
+                header: 'Successfully submitted!',
+                text: 'Good luck!',
+                error: false,
+                positive: true
+            })))
+            .then(() => this.props.dispatch(toggleSubmissionForm()));
     }
 
     render() {
@@ -60,16 +77,15 @@ export class SubmissionForm extends React.Component {
 
         return (
             <form onSubmit={this.props.handleSubmit(values => this.onSubmit(values))}>
+                <header className="submission__form">
+                    <h3>New submission</h3>
+                </header>
                 {successMessage}
                 {errorMessage}
                 <fieldset>
                     <legend>Submission Info</legend>
                     <Field name="title" placeholder="Submission title" type="text" component={Input} validate={[required, nonEmpty]} id="title__input" />
                     <label htmlFor="publication">Submit to which publication?</label>
-                    {/*<Field name="publication" label="Publication" component={'select'} options={this.props.publications} id="publication__dropdown" validate={[required]}>*/}
-                        {/*<option value="">Choose a publication</option>*/}
-                        {/*{pubOptions}*/}
-                    {/*</Field>*/}
                     <Field name="publication" options={this.props.publications} component={ReduxValidatedDropdown} validate={[required, nonEmpty]} id="pub_select" />
                 </fieldset>
                 <fieldset>
@@ -80,6 +96,7 @@ export class SubmissionForm extends React.Component {
                     <legend>Upload document</legend>
                     <p className={this.state.uploadedFile ? 'hidden' : 'visible'}>Documents must be in PDF format</p>
                     <Field name="doc" type="file" id="doc" onChange={this.handleUpload} component={FileInput} validate={[isPDF]}/>
+                    <CustomFileButton className="custom__file__button" fileName={this.state.uploadedFile ? this.state.uploadedFile.name : undefined} click={() => this.handleCustomFileButtonClick()}/>
                 </fieldset>
                 <section className="submission__form buttons">
                     <Button type="button" onClick={() => this.handleCancel()} disabled={this.props.submitting}>Cancel</Button>
