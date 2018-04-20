@@ -28,6 +28,10 @@ header.submission__form {
 
 #publication__dropdown {
     display: inline-block;
+    height: 40px;
+    padding: 3px 10px;
+    border-radius: 3px;
+
 }
 
 .submission__form label+.field {
@@ -38,11 +42,12 @@ header.submission__form {
     margin-right: 15px;
 }
 
-.submission__form .tip {
+.submission__form .error {
     color: firebrick;
     font-weight: 700;
-    text-align: center;
+    font-style: italic;
     width: 100%;
+    margin: 5px;
 }
 
 fieldset section.dropzone {

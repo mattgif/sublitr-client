@@ -57,7 +57,7 @@ button.primary, a.primary {
     transition: .15s ease-in;
 }
 
-button.primary:hover, a.primary:hover {
+button.primary:active, a.primary:active {
     background-color: #fff;
     color: #1a69a4;
     cursor: pointer;

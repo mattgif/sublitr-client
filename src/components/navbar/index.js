@@ -6,10 +6,12 @@ import Login from '../modals/login';
 import {clearAuth} from "../../actions/auth";
 import {clearAuthToken} from "../../localstorage";
 import owlLogo from '../../static/images/logo.svg'
+import {clearSubmissions} from "../../actions/submissions";
 
 export function Navbar(props) {
     const logOut = () => {
         props.dispatch(clearAuth());
+        props.dispatch(clearSubmissions());
         clearAuthToken();
     };
 

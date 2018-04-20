@@ -259,17 +259,11 @@ export const deleteComment = (submissionId, commentId) => (dispatch, getState) =
 export const CREATE_SUBMISSION_REQUEST = 'CREATE_SUBMISSION_REQUEST';
 export const createSubmissionRequest = () => ({
     type: CREATE_COMMENT_REQUEST
-})
-
-export const CREATE_SUBMISSION_SUCCESS = 'CREATE_SUBMISSION_SUCCESS';
-export const createSubmissionSuccess = submission => ({
-    type: CREATE_SUBMISSION_SUCCESS,
-    submission
 });
 
 export const createSubmission = formData => (dispatch, getState) => {
     dispatch(createSubmissionRequest());
-    fetch(`${API_BASE_URL}/submissions`, {
+    return fetch(`${API_BASE_URL}/submissions`, {
         method: 'POST',
         body: formData,
         headers: {
@@ -278,17 +272,23 @@ export const createSubmission = formData => (dispatch, getState) => {
     })
         .then(res => normalizeResponseErrors(res))
         .then(res => res.json())
-        .then(res => dispatch(createSubmissionSuccess(res.body)))
+        .then(() => {dispatch(fetchSubmissions())})
         .catch(err => {
+            console.log(err);
             const {reason, message, location} = err;
             if (reason === 'ValidationError') {
-                return Promise.reject(
-                    new SubmissionError({
+                return new SubmissionError({
                         [location]: message
                     })
-                )
+            } else {
+                return new SubmissionError({
+                        _error: message
+                    });
             }
         })
-}
+};
 
-
+export const CLEAR_SUBMISSIONS = 'CLEAR_SUBMISSIONS';
+export const clearSubmissions = () => ({
+    type: CLEAR_SUBMISSIONS
+});

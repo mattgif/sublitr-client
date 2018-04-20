@@ -13,3 +13,17 @@ export const matches = field => (value, allValues) =>
 
 const emailPattern = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
 export const emailFormat = value => (value.match(emailPattern) ? undefined : 'Invalid email');
+
+export const isPDF = e => {
+    try {
+        const file = e[0];
+        if (file.type === 'application/pdf') {
+            return undefined
+        }
+
+        else return 'Document must be a PDF'
+    }
+    catch(error) {
+        return 'No file selected'
+    }
+};

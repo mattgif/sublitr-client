@@ -1,6 +1,6 @@
 import {
     DELETE_USER_REQUEST, DELETE_USER_SUCCESS, UPDATE_USER_SUCCESS,
-    FETCH_USER_LIST_ERROR, FETCH_USER_SUCCESS, DELETE_USER_ERROR, USER_SORT_BY
+    FETCH_USER_LIST_ERROR, FETCH_USER_SUCCESS, DELETE_USER_ERROR, USER_SORT_BY, CREATE_USER_REQUEST, CREATE_USER_SUCCESS
 } from "../actions/users";
 import {sortByKey} from "../actions/utils";
 
@@ -73,6 +73,20 @@ export const userReducer = (state = initialState, action) => {
             sortBy: key,
             reverse
         })
+    }
+
+    else if (action.type === CREATE_USER_REQUEST) {
+        return {
+            ...state,
+            loading: true
+        }
+    }
+
+    else if (action.type === CREATE_USER_SUCCESS) {
+        return {
+            ...state,
+            loading: false
+        }
     }
 
     return state;

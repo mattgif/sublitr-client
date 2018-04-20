@@ -6,13 +6,10 @@ import Navbar from "./components/navbar/index";
 import Landing from "./components/landing-screen/landing";
 import Dashboard from "./components/dashboard/dashboard";
 import DocViewer from "./components/document-viewer/docviewer";
-import SubmissionForm from "./components/forms/submission-form/submissionform";
 import { Dimmer, Loader, Segment } from 'semantic-ui-react'
+import SubmissionPane from "./components/dashboard/new-submission";
 
 export class App extends React.Component {
-    componentDidMount() {
-
-    }
     render() {
         if (this.props.user) {
             return (
@@ -22,7 +19,7 @@ export class App extends React.Component {
                         <Switch>
                             <Route exact path='/' component={Dashboard}/>
                             <Route path='/dashboard/:activeTab' component={Dashboard}/>
-                            <Route exact path='/submit' component={SubmissionForm}/>
+                            <Route exact path='/submit' component={SubmissionPane}/>
                             <Route exact path='/submission/:submissionID' component={DocViewer}/>
                         </Switch>
                     </div>

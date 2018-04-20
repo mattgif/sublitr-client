@@ -49,16 +49,7 @@ export class TabReview extends React.Component {
         if (this.props.loading) {
             submissionList = <CubicLoadingSpinner/>
         } else {
-            try {
-                submissionList = <ul className="submissionList">
-                    {this.formattedSubmissions(this.filteredSubmissions(this.props.submissions, this.state))}
-                </ul>
-            }
-            catch(err) {
-                console.error(err)
-                // stale mount from switching between user/editors - need to refresh submissions with editor creds
-                this.props.dispatch(fetchSubmissions())
-            }
+            submissionList = <ul className="submissionList">{this.formattedSubmissions(this.filteredSubmissions(this.props.submissions, this.state))}</ul>
         }
 
         const decisionOptions = [{text: 'Any decision', value: 'all', key: 'all'}, ...this.props.statusLists.decision];

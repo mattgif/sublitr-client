@@ -1,179 +1,97 @@
 import React from 'react';
 import Input from "../form-elements/semantic-form-field";
-import {Field, reduxForm} from 'redux-form';
-import { Dropdown, Form, TextArea } from 'semantic-ui-react';
-import Dropzone from 'react-dropzone';
+import {Field, reduxForm, reset } from 'redux-form';
+import { TextArea, Button, Message } from 'semantic-ui-react';
 import {connect} from 'react-redux';
-import {nonEmpty, required} from "../../../validators";
-import './submission-form.css';
+import {isPDF, nonEmpty, required} from "../../../validators";
 import {createSubmission} from "../../../actions/submissions";
+import FileInput from "../form-elements/file-upload";
+import ReduxValidatedDropdown from "../form-elements/redux-validated-dropdown";
 
 export class SubmissionForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             coverLetter: '',
-            uploadedFiles: [],
+            uploadedFile: null,
             fileError: false
         };
 
-        this.handleCoverLetterEntry = this.handleCoverLetterEntry.bind(this)
+        this.handleCoverLetterEntry = this.handleCoverLetterEntry.bind(this);
+        this.handleUpload = this.handleUpload.bind(this);
+        this.handleCancel = this.handleCancel.bind(this);
     }
 
-    handleCoverLetterEntry(e) {
-        this.setState({coverLetter:e.target.value})
-    }
+    handleCoverLetterEntry(e) { this.setState({coverLetter:e.target.value}) }
 
-    onDrop(acceptedFiles) {
-        let allValid = true;
-        acceptedFiles.forEach(file => {
-            if (!this.validFileType(file)) {
-                allValid = false;
-            }
-        });
-        if (allValid) {
-            this.setState({uploadedFiles:acceptedFiles, fileError: false})
-        } else {
-            this.setState({fileError: "Invalid file type"})
-        }
-    }
+    handleUpload(e) { this.setState({ uploadedFile: e.target.files[0]}); }
 
-    validFileType(file) {
-        const allowedTypes = this.props.allowedFileTypes;
-        return allowedTypes.includes(file.type)
+    handleCancel() {
+        window.location = '/'
     }
 
     onSubmit(values) {
         const data = new FormData();
         data.append('publication', values.publication);
         data.append('title', values.title);
+        data.append('doc', this.state.uploadedFile);
         if (values.cover) {
             data.append('coverLetter', values.cover);
         }
-        if (this.state.uploadedFiles.length) {
-            // file has been attached & validated
-            data.append('doc', this.state.uploadedFiles[0]);
-            this.props.dispatch(createSubmission(data));
-        } else {
-            this.setState({fileError: 'Looks like you forgot to attach a file'})
-        }
+        return this.props.dispatch(createSubmission(data)).then(() => window.location='/');
     }
 
     render() {
-        const DropDownFormField = props => (
-            <Form.Field>
-                <Dropdown selection search
-                          {...props.input}
-                          value={props.input.value}
-                          onChange={(param, data) => props.input.onChange(data.value)}
-                          placeholder={props.label}
-                          options={props.options}
-                          error={props.error}
-                />
-            </Form.Field>
-        );
-
-        let fileError;
-        if (this.state.fileError) {
-            fileError = <p className="tip">{this.state.fileError}</p>
-        }
-
-        let filePreviews;
-        if (this.state.uploadedFiles) {
-            filePreviews = this.state.uploadedFiles.map((file, index) => {return (<li key={index}>{file.name}</li>)})
-        }
-
         let successMessage;
         if (this.props.submitSucceeded) {
             successMessage = (
                 // TODO: redirect to submission
-                <div className="message message__success">
-                    Successfully submitted!
-                </div>
+                <Message><Message.Header>Successfully submitted</Message.Header></Message>
             )
         }
 
         let errorMessage;
-        if (this.props.submitSucceeded) {
+        if (this.props.submitFailed) {
+            console.log(this.props);
             errorMessage = (
-                <div className="message message__error">
-                    {this.props.error}
-                </div>
+                <Message negative><Message.Header>Submission error</Message.Header><p>{this.props.error}</p></Message>
             )
         }
-        return (
-            <main className="submission__form">
-                <div className="submission__form wrapper">
-                    <header className="submission__form">
-                        <h1>New submission</h1>
-                    </header>
-                    <form onSubmit={this.props.handleSubmit(values => this.onSubmit(values))}>
-                        <div className="form__message">
-                            {successMessage}
-                            {errorMessage}
-                        </div>
-                        <fieldset>
-                            <legend>Submission Info</legend>
-                            <Field
-                                name="title"
-                                placeholder="Submission title"
-                                type="text"
-                                component={Input}
-                                validate={[required, nonEmpty]}
-                                id="title__input"
-                            />
-                            <label htmlFor="publication">Submit to which publication?</label>
-                            <Field
-                                name="publication"
-                                label="Publication"
-                                component={DropDownFormField}
-                                validate={[required]}
-                                options={this.props.publications}
-                                id="publication__dropdown"
-                            >
-                            </Field>
-                        </fieldset>
-                        <fieldset>
-                            <legend>Cover letter</legend>
-                            <TextArea name="cover" autoHeight
-                                      placeholder='Write a short cover letter to the editors of the publication.'
-                                      style={{ minHeight: 100, width: '100%' }}
-                                      value={this.state.coverLetter}
-                                      onChange={this.handleCoverLetterEntry} />
-                        </fieldset>
-                        <fieldset>
-                            <legend>Upload document</legend>
-                            <p className={this.state.uploadedFiles.length > 0 ? 'hidden' : 'visible'}>Documents must be in PDF format</p>
-                            <section className={this.state.uploadedFiles.length > 0 ? 'hidden dropzone' : 'dropzone visible'}>
-                                {fileError}
-                                <Dropzone onDrop={files => this.onDrop(files)}
-                                          multiple={false}
-                                >
-                                    <div>Drop your file here, or click to select file to upload.</div>
-                                </Dropzone>
-                            </section>
-                            <section className={this.state.uploadedFiles.length > 0 ? 'uploaded__files visible' : 'uploaded__files hidden'}>
-                                <h4>Uploaded file:</h4>
-                                <ul>
-                                    {filePreviews}
-                                </ul>
-                            </section>
 
-                        </fieldset>
-                        <section className="submission__form buttons">
-                            <button className="cancel" onClick={() => this.props.history.goBack()}>Cancel</button>
-                            <button className="primary" type="submit">Submit</button>
-                        </section>
-                    </form>
-                </div>
-            </main>
+        return (
+            <form onSubmit={this.props.handleSubmit(values => this.onSubmit(values))}>
+                {successMessage}
+                {errorMessage}
+                <fieldset>
+                    <legend>Submission Info</legend>
+                    <Field name="title" placeholder="Submission title" type="text" component={Input} validate={[required, nonEmpty]} id="title__input" />
+                    <label htmlFor="publication">Submit to which publication?</label>
+                    {/*<Field name="publication" label="Publication" component={'select'} options={this.props.publications} id="publication__dropdown" validate={[required]}>*/}
+                        {/*<option value="">Choose a publication</option>*/}
+                        {/*{pubOptions}*/}
+                    {/*</Field>*/}
+                    <Field name="publication" options={this.props.publications} component={ReduxValidatedDropdown} validate={[required, nonEmpty]} id="pub_select" />
+                </fieldset>
+                <fieldset>
+                    <legend>Cover letter</legend>
+                    <TextArea name="cover" autoHeight placeholder='Write a short cover letter to the editors of the publication.' style={{ minHeight: 100, width: '100%' }} value={this.state.coverLetter} onChange={this.handleCoverLetterEntry} />
+                </fieldset>
+                <fieldset>
+                    <legend>Upload document</legend>
+                    <p className={this.state.uploadedFile ? 'hidden' : 'visible'}>Documents must be in PDF format</p>
+                    <Field name="doc" type="file" id="doc" onChange={this.handleUpload} component={FileInput} validate={[isPDF]}/>
+                </fieldset>
+                <section className="submission__form buttons">
+                    <Button type="button" onClick={() => this.handleCancel()} disabled={this.props.submitting}>Cancel</Button>
+                    <Button primary type="submit" disabled={this.props.pristine} loading={this.props.submitting}>Submit</Button>
+                </section>
+            </form>
         )
     }
 }
 
 const mapStateToProps = state => ({
-    publications: state.sublitr.publications,
-    allowedFileTypes: state.sublitr.allowedFileTypes
+    publications: state.sublitr.publications
 });
 
 SubmissionForm = connect(mapStateToProps)(SubmissionForm);

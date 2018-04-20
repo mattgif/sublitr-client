@@ -89,9 +89,14 @@ export const createUserRequest = () => ({
     type: CREATE_USER_REQUEST
 });
 
+export const CREATE_USER_SUCCESS = 'CREATE_USER_SUCCESS';
+export const createUserSuccess = () => ({
+    type: CREATE_USER_SUCCESS
+});
+
 export const createUser = user => dispatch => {
     dispatch(createUserRequest);
-    fetch(`${API_BASE_URL}/users`, {
+    return fetch(`${API_BASE_URL}/users`, {
         method: 'POST',
         headers: {
             'content-type': 'application/json'
@@ -100,12 +105,19 @@ export const createUser = user => dispatch => {
     })
         .then(res => normalizeResponseErrors(res))
         .then(res => res.json())
+        .then(() => dispatch(createUserSuccess()))
         .catch(err => {
             const {reason, message, location} = err;
             if (reason ==='ValidationError') {
                 return Promise.reject(
                     new SubmissionError({
                         [location]: message
+                    })
+                )
+            } else {
+                return Promise.reject(
+                    new SubmissionError({
+                        _error: message
                     })
                 )
             }

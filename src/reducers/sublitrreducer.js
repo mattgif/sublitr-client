@@ -21,12 +21,12 @@ const initialState = {
         ]
     },
     publications:[
-        {text: 'Jellyfish Magazine', value: 'jfm', key: 'jfm'},
-        {text: 'Journal of Poetry', value: 'jop', key: 'jop'},
-        {text: 'Literature Review', value: 'litrev', key: 'litrev'},
-        {text: 'Jubilat', value: 'jubilat', key: 'jublat'},
-        {text: 'Writer\'s Digest', value: 'wd', key: 'wd'},
-        {text: 'Prose Studies', value:'prosestudies', key: 'prosestudies'}
+        {text: 'Jellyfish Magazine', value: 'Jellyfish Magazine', key: 'jfm'},
+        {text: 'Jellyfish Magazine', value: 'Jellyfish Magazine', key: 'jop'},
+        {text: 'Literature Review', value: 'Literature Review', key: 'litrev'},
+        {text: 'Jubilat', value: 'Jubilat', key: 'jublat'},
+        {text: 'Writer\'s Digest', value: 'Writer\'s Digest', key: 'wd'},
+        {text: 'Prose Studies', value:'Prose Studies', key: 'prosestudies'}
     ],
     filterValues: {
         recommendationFilter: ["all"],

@@ -11,10 +11,8 @@ export const normalizeResponseErrors = res => {
             return res.json().then(err => Promise.reject(err));
         }
         // It's a less informative error returned by express
-        return Promise.reject({
-            code: res.status,
-            message: res.statusText
-        });
+        return Promise.reject (new Error (res.statusText));
+
     }
     return res;
 };

@@ -3,8 +3,8 @@ import {Field, reduxForm} from 'redux-form';
 import Input from "../form-elements/semantic-form-field";
 import {required, length, nonEmpty, matches, emailFormat} from '../../../validators';
 import {createUser} from "../../../actions/users";
-import {login} from "../../../actions/auth";
 import './registration-form.css';
+import {login} from "../../../actions/auth";
 
 const passwordLength = length({min: 8, max: 72});
 const passwordMatch = matches('password');
@@ -13,16 +13,21 @@ export class RegistrationForm extends React.Component {
     onSubmit(values) {
         const {email, password, firstName, lastName} = values;
         const user = {email, password, firstName, lastName};
-        this.props.dispatch(createUser(user))
-            .then(() => this.props.dispatch(login(email, password)))
+        return this.props
+            .dispatch(createUser(user))
+            .then(() => this.props.dispatch(login(email, password)));
     }
 
     render() {
+        let errorMessage;
+        if (this.props.submitFailed) {
+            errorMessage = (
+                <div className="message message__error">{this.props.error}</div>
+            )
+        }
         return (
-            <form className='registration-form' onSubmit={this.props.handleSubmit(values =>
-                this.onSubmit(values)
-            )}>
-                <div className="form__error"/>
+            <form className='registration-form' onSubmit={this.props.handleSubmit(values => this.onSubmit(values))}>
+                {errorMessage}
                 <Field
                     name="firstName"
                     type="text"
@@ -63,5 +68,5 @@ export class RegistrationForm extends React.Component {
 }
 
 export default reduxForm({
-    form: 'registration'
+    form: 'registration',
 })(RegistrationForm);
