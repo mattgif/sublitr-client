@@ -40,7 +40,7 @@ export class TabSubmissions extends React.Component {
 
         let message;
         if (this.props.message) {
-            message = <Message error={this.props.message.error} onDismiss={this.handleMessageDismiss} positive={this.props.message.positive}><Message.Header>{this.props.message.header}</Message.Header>{this.props.message.text}</Message>
+            message = <Message style={'margin: 0 15px'} error={this.props.message.error} onDismiss={this.handleMessageDismiss} positive={this.props.message.positive}><Message.Header>{this.props.message.header}</Message.Header>{this.props.message.text}</Message>
         }
 
         let submissionList;
@@ -48,7 +48,7 @@ export class TabSubmissions extends React.Component {
             submissionList = <section className="submission__loading"><CubicLoadingSpinner text='Retrieving submissions...' prefix='submissions'/></section>
         } else {
             submissionList =
-                <ul className="submissionList">
+                <ul className="user submissionList">
                     {Object.keys(this.props.submissions).map(key => {
                         const submission = this.props.submissions[key];
                         if (this.state.filter === "all" || submission.status === this.state.filter) {
@@ -84,7 +84,6 @@ export class TabSubmissions extends React.Component {
                         <h4>Filter by:</h4>
                         <Dropdown placeholder='Submission status' options={options} onChange={(e, data) => this.filterList(data)}/>
                     </div>
-
                     {submissionList}
                 </section>
             </main>

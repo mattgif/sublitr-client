@@ -2,6 +2,7 @@ import React from 'react';
 import StatusIndicator from "../../status-indicator/statusindicator";
 import DeleteSubmissionConfirm from './deletesubmissionconfirm';
 import {formatDate} from "../../../actions/utils";
+import './basic-card.css';
 
 
 export default class CardSubmission extends React.Component {
@@ -12,22 +13,17 @@ export default class CardSubmission extends React.Component {
         const id = this.props.id;
         const submissionDate = formatDate(this.props.submissionDate);
         return (
-            <div className="card">
+            <div className="card__basic">
                 <StatusIndicator status={status}/>
-                <ul className="card__list">
-                    <li className='publication'>{publication}</li>
-                    <li className='title'>{title}</li>
-                </ul>
-
-                <div className="submission__basic__info">
-                    <ul className="card__list">
+                <section>
+                    <ul>
+                        <li className='title'>{title}</li>
+                        <li className='submitted'>Submitted <time>{submissionDate}</time></li>
+                        <li className='publication'>{publication}</li>
                         <li>Status: {status}</li>
-                        <li>Submitted: <time>{submissionDate}</time></li>
                     </ul>
-                </div>
-                <div className="submission__delete__wrapper">
-                    <DeleteSubmissionConfirm  title={title} id={id}/>
-                </div>
+                    <DeleteSubmissionConfirm className="delete__wrapper" title={title} id={id}/>
+                </section>
             </div>
         )
     }

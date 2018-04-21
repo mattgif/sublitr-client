@@ -114,25 +114,7 @@
     background-color: #008CBA;
 }
 
-.submission__delete__wrapper {
-    margin-left: auto;
-}
 
-.submission__delete__wrapper button {
-    color: #fff;
-    background-color: #d9534f;
-    border: 1px solid #d43f3a;
-    transition: .15s ease-in;
-    height: 44px;
-    width: 75px;
-    border-radius: 3px;
-}
-
-.submission__delete__wrapper button:hover {
-    color: #fff;
-    background-color: #c9302c;
-    border-color: #ac2925;
-}
 
 #newDecision, #newRecommendation {
     margin-right: 15px;

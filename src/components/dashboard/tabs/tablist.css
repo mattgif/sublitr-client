@@ -20,7 +20,7 @@
     padding-bottom: 4px;
     margin-bottom: -1px;
     margin-right: 8px;
-    margin-left: 4px;
+    border-radius: 3px 3px 0 0;
     border: 1px solid rgba(0, 0, 0, .3);
     background-color: #F4DECB;
 }
