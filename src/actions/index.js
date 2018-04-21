@@ -13,3 +13,18 @@ export const CLEAR_DASHBOARD_MESSAGE = 'CLEAR_DASHBOARD_MESSAGE';
 export const clearDashboardMessage = () => ({
     type: CLEAR_DASHBOARD_MESSAGE
 });
+
+export const TOGGLE_DOCVIEWER_SIDEBAR = 'TOGGLE_DOCVIEWER_SIDEBAR';
+export const toggleDocViewerSidebar = () => ({
+    type: TOGGLE_DOCVIEWER_SIDEBAR
+});
+
+export const DOCVIEWER_ACTIVE = 'DOCVIEWER_ACTIVE';
+export const docviewerActive = () => ({
+    type: DOCVIEWER_ACTIVE
+});
+
+export const DOCVIEWER_INACTIVE = 'DOCVIEWER_INACTIVE';
+export const docviewerInactive = () => ({
+    type: DOCVIEWER_INACTIVE
+});

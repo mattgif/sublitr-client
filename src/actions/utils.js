@@ -56,17 +56,39 @@ export function formatDate(_date, includeTime) {
     } else if (_dateString === yesterday.toDateString()) {
         dateString = 'Yesterday'
     } else {
-        dateString = date.toLocaleDateString();
+        dateString = days_between(today, date).toString() + ' days ago';
     }
 
-    let time = '';
-    if (includeTime) {
+    if (dateString === 'Today' || dateString === 'Yesterday') {
+        // add time if date was today or yesterday
         const rawHours = date.getHours();
-        const suffix = rawHours >= 12 ? "PM" : "AM";
+        const suffix = rawHours >= 12 ? "pm" : "am";
         const hours = ((rawHours + 11) % 12 + 1);
-        time = ` at ${hours}:${date.getMinutes()} ${suffix}`
+        let minutes = date.getMinutes();
+        if (minutes < 10 ) {
+            minutes = "0" + minutes
+        }
+        dateString = `${dateString} at ${hours}:${minutes}${suffix}`
     }
-    return dateString + time;
+
+    return dateString;
+}
+
+export function days_between(date1, date2) {
+
+    // The number of milliseconds in one day
+    const ONE_DAY = 1000 * 60 * 60 * 24;
+
+    // Convert both dates to milliseconds
+    const date1_ms = date1.getTime();
+    const date2_ms = date2.getTime();
+
+    // Calculate the difference in milliseconds
+    const difference_ms = Math.abs(date1_ms - date2_ms);
+
+    // Convert back to days and return
+    return Math.round(difference_ms/ONE_DAY)
+
 }
 
 export function compare(a, b, reverse) {

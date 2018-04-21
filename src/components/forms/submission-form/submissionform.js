@@ -44,9 +44,10 @@ export class SubmissionForm extends React.Component {
         data.append('publication', values.publication);
         data.append('title', values.title);
         data.append('doc', this.state.uploadedFile);
-        if (values.cover) {
-            data.append('coverLetter', values.cover);
+        if (this.state.coverLetter) {
+            data.append('coverLetter', this.state.coverLetter);
         }
+        console.log(data);
         return this.props
             .dispatch(createSubmission(data))
             .then(() => this.props.dispatch(showDashboardMessage({
@@ -90,7 +91,7 @@ export class SubmissionForm extends React.Component {
                 </fieldset>
                 <fieldset>
                     <legend>Cover letter</legend>
-                    <TextArea name="cover" autoHeight placeholder='Write a short cover letter to the editors of the publication.' style={{ minHeight: 100, width: '100%' }} value={this.state.coverLetter} onChange={this.handleCoverLetterEntry} />
+                    <TextArea autoHeight placeholder='Write a short cover letter to the editors of the publication.' style={{ minHeight: 100, width: '100%' }} value={this.state.coverLetter} onChange={this.handleCoverLetterEntry} />
                 </fieldset>
                 <fieldset>
                     <legend>Upload document</legend>

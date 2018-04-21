@@ -1,6 +1,6 @@
 import React from 'react';
 import StatusIndicator from "../../status-indicator/statusindicator";
-import DeleteSubmissionConfirm from '../../dashboard/submission-pane/deletesubmissionconfirm';
+import DeleteSubmissionConfirm from './deletesubmissionconfirm';
 import {formatDate} from "../../../actions/utils";
 
 

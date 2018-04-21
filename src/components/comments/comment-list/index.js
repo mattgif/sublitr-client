@@ -1,7 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import CommentCard from "../comment-card";
-import { CSSTransitionGroup } from 'react-transition-group';
 import './comment-list.css'
 
 export class CommentList extends React.Component {
@@ -17,16 +16,12 @@ export class CommentList extends React.Component {
             // returns array of comments cards (which are <li> elements)
             return <CommentCard key={comment._id} comment={comment} submissionId={this.props.submissionId}/>
         });
-        return (
-            <CSSTransitionGroup
-                transitionName="commentUpdate"
-                transitionEnterTimeout={1000}
-                transitionLeaveTimeout={1000}
-                className="comments__list"
-                component="ul">
 
+        return (
+            <ul className="comment__list">
                 {commentCards}
-            </CSSTransitionGroup>
+            </ul>
+
         )
     }
 }

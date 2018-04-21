@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {Confirm} from 'semantic-ui-react';
-import {deleteComment} from "../../actions/submissions";
+import {deleteComment} from "../../../actions/submissions";
 
 class DeleteCommentConfirm extends React.Component {
     constructor(props) {
@@ -20,7 +20,7 @@ class DeleteCommentConfirm extends React.Component {
     render() {
         return (
             <div>
-                <button onClick={() => this.show()}>Delete</button>
+                <button className="delete__comment__button" onClick={() => this.show()}>Delete</button>
                 <Confirm
                     open={this.state.open}
                     onCancel={this.handleCancel}

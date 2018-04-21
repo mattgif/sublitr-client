@@ -1,48 +1,38 @@
 import React from 'react';
 import './commentform.css';
-import {reduxForm, Field} from 'redux-form';
+import {reduxForm} from 'redux-form';
 import {connect} from 'react-redux';
 import {createComment} from "../../../actions/submissions";
-import CircleLoadingSpinner from "../../loading-animations/circle-loading-spinner/index"
+import { Button, TextArea } from 'semantic-ui-react';
 
 export class CommentForm extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {comment: ''}
+        this.state = {comment: ''};
+        this.handleChange = this.handleChange.bind(this);
     }
 
     handleChange = e => {
         this.setState({comment:e.target.value})
     };
 
-    handleSubmit(values) {
-        const comment = values['newComment'];
-        const submissionId = this.props.submissionID;
-        this.setState({comment: ''});
-        this.props.dispatch(createComment(submissionId, comment));
+    handleSubmit() {
+        if (this.state.comment) {
+            const comment = this.state.comment;
+            const submissionId = this.props.submissionID;
+            this.setState({comment: ''});
+            return this.props.dispatch(createComment(submissionId, comment));
+        }
     }
 
     render () {
-        let loading;
-        if (this.props.submitting) {
-            loading = <CircleLoadingSpinner/>
-        }
         return (
             <form className="comments__form"
                   onSubmit={this.props.handleSubmit(values =>
                       this.handleSubmit(values)
                   )}>
-                <h4>Comment:</h4>
-                <Field
-                    name="newComment"
-                    className="newComment"
-                    value={this.state.comment}
-                    onChange={e => this.handleChange(e)}
-                    placeholder="Add a new comment"
-                    component={'textarea'}
-                />
-                {loading}
-                <button disabled={this.props.submitting} type="submit">Submit</button>
+                <TextArea name="newComment" autoHeight style={{ minHeight: 100, width: '100%' }} value={this.state.comment} onChange={this.handleChange} />
+                <Button content='Add Comment' loading={this.props.submitting} labelPosition='left' icon='edit' primary />
             </form>
         )
     }

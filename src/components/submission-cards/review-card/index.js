@@ -4,86 +4,54 @@ import {connect} from "react-redux";
 
 import {updateStatus} from "../../../actions/submissions";
 
-import { Dropdown, Icon, Button } from 'semantic-ui-react';
+import { Message, Icon } from 'semantic-ui-react';
 import StatusIndicator from "../../status-indicator/statusindicator";
 
 import '../card.css';
 import {formatDate} from "../../../actions/utils";
+import ConfirmableDropdown from "../../confirmable-dropdown";
 
 export class ReviewCard extends React.Component {
     // CollapsableCard for Reviewer pane
+    // shows/dismisses messages on status update, expands to show additional info
     constructor(props) {
         super(props);
         this.state = {
-            decision: this.props.submission.reviewerInfo.decision,
-            recommendation: this.props.submission.reviewerInfo.recommendation,
-            newDecision: false,
-            newRecommendation: false,
+            message: undefined,
             expanded: false
         };
+
+        this.handleDecisionChange = this.handleDecisionChange.bind(this);
+        this.handleRecommendationChange = this.handleRecommendationChange.bind(this);
+        this.handleDismissMessage = this.handleDismissMessage.bind(this);
     }
 
     toggleExpand = () => {
         this.setState({ expanded: !this.state.expanded});
     };
 
-    handleStatusChange = (changedField) => {
-        // triggered by confirm buttons after changing dropdown
-        this.props.dispatch(
-            updateStatus(changedField, this.state[changedField], this.props.submission.id)
-        );
-        const needsUpdate = changedField === 'decision' ? 'newDecision' : 'newRecommendation';
-        this.setState({[needsUpdate]: false})
-    };
-
-    cancelStatusChange (canceledField) {
-        // keep the card from collapsing
-        console.log('canceledField', canceledField);
-        const needsUpdate = canceledField === 'decision' ? 'newDecision' : 'newRecommendation';
-        this.setState({
-            [canceledField]: this.props.submission.reviewerInfo[canceledField],
-            [needsUpdate]: false
-        })
+    handleDecisionChange(newDecision) {
+        return this.props.dispatch(updateStatus('decision', newDecision, this.props.submission.id))
+            .then(this.setState({message: 'Decision sent'}))
     }
 
-    showConfirm = (data) => {
-        // sets component state for status type to proposed change, and sets flags it as new so confirm renders
-        const updatedField = data.id === 'newDecision' ? 'decision' : 'recommendation';
-        this.setState({
-            [updatedField]: data.value,
-            [data.id]: true})
-    };
+    handleRecommendationChange(newRec) {
+        return this.props.dispatch(updateStatus('recommendation', newRec, this.props.submission.id))
+            .then(this.setState({message: 'Recommendation updated'}))
+    }
+
+    handleDismissMessage() {
+        this.setState({message: undefined})
+    }
 
     render() {
         const lastActionDate = formatDate(this.props.submission.reviewerInfo.lastAction);
         const submittedDate = formatDate(this.props.submission.submitted);
 
-        let confirmFinalDecision;
-        if (this.state.newDecision) {
-            confirmFinalDecision =
-                <div className="confirm">
-                    <Button.Group>
-                        <Button onClick={() => this.cancelStatusChange('decision')}>Cancel</Button>
-                        <Button.Or/>
-                        <Button positive onClick={() => this.handleStatusChange('decision')}>Send final decision</Button>
-                    </Button.Group>
-                    <p className="caution">The submitter WILL see a new status</p>
-                </div>
+        let message;
+        if (this.state.message) {
+            message = <Message positive header={this.state.message} onDismiss={this.handleDismissMessage}/>
         }
-
-        let confirmNewRecommendation;
-        if (this.state.newRecommendation) {
-            confirmNewRecommendation =
-                <div className="confirm">
-                    <Button.Group>
-                        <Button onClick={() => this.cancelStatusChange('recommendation')}>Cancel</Button>
-                        <Button.Or/>
-                        <Button positive onClick={() => this.handleStatusChange('recommendation')}>Update recommendation</Button>
-                    </Button.Group>
-                    <p>The submitter will NOT see this change</p>
-                </div>
-        }
-
 
         return (
             <div className="card">
@@ -100,37 +68,29 @@ export class ReviewCard extends React.Component {
                     </button>
                 </div>
                 <div className={this.state.expanded ? "additional reviewer visible" : "hidden additional reviewer"}>
+                    {message}
                     <dl className="status__info">
                         <h3>Current status:</h3>
                         <p className="status__info__note">Use dropdowns to change status</p>
                         <dt>Decision (visible to submitter):</dt>
-                        <dd className="status__updater__wrapper">
-                            <div>
-                                <Dropdown className="status__updater"
-                                          options={this.props.statusLists.decision}
-                                          value={this.state.decision}
-                                          id='newDecision'
-                                          disabled={!!this.props.updating}
-                                          onChange={(e, data) => this.showConfirm(data)}
-                                          selection
-                                />
-                            </div>
-                            {confirmFinalDecision}
-                        </dd>
+                        <ConfirmableDropdown id='newDecision'
+                                             disabled={!!this.props.updating}
+                                             confirmText='Send final decision'
+                                             warning={<p className="caution">The submitter WILL see a new status</p>}
+                                             onConfirm={this.handleDecisionChange}
+                                             options={this.props.statusLists.decision}
+                                             value={this.props.submission.reviewerInfo.decision}
+
+                        />
                         <dt>Recommendation:</dt>
-                        <dd className="status__updater__wrapper">
-                            <div>
-                                <Dropdown className="status__updater"
-                                          options={this.props.statusLists.recommendation}
-                                          value={this.state.recommendation}
-                                          id='newRecommendation'
-                                          disabled={!!this.props.updating}
-                                          onChange={(e, data) => this.showConfirm(data)}
-                                          selection
-                                />
-                            </div>
-                            {confirmNewRecommendation}
-                        </dd>
+                        <ConfirmableDropdown id='newRecommendation'
+                                             disabled={!!this.props.updating}
+                                             confirmText='Update recommendation'
+                                             warning={<p>The submitter will NOT see this change</p>}
+                                             onConfirm={this.handleRecommendationChange}
+                                             options={this.props.statusLists.recommendation}
+                                             value={this.props.submission.reviewerInfo.recommendation}
+                        />
                     </dl>
                     <dl className="basic__info">
                         <h3>Submission info:</h3>

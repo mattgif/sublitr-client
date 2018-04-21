@@ -15,7 +15,7 @@ export const updateUserError = error => ({
 });
 
 export const editUserInfo = userInfo => (dispatch, getState) => {
-    fetch(`${API_BASE_URL}/users/${userInfo.id}`, {
+    return fetch(`${API_BASE_URL}/users/${userInfo.id}`, {
         method: 'PUT',
         headers: {
             Authorization: `Bearer ${getState().auth.authToken}`,
@@ -48,7 +48,7 @@ export const deleteUserError = error => ({
 
 export const deleteUser = userId => (dispatch, getState) => {
     dispatch(deleteRequest(userId));
-    fetch(`${API_BASE_URL}/users/${userId}`, {
+    return fetch(`${API_BASE_URL}/users/${userId}`, {
         method: 'DELETE',
         headers: {
             Authorization: `Bearer ${getState().auth.authToken}`
@@ -73,7 +73,7 @@ export const fetchUserListError = error => ({
 
 export const fetchUserList = () => (dispatch, getState) => {
     const authToken = getState().auth.authToken;
-    fetch(`${API_BASE_URL}/users`, {
+    return fetch(`${API_BASE_URL}/users`, {
         method: 'GET',
         headers: {
             Authorization: `Bearer ${authToken}`

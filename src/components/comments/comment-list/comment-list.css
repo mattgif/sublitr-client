@@ -1,23 +1,5 @@
-.commentUpdate-enter {
-    opacity: 0;
-    max-height: 0;
-    overflow: hidden;
+.comment__list {
+    list-style: none;
+    padding-left: 0;
 }
 
-.commentUpdate-enter.commentUpdate-enter-active {
-    opacity: 1;
-    max-height: 100px;
-    transition: 1000ms ease-in;
-}
-
-.commentUpdate-leave {
-    opacity: 1;
-    max-height: 100px;
-}
-
-.commentUpdate-leave.commentUpdate-leave-active {
-    opacity: 0;
-    max-height: 0;
-    overflow: hidden;
-    transition: 1000ms ease-in;
-}

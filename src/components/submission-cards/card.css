@@ -134,6 +134,14 @@
     border-color: #ac2925;
 }
 
+#newDecision, #newRecommendation {
+    margin-right: 15px;
+}
+
+.status__info > div {
+    margin-bottom: 20px;
+}
+
 
 
 

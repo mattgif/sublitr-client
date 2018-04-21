@@ -7,6 +7,8 @@ import {clearAuth} from "../../actions/auth";
 import {clearAuthToken} from "../../localstorage";
 import owlLogo from '../../static/images/logo.svg'
 import {clearSubmissions} from "../../actions/submissions";
+import MobileMenuToggle from "./mobilemenutoggle";
+import {toggleDocViewerSidebar} from "../../actions";
 
 export function Navbar(props) {
     const logOut = () => {
@@ -15,14 +17,25 @@ export function Navbar(props) {
         clearAuthToken();
     };
 
+    function toggleVisibility() {
+        props.dispatch(toggleDocViewerSidebar())
+    }
+
     let shadow = '';
     if (props.user) {
         // add drop shadow when not showing landing
         shadow = ' navbar__shadow'
     }
+
+    let menuButton = undefined;
+    if (props.displayMenuButton) {
+        menuButton = <MobileMenuToggle checked={props.menuOpen} onChange={toggleVisibility}/>
+    }
+
     return (
         <nav className={"navbar" + shadow}>
             <div className="navbar__inner">
+                {menuButton}
                 <Link className="navbar__brand" to='/'><span
                     className="navbar__brand__outer">sub</span><span
                     className="navbar__brand__inner">lit</span><span
@@ -31,13 +44,14 @@ export function Navbar(props) {
                 </Link>
                 { props.user ? <button onClick={() => logOut()}>Logout</button>:<Login/> }
             </div>
-
         </nav>
     )
 }
 
 const mapStateToProps = state => ({
-    user: state.auth.currentUser
+    user: state.auth.currentUser,
+    displayMenuButton: state.sublitr.displayMenuButton,
+    menuOpen: state.sublitr.showSidebar
 });
 
 export default connect(mapStateToProps)(Navbar)

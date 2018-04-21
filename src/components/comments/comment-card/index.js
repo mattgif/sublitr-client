@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux';
-import DeleteCommentConfirm from '../delete-comment-confirm';
+import DeleteCommentConfirm from './delete-comment-confirm';
 import CircleLoadingSpinner from '../../loading-animations/circle-loading-spinner/index';
 import './commentcard.css';
 import {formatDate} from "../../../actions/utils";
@@ -9,7 +9,7 @@ import {formatDate} from "../../../actions/utils";
 export function CommentCard(props) {
     const {text, firstName, lastName, date, authorID} = props.comment;
     const name = `${firstName} ${lastName}`;
-    const formattedDate = formatDate(date, true);
+    const formattedDate = formatDate(date);
 
     let deleteButton;
     if (authorID === props.userID) {
@@ -24,14 +24,17 @@ export function CommentCard(props) {
 
     return (
         <li className="comments__card">
-            <div className="comments__body">
-                {text}
+            <section className="commenter__avatar"/>
+            <div>
+                <section className="comments__name__date">
+                    <div className="comments__name">{name}</div>
+                    <div className="comments__date">{formattedDate}</div>
+                </section>
+                <section className="comments__body">
+                    {text}
+                </section>
+                {deleteButton}
             </div>
-            <div className="comments__footer">
-                <div className="comments__name">{name}</div>
-                <div className="comments__date">{formattedDate}</div>
-            </div>
-            {deleteButton}
         </li>
     )
 }

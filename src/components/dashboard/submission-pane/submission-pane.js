@@ -4,7 +4,7 @@ import CardSubmission from "../../submission-cards/basic-card/index";
 import {fetchSubmissions} from "../../../actions/submissions";
 import { Icon, Dropdown, Button, Message } from 'semantic-ui-react';
 import SubmissionForm from "../../forms/submission-form/submissionform";
-import {toggleSubmissionForm} from "../../../actions";
+import {clearDashboardMessage, toggleSubmissionForm} from "../../../actions";
 import { CSSTransitionGroup } from 'react-transition-group';
 import CubicLoadingSpinner from "../../loading-animations/cubic-loading-spinner";
 
@@ -25,6 +25,10 @@ export class TabSubmissions extends React.Component {
         this.setState({filter: val})
     };
 
+    handleMessageDismiss = () => {
+        this.props.dispatch(clearDashboardMessage());
+    };
+
     render() {
         const options = [{text:'All Submissions', value: 'all', key: 'all'}, ...this.props.decisions];
         let submissionForm;
@@ -36,7 +40,7 @@ export class TabSubmissions extends React.Component {
 
         let message;
         if (this.props.message) {
-            message = <Message error={this.props.message.error} positive={this.props.message.positive}><Message.Header>{this.props.message.header}</Message.Header>{this.props.message.text}</Message>
+            message = <Message error={this.props.message.error} onDismiss={this.handleMessageDismiss} positive={this.props.message.positive}><Message.Header>{this.props.message.header}</Message.Header>{this.props.message.text}</Message>
         }
 
         let submissionList;

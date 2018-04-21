@@ -1,5 +1,7 @@
 import {
-    SHOW_DASHBOARD_MESSAGE,
+    CLEAR_DASHBOARD_MESSAGE,
+    DOCVIEWER_ACTIVE, DOCVIEWER_INACTIVE,
+    SHOW_DASHBOARD_MESSAGE, TOGGLE_DOCVIEWER_SIDEBAR,
     TOGGLE_SUBMISSION_FORM
 } from "../actions";
 
@@ -23,7 +25,7 @@ const initialState = {
     },
     publications:[
         {text: 'Jellyfish Magazine', value: 'Jellyfish Magazine', key: 'jfm'},
-        {text: 'Jellyfish Magazine', value: 'Jellyfish Magazine', key: 'jop'},
+        {text: 'Journal of Poetry', value: 'Journal of Poetry', key: 'jop'},
         {text: 'Literature Review', value: 'Literature Review', key: 'litrev'},
         {text: 'Jubilat', value: 'Jubilat', key: 'jublat'},
         {text: 'Writer\'s Digest', value: 'Writer\'s Digest', key: 'wd'},
@@ -38,7 +40,8 @@ const initialState = {
     showSidebar: false,
     allowedFileTypes: ["application/pdf"],
     showNewSubmissionForm: false,
-    dashboardMessage: undefined
+    dashboardMessage: undefined,
+    displayMenuButton: false
 };
 
 export const sublitrReducer = (state = initialState, action) => {
@@ -54,9 +57,27 @@ export const sublitrReducer = (state = initialState, action) => {
         })
     }
 
-    else if (action.type === SHOW_DASHBOARD_MESSAGE) {
+    else if (action.type === CLEAR_DASHBOARD_MESSAGE) {
         return Object.assign({}, state, {
             dashboardMessage: undefined
+        })
+    }
+
+    else if (action.type === TOGGLE_DOCVIEWER_SIDEBAR) {
+        return Object.assign({}, state, {
+            showSidebar: !state.showSidebar
+        })
+    }
+
+    else if (action.type === DOCVIEWER_ACTIVE) {
+        return Object.assign({}, state, {
+            displayMenuButton: true
+        })
+    }
+
+    else if (action.type === DOCVIEWER_INACTIVE) {
+        return Object.assign({}, state, {
+            displayMenuButton: false
         })
     }
 

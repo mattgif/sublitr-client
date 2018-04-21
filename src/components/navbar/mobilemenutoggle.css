@@ -1,13 +1,16 @@
 .sidebar__toggle {
     position: relative;
-    margin-right: -60px;
-    margin-top: 10px;
+    margin-right: 5px;
+    padding-top: 10px;
+    padding-right: 5px;
+    border-right: 1px solid rgba(0, 0, 0, .3);
     height: 40px;
     width: 40px;
     z-index: 1;
     -webkit-user-select: none;
     user-select: none;
 }
+
 .sidebar__toggle input {
     /*hidden checkbox that registers clicks*/
     display: block;
@@ -32,7 +35,7 @@
     margin-bottom: 5px;
     position: relative;
 
-    background: #cdcdcd;
+    background: #F4DECB;
     border-radius: 3px;
 
     z-index: 1;
@@ -55,7 +58,7 @@
 .sidebar__toggle input:checked ~ span {
     opacity: 1;
     transform: rotate(-45deg) translate(0, -2px);
-    background: #232323;
+    background: #49274A;
 }
 
 .sidebar__toggle input:checked ~ span:nth-last-child(2) {

@@ -1,12 +1,44 @@
-.comments__list {
+div.sidebar section > h3 {
+    text-align: left;
+    padding-bottom: 4px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.sidebar div.header {
+    display: flex;
+}
+
+.sidebar div.header h2 {
+    margin-right: 15px;
+}
+
+.sidebar .status section {
+    text-align: left;
+}
+
+.sidebar .status #newDecision,
+.sidebar .status #newRecommendation {
+    margin-bottom: 15px;
+}
+
+.sidebar .status section > h4 {
+    margin-top: 15px;
+}
+
+.sidebar .status .dates {
+    padding: 0;
     list-style: none;
-    padding-left: 0;
+    font-size: 16px;
+    text-align: left;
 }
 
-.comments__list li:nth-child(even) {
-    background-color: #ccc;
+
+.sidebar .status .dates li {
+    margin-bottom: 15px;
 }
 
-.comments__list li:nth-child(odd) {
-    background-color: #aaa;
+.sidebar .status .dates .date__label {
+    display: block;
+    font-weight: bold;
 }
+
