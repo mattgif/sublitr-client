@@ -17,7 +17,7 @@ export const getSubmissionsSuccess = (submissions, userId) => ({
 
 export const fetchSubmissions = () => (dispatch, getState) => {
     dispatch(getSubmissionsRequest());
-    fetch(`${API_BASE_URL}/submissions`, {
+    return fetch(`${API_BASE_URL}/submissions`, {
         method: 'GET',
         headers: {
             Authorization: `Bearer ${getState().auth.authToken}`
@@ -49,47 +49,22 @@ export const fetchDocumentError = error => ({
 
 export const fetchDocument = (id, key) => (dispatch, getState) => {
     dispatch(fetchDocumentRequest());
-    let contentType;
-    fetch(`${API_BASE_URL}/submissions/${id}/${key}`, {
+    return fetch(`${API_BASE_URL}/submissions/${id}/${key}`, {
         method: 'GET',
         headers: {
             Authorization: `Bearer ${getState().auth.authToken}`
         }
     })
-        .then(res => {
-            contentType = res.headers.get("content-type");
-            return normalizeResponseErrors(res)
-        })
-        .then(res => {
-            const reader = res.body.getReader();
-            return new ReadableStream({
-                start(controller) {
-                    return pump();
-                    function pump() {
-                        return reader.read().then(({ done, value }) => {
-                            // When no more data needs to be consumed, close the stream
-                            if (done) {
-                                controller.close();
-                                return;
-                            }
-                            // Enqueue the next data chunk into our target stream
-                            controller.enqueue(value);
-                            return pump();
-                        });
-                    }
-                }
-            })
-        })
-        .then(stream => new Response(stream, { headers: {'Content-Type': contentType}}))
-        .then(response => response.blob())
-        .then(blob => URL.createObjectURL(blob))
+        .then(normalizeResponseErrors)
+        .then(res => res.blob())
+        .then(URL.createObjectURL)
         .then(url => dispatch(fetchDocumentSuccess(id, url)))
         .catch(err => dispatch(fetchDocumentError(err)))
 };
 
 export const getSubmissionsAndFetchDocument = (id) => (dispatch, getState) => {
     dispatch(getSubmissionsRequest());
-    fetch(`${API_BASE_URL}/submissions`, {
+    return fetch(`${API_BASE_URL}/submissions`, {
         method: 'GET',
         headers: {
             Authorization: `Bearer ${getState().auth.authToken}`
@@ -128,7 +103,7 @@ export const updateStatusRequest = id => ({
 
 export const updateStatus = (field, value, id) => (dispatch, getState) => {
     dispatch(updateStatusRequest(id));
-    fetch(`${API_BASE_URL}/submissions/${id}`, {
+    return fetch(`${API_BASE_URL}/submissions/${id}`, {
         method: 'PUT',
         body: JSON.stringify({
             id,
@@ -167,7 +142,7 @@ export const deleteSubmissionError = error => ({
 
 export const deleteSubmission = submissionId => (dispatch, getState) => {
     dispatch(deleteSubmissionRequest(submissionId));
-    fetch(`${API_BASE_URL}/submissions/${submissionId}`, {
+    return fetch(`${API_BASE_URL}/submissions/${submissionId}`, {
         method: 'DELETE',
         headers: {
             'Authorization': `Bearer ${getState().auth.authToken}`,
@@ -201,7 +176,7 @@ export const createCommentError = error => ({
 
 export const createComment = (submissionId, comment) => (dispatch, getState) => {
     dispatch(createCommentRequest());
-    fetch(`${API_BASE_URL}/submissions/${submissionId}/comment`, {
+    return fetch(`${API_BASE_URL}/submissions/${submissionId}/comment`, {
         method: 'POST',
         body: JSON.stringify({
             text: comment
@@ -239,7 +214,7 @@ export const deleteCommentError = (commentId, error) => ({
 
 export const deleteComment = (submissionId, commentId) => (dispatch, getState) => {
     dispatch(deleteCommentRequest(commentId));
-    fetch(`${API_BASE_URL}/submissions/${submissionId}/comment/${commentId}`, {
+    return fetch(`${API_BASE_URL}/submissions/${submissionId}/comment/${commentId}`, {
         method: 'DELETE',
         body: JSON.stringify({
             submissionId,
