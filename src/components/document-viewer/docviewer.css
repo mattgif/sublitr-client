@@ -24,3 +24,60 @@ iframe.docviewer__iframe {
 .pusher {
     height: 100%;
 }
+
+div.docviewer .docviewer__header {
+    margin-left: auto;
+    margin-right: auto;
+}
+div.docviewer .docviewer__header dt {
+    font-weight: bold;
+    margin-top: 8px;
+}
+
+div.docviewer .docviewer__header dd {
+    padding: 0;
+    margin: 0;
+}
+
+div.docviewer__coverletter {
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    border-radius: 3px;
+    padding: 15px;
+    transition: .25s ease-in;
+}
+
+div.docviewer__coverletter.closed {
+    opacity: 0;
+    max-height: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+div.docviewer__coverletter.open {
+    opacity: 1;
+    margin-bottom: 10px;
+    max-height: 900px;
+    background-color: #F8EEE7;
+}
+
+section.docviewer__coverletter__wrapper {
+    margin-bottom: 20px;
+}
+
+section.docviewer__coverletter__wrapper button {
+    height: 44px;
+    padding: 10px 20px;
+    border-radius: 3px;
+    border: none;
+    font-size: 14px;
+    font-family: "Open Sans", sans-serif;
+}
+
+section.docviewer__coverletter__wrapper button.closed {
+    background-color: #4b84a4;
+    color: #fff;
+}
+
+section.docviewer__coverletter__wrapper button.closed:hover {
+    background-color: #1a69a4;
+}

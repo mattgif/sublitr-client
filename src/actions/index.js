@@ -28,3 +28,8 @@ export const DOCVIEWER_INACTIVE = 'DOCVIEWER_INACTIVE';
 export const docviewerInactive = () => ({
     type: DOCVIEWER_INACTIVE
 });
+
+export const CLEAR_APP_STATE = 'CLEAR_APP_STATE';
+export const clearAppState = () => ({
+    type: CLEAR_APP_STATE
+});

@@ -1,6 +1,7 @@
 .sidebar__toggle {
-    position: relative;
-    margin-right: 5px;
+    position: fixed;
+    top: 8px;
+    left: 20px;
     padding-top: 10px;
     padding-right: 5px;
     border-right: 1px solid rgba(0, 0, 0, .3);

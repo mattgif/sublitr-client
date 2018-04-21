@@ -1,4 +1,5 @@
 import {
+    CLEAR_APP_STATE,
     CLEAR_DASHBOARD_MESSAGE,
     DOCVIEWER_ACTIVE, DOCVIEWER_INACTIVE,
     SHOW_DASHBOARD_MESSAGE, TOGGLE_DOCVIEWER_SIDEBAR,
@@ -79,6 +80,10 @@ export const sublitrReducer = (state = initialState, action) => {
         return Object.assign({}, state, {
             displayMenuButton: false
         })
+    }
+
+    else if (action.type === CLEAR_APP_STATE) {
+        return Object.assign({}, state, initialState)
     }
 
     return state;

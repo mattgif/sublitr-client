@@ -8,12 +8,13 @@ import {clearAuthToken} from "../../localstorage";
 import owlLogo from '../../static/images/logo.svg'
 import {clearSubmissions} from "../../actions/submissions";
 import MobileMenuToggle from "./mobilemenutoggle";
-import {toggleDocViewerSidebar} from "../../actions";
+import {clearAppState, toggleDocViewerSidebar} from "../../actions";
 
 export function Navbar(props) {
     const logOut = () => {
         props.dispatch(clearAuth());
         props.dispatch(clearSubmissions());
+        props.dispatch(clearAppState());
         clearAuthToken();
     };
 
@@ -36,7 +37,7 @@ export function Navbar(props) {
         <nav className={"navbar" + shadow}>
             <div className="navbar__inner">
                 {menuButton}
-                <Link className="navbar__brand" to='/'><span
+                <Link className={`navbar__brand ${props.displayMenuButton ? 'shift' : ''}`} to='/'><span
                     className="navbar__brand__outer">sub</span><span
                     className="navbar__brand__inner">lit</span><span
                     className="navbar__brand__outer">r</span>

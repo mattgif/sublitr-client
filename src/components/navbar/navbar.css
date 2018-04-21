@@ -30,6 +30,14 @@
     line-height: 30px;
 }
 
+@media screen and (max-width: 1000px) {
+    .navbar__brand.shift {
+        /* spaces to accommodate fixed menu button */
+        margin-left: 45px;
+    }
+}
+
+
 a.navbar__brand  {
     color: #F5DECB;
     transition: color .15s ease-in;
