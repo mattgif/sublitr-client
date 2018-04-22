@@ -79,16 +79,19 @@ export const updatePublicatonSuccess = publication => ({
     publication
 });
 
-export const updatePublication = (data, id) => (dispatch, getState) => {
+
+export const updatePublication = (formData, id) => (dispatch, getState) => {
     return fetch(`${API_BASE_URL}/publications/${id}`, {
         method: 'PUT',
-        body: data,
+        body: formData,
         headers: {
-            Authorization: `Bearer ${getState().auth.authToken}`
+            Authorization: `Bearer ${getState().auth.authToken}`,
+            'Content-Type': 'application/json'
         }
     })
         .then(res => normalizeResponseErrors(res))
-        .then(res => dispatch(updatePublicatonSuccess(res)))
+        .then(res => res.json())
+        .then(publication => dispatch(updatePublicatonSuccess(publication)))
         .catch(err => {
             const {reason, message, location} = err;
             if (reason ==='ValidationError') {
@@ -114,12 +117,12 @@ export const deletePublicationRequest = () => ({
 });
 
 export const DELETE_PUBLICATION_SUCCESS = 'DELETE_PUBLICATION_SUCCESS';
-export const deletePublicationSuccess = abbr => ({
+export const deletePublicationSuccess = title => ({
     type: DELETE_PUBLICATION_SUCCESS,
-    abbr
+    title
 });
 
-export const deletePublication = (abbr, id) => (dispatch, getState) => {
+export const deletePublication = (title, id) => (dispatch, getState) => {
     dispatch(deletePublicationRequest());
     return fetch(`${API_BASE_URL}/publications/${id}`, {
         method: 'DELETE',
@@ -128,7 +131,7 @@ export const deletePublication = (abbr, id) => (dispatch, getState) => {
         }
     })
         .then(() => {
-            dispatch(deletePublicationSuccess(abbr))
+            dispatch(deletePublicationSuccess(title));
             dispatch(showDashboardMessage({
                 header: 'Deleted publication',
                 text: '',

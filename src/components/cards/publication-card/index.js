@@ -16,13 +16,13 @@ export class PublicationCard extends React.Component {
     toggleEditing() {this.setState({editing: !this.state.editing})}
 
     render() {
-        const {title, image, id, abbr, editors} = this.props.publication;
+        const {title, image, id, editors} = this.props.publication;
         const {editing} = this.state;
         let editorItems, mainContent;
         if (editors) {
-            editorItems = Object.keys(editors).map(email => {
-                const editor = editors[email];
-                return <li key={editor.id}><span className="name">{editor.name}</span> <span className="email">({email})</span></li>
+            editorItems = Object.keys(editors).map(edId => {
+                const editor = editors[edId];
+                return <li key={editor.id}><span className="name">{editor.name}</span> <span className="email">({editor.email})</span></li>
             });
         }
 
@@ -47,7 +47,7 @@ export class PublicationCard extends React.Component {
                 {mainContent}
                 <div className="button__wrapper">
                     <button onClick={() => this.toggleEditing()} className="edit">{editing ? 'Cancel' : 'Edit'}</button>
-                    <DeletePublicationConfirm className="delete" title={title} abbr={abbr} id={id}/>
+                    <DeletePublicationConfirm className="delete" title={title} id={id}/>
                 </div>
             </div>
         )

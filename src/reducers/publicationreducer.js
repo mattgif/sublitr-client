@@ -1,7 +1,7 @@
 import {
     CREATE_PUBLICATION_SUCCESS, DELETE_PUBLICATION_REQUEST, DELETE_PUBLICATION_SUCCESS,
     FETCH_PUBLICATIONS_ERROR, FETCH_PUBLICATIONS_REQUEST,
-    FETCH_PUBLICATIONS_SUCCESS
+    FETCH_PUBLICATIONS_SUCCESS, UPDATE_PUBLICATION_SUCCESS
 } from "../actions/publications";
 
 const initialState = {
@@ -26,7 +26,7 @@ export const publicationReducer = (state = initialState, action) => {
     else if (action.type === FETCH_PUBLICATIONS_SUCCESS) {
         const pubArray = action.publications;
         let publications = {};
-        pubArray.forEach(pub => publications[pub.abbr] = pub);
+        pubArray.forEach(pub => publications[pub.title] = pub);
         return {...state, publications, loading: false, error: undefined}
     }
 
@@ -36,7 +36,7 @@ export const publicationReducer = (state = initialState, action) => {
 
     else if (action.type === CREATE_PUBLICATION_SUCCESS) {
         const publications = Object.assign({}, state.publications, {
-            [action.publication.abbr]: action.publication
+            [action.publication.title]: action.publication
         });
         return {...state, publications}
     }
@@ -47,8 +47,16 @@ export const publicationReducer = (state = initialState, action) => {
 
     else if (action.type === DELETE_PUBLICATION_SUCCESS) {
         const publications = Object.assign({}, state.publications);
-        delete publications[action.abbr];
+        delete publications[action.title];
         return {...state, publications, deleting: false}
+    }
+
+    else if (action.type === UPDATE_PUBLICATION_SUCCESS) {
+        const publications = Object.assign({}, state.publications);
+        const updatedPublication = action.publication;
+        publications[updatedPublication.id] = updatedPublication;
+
+        return {...state, publications}
     }
 
     return state;

@@ -7,7 +7,7 @@ import SubmissionForm from "../../forms/submission-form/submissionform";
 import { toggleSubmissionForm} from "../../../actions";
 import CubicLoadingSpinner from "../../loading-animations/cubic-loading-spinner";
 
-export class TabSubmissions extends React.Component {
+export class SubmissionsPane extends React.Component {
     constructor (props) {
         super(props);
         this.state = {
@@ -26,7 +26,7 @@ export class TabSubmissions extends React.Component {
 
     render() {
         const options = [{text:'All Submissions', value: 'all', key: 'all'}, ...this.props.decisions];
-        const {loading, showNewSubmissionForm, submissions, hidden, dispatch} = this.props;
+        const {publications, loading, showNewSubmissionForm, submissions, hidden, dispatch} = this.props;
         const {filter} = this.state;
 
         let submissionForm;
@@ -44,6 +44,7 @@ export class TabSubmissions extends React.Component {
         } else {
             const submissionCards = Object.keys(submissions).map(key => {
                 const submission = submissions[key];
+                const image = publications[submission.publication] ? publications[submission.publication].image : 'https://s3.amazonaws.com/sublitr-images/logo.svg';
                 if (filter === "all" || submission.status === filter) {
                     return(
                         <li key={submission.id}>
@@ -53,6 +54,7 @@ export class TabSubmissions extends React.Component {
                                 title={submission.title}
                                 submissionDate={submission.submitted}
                                 id={submission.id}
+                                pubImage={image}
                             />
                         </li>
                     );
@@ -95,7 +97,8 @@ const mapStateToProps = state => ({
     decisions: state.sublitr.statusLists.decision,
     showNewSubmissionForm: state.sublitr.showNewSubmissionForm,
     message: state.sublitr.dashboardMessage,
-    loading: state.submissions.loading
+    loading: state.submissions.loading,
+    publications: state.publications.publications
 });
 
-export default connect(mapStateToProps)(TabSubmissions)
+export default connect(mapStateToProps)(SubmissionsPane)

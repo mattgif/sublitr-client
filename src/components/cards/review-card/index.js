@@ -45,8 +45,12 @@ export class ReviewCard extends React.Component {
     }
 
     render() {
-        const lastActionDate = formatDate(this.props.submission.reviewerInfo.lastAction);
-        const submittedDate = formatDate(this.props.submission.submitted);
+        const {expanded} = this.state;
+        const { publication, title, author, submitted, id } = this.props.submission;
+        const {pubImage} = this.props;
+        const { lastAction, decision, recommendation } = this.props.submission.reviewerInfo;
+        const lastActionDate = formatDate(lastAction);
+        const submittedDate = formatDate(submitted);
 
         let message;
         if (this.state.message) {
@@ -54,23 +58,27 @@ export class ReviewCard extends React.Component {
         }
 
         return (
-            <div className="card">
-                <StatusIndicator status={this.props.submission.reviewerInfo.decision}/>
-                <ul className="card__list">
-                    <li className='publication'>{this.props.submission.publication}</li>
-                    <li className='title'>{this.props.submission.title}</li>
-                    <li className='author'>{this.props.submission.author}</li>
-                </ul>
-                <div className="expand">
-                    <Link className="view-submission-button" to={`/submission/${this.props.submission.id}`}>View submission</Link>
-                    <button onClick={() => this.toggleExpand()}>
-                        <Icon size={'big'} name={this.state.expanded ? 'compress' : 'expand'}/>
-                    </button>
+            <div className="card review">
+                <StatusIndicator status={decision}/>
+                <div>
+                    <ul className="card__list">
+                        <li className='title'>{title}</li>
+                        <li className='author'>{author}</li>
+                        <li className='date'><time dateTime={submitted}>{submittedDate}</time></li>
+                    </ul>
+                    <div className='publication__wrapper'>
+                        <ul className="card__list publication">
+                            <li className='publication'>{publication}</li>
+                            <li className='status'>Decision: {decision}</li>
+                            <li className='last-action'>Last reviewer action: <time dateTime={lastAction}>{lastActionDate}</time></li>
+                        </ul>
+                        <div className='image'><img src={pubImage} alt={`${publication} logo`}/></div>
+                    </div>
                 </div>
-                <div className={this.state.expanded ? "additional reviewer visible" : "hidden additional reviewer"}>
+                <Link className="view-submission-button" to={`/submission/${id}`}>View submission</Link>
+                <div className={expanded ? "additional reviewer visible" : "hidden additional reviewer"}>
                     {message}
                     <dl className="status__info">
-                        <h3>Current status:</h3>
                         <p className="status__info__note">Use dropdowns to change status</p>
                         <dt>Decision (visible to submitter):</dt>
                         <ConfirmableDropdown id='newDecision'
@@ -79,7 +87,7 @@ export class ReviewCard extends React.Component {
                                              warning={<p className="caution">The submitter WILL see a new status</p>}
                                              onConfirm={this.handleDecisionChange}
                                              options={this.props.statusLists.decision}
-                                             value={this.props.submission.reviewerInfo.decision}
+                                             value={decision}
 
                         />
                         <dt>Recommendation:</dt>
@@ -89,18 +97,11 @@ export class ReviewCard extends React.Component {
                                              warning={<p>The submitter will NOT see this change</p>}
                                              onConfirm={this.handleRecommendationChange}
                                              options={this.props.statusLists.recommendation}
-                                             value={this.props.submission.reviewerInfo.recommendation}
+                                             value={recommendation}
                         />
                     </dl>
-                    <dl className="basic__info">
-                        <h3>Submission info:</h3>
-                        <dt>Submitted:</dt>
-                        <dd><time dateTime={this.props.submission.submitted}>{submittedDate}</time></dd>
-
-                        <dt>Last action:</dt>
-                        <dd><time dateTime={this.props.submission.reviewerInfo.lastAction}>{lastActionDate}</time></dd>
-                    </dl>
                 </div>
+                <button className="expand" onClick={() => this.toggleExpand()}>{expanded ? 'Cancel' : 'Edit'}</button>
             </div>
         )
     }
@@ -108,7 +109,10 @@ export class ReviewCard extends React.Component {
 
 const mapStateToProps = (state, ownProps) => ({
     statusLists: state.sublitr.statusLists,
-    updating: state.submissions.updating[ownProps.submission.id]
+    updating: state.submissions.updating[ownProps.submission.id],
+    pubImage: state.publications.publications[ownProps.submission.publication]
+        ? state.publications.publications[ownProps.submission.publication].image
+        : 'https://s3.amazonaws.com/sublitr-images/logo.svg'
 });
 
 export default connect(mapStateToProps)(ReviewCard)

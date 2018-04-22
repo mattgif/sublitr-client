@@ -12,7 +12,7 @@ class DeletePublicationConfirm extends React.Component {
     show = (e) => {this.setState({ open: true });};
 
     handleConfirm = () => {
-        this.props.dispatch(deletePublication(this.props.abbr, this.props.id));
+        this.props.dispatch(deletePublication(this.props.title, this.props.id));
         this.setState({ open: false });
     };
 

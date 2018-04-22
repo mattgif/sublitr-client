@@ -38,7 +38,7 @@ export class SubmissionForm extends React.Component {
 
     onSubmit(values) {
         const data = new FormData();
-        data.append('publication', this.props.publications[values.publication]);
+        data.append('publication', this.props.publications[values.publication].title);
         data.append('title', values.title);
         data.append('doc', this.state.uploadedFile);
         if (this.state.coverLetter) {

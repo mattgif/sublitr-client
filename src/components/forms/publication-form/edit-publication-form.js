@@ -3,7 +3,7 @@ import {reduxForm } from 'redux-form';
 import { Button, Message } from 'semantic-ui-react';
 import {connect} from 'react-redux';
 import '../submission-form/submission-form.css'
-import {showDashboardMessage, togglePublicationForm} from "../../../actions";
+import {showDashboardMessage} from "../../../actions";
 import UserSelector from "../form-elements/user-selector";
 import {updatePublication} from "../../../actions/publications";
 
@@ -11,7 +11,7 @@ export class EditPublicationForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            currentEditors: this.props.editors,
+            currentEditors: this.props.editors || {},
             newEditors: []
         };
         this.handleCancel = this.handleCancel.bind(this);
@@ -20,9 +20,9 @@ export class EditPublicationForm extends React.Component {
 
    handleCancel() {this.props.cancel()}
 
-   removeEditor(email) {
+   removeEditor(id) {
         const currentEditors = Object.assign({}, this.state.currentEditors);
-        delete currentEditors[email];
+        delete currentEditors[id];
         this.setState({currentEditors})
    }
 
@@ -32,10 +32,10 @@ export class EditPublicationForm extends React.Component {
     }
 
     onSubmit(values) {
-        const data = new FormData();
-        const currentEditors = Object.keys(this.state.currentEditors).map(email => {return this.state.currentEditors[email]});
-        const allEditors = [...currentEditors, ...this.state.newEditors];
-        data.append('editors', JSON.stringify(allEditors));
+        const editors = Object.assign({}, this.state.currentEditors);
+        this.state.newEditors.forEach(e => {editors[e.id] = e});
+        let data = {'editors':editors};
+        data = JSON.stringify(data);
         return this.props.dispatch(updatePublication(data, this.props.id))
             .then(() => {
                 this.props.dispatch(showDashboardMessage({
@@ -44,6 +44,7 @@ export class EditPublicationForm extends React.Component {
                     error: false,
                     positive: true
                 }));
+                this.handleCancel();
             })
     }
 
@@ -56,11 +57,14 @@ export class EditPublicationForm extends React.Component {
             )
         }
 
-        const editorItems = Object.keys(currentEditors).map(editor => { return (
+        let editorItems;
+        if (currentEditors) {
+            editorItems = Object.keys(currentEditors).map(editor => { return (
                 <li key={editor}>
-                    {editor}  <button onClick={() => this.removeEditor(editor)} className="remove">remove</button>
+                    {currentEditors[editor].email}  <button onClick={() => this.removeEditor(editor)} className="remove">remove</button>
                 </li>
             )});
+        }
 
         return (
             <form onSubmit={this.props.handleSubmit(values => this.onSubmit(values))}>

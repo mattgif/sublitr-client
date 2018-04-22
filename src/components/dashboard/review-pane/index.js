@@ -59,7 +59,7 @@ export class TabReview extends React.Component {
         return (
             <section className={this.props.hidden ? "pane hidden" : "pane"}>
                 <h2>Review submissions</h2>
-                <p>Select the <Icon name='expand'/> icon to view and update submission statuses</p>
+                <p>Select 'edit' to quickly update a submission's recommendation or status, or select 'view submission' for all editor options, including adding comments</p>
                 <div className="filter__section">
                     <h4>Filter by:</h4>
                     <ul className="filter__list">

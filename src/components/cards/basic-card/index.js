@@ -7,21 +7,23 @@ import './basic-card.css';
 
 export default class CardSubmission extends React.Component {
     render() {
-        const status = this.props.status;
-        const publication = this.props.publication;
-        const title = this.props.title;
-        const id = this.props.id;
-        const submissionDate = formatDate(this.props.submissionDate);
+        const { pubImage, status, publication, title, id, submissionDate } = this.props;
+        const date = formatDate(submissionDate);
         return (
             <div className="card__basic">
                 <StatusIndicator status={status}/>
                 <section>
                     <ul>
                         <li className='title'>{title}</li>
-                        <li className='submitted'>Submitted <time>{submissionDate}</time></li>
-                        <li className='publication'>{publication}</li>
-                        <li>Status: {status}</li>
+                        <li className='submitted'>Submitted <time>{date}</time></li>
                     </ul>
+                    <div className='publication__wrapper'>
+                        <ul>
+                            <li className='publication'>{publication}</li>
+                            <li className='status__item'>Status: {status}</li>
+                        </ul>
+                        <div className='image'><img src={pubImage} alt={`${publication} logo`}/></div>
+                    </div>
                     <DeleteSubmissionConfirm className="delete__wrapper" title={title} id={id}/>
                 </section>
             </div>

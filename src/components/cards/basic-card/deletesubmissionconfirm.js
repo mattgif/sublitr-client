@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {Confirm, Icon} from 'semantic-ui-react';
+import {Confirm} from 'semantic-ui-react';
 import {deleteSubmission} from "../../../actions/submissions";
 
 class DeleteSubmissionConfirm extends React.Component {
@@ -28,7 +28,7 @@ class DeleteSubmissionConfirm extends React.Component {
         const title = this.props.title;
         return (
             <div className={this.props.className}>
-                <button onClick={(e) => this.show(e)}><Icon name='trash outline'/> Delete</button>
+                <button onClick={(e) => this.show(e)}>Delete</button>
                 <Confirm
                     open={this.state.open}
                     onCancel={this.handleCancel}

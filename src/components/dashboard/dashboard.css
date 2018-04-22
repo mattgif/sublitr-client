@@ -48,11 +48,6 @@
     }
 }
 
-ul.submissionList.user {
-    display: flex;
-    flex-wrap: wrap;
-}
-
 .new-submission-button {
     display: inline-block;
 }
