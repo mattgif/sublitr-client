@@ -1,0 +1,64 @@
+div.card__basic button {
+    color: #d9534f;
+    background-color: transparent;
+    border: none;
+    transition: .15s ease-in;
+    padding: 0;
+    margin-left: auto;
+}
+
+div.card__basic .delete__wrapper {
+    text-align: right;
+}
+
+div.card__basic button:hover {
+    color: #9b1810;
+}
+
+div.card__basic {
+    display: flex;
+    background-color: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.25);
+    border-radius: 3px;
+    padding: 20px;
+    width: 345px;
+    margin: 15px;
+}
+
+@media screen and (max-width: 900px) {
+    div.card__basic {
+        width: 100%;
+    }
+}
+
+div.card__basic > div {
+    margin-right: 15px;
+    min-width: 30px;
+}
+
+div.card__basic section {
+    width: 100%;
+}
+
+div.card__basic ul {
+    padding: 0;
+    list-style: none;
+}
+
+div.card__basic li {
+    margin-bottom: 8px;
+}
+
+div.card__basic li.title {
+    font-weight: bold;
+    font-size: 18px;
+}
+
+div.card__basic li.submitted {
+    font-size: 12px;
+    width: 100%;
+}
+
+div.card__basic li.submitted time {
+    text-transform: lowercase;
+}
