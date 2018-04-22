@@ -17,7 +17,8 @@ export class SubmissionForm extends React.Component {
         this.state = {
             coverLetter: '',
             uploadedFile: null,
-            fileError: false
+            fileError: false,
+            publicationsHash: this.props.publications()
         };
 
         this.handleCoverLetterEntry = this.handleCoverLetterEntry.bind(this);
@@ -38,7 +39,7 @@ export class SubmissionForm extends React.Component {
 
     onSubmit(values) {
         const data = new FormData();
-        data.append('publication', this.props.publications[values.publication].title);
+        data.append('publication', this.state.publicationsHash[values.publication].title);
         data.append('title', values.title);
         data.append('doc', this.state.uploadedFile);
         if (this.state.coverLetter) {
@@ -95,7 +96,15 @@ export class SubmissionForm extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    publications: state.publications.publications,
+    publications: function() {
+        const _publications = {};
+        Object.keys(state.publications.publications).forEach(title => {
+            const pub = state.publications.publications[title];
+            const abbr = pub.abbr;
+            _publications[abbr] = pub
+        });
+        return _publications
+    },
     pubOptions: state.publications.publicationsOptions()
 });
 

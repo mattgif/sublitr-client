@@ -12,6 +12,16 @@ const initialState = {
             return {text: publication.title, value: publication.abbr, icon: publication.icon, key: publication.abbr}
         })
     },
+    myPublications: function(id) {
+        // returns array of titles that list user as editor
+        return Object.keys(this.publications).map(key => {
+            const publication = this.publications[key]
+            const editors = publication.editors;
+            if (editors && Object.keys(editors).includes(id)){
+                return publication.title
+            } else { return ''}
+        })
+    },
     loading: false,
     error: undefined,
     publications: {},
@@ -54,7 +64,7 @@ export const publicationReducer = (state = initialState, action) => {
     else if (action.type === UPDATE_PUBLICATION_SUCCESS) {
         const publications = Object.assign({}, state.publications);
         const updatedPublication = action.publication;
-        publications[updatedPublication.id] = updatedPublication;
+        publications[updatedPublication.title] = updatedPublication;
 
         return {...state, publications}
     }

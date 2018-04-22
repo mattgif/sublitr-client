@@ -14,6 +14,8 @@ export class App extends React.Component {
         return this.props.dispatch(fetchPublications());
     }
 
+    
+
     render() {
         if (this.props.user) {
             return (

@@ -81,3 +81,11 @@ section.docviewer__coverletter__wrapper button.closed {
 section.docviewer__coverletter__wrapper button.closed:hover {
     background-color: #1a69a4;
 }
+
+div.docviewer__error {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 25px;
+    height: 100%;
+}

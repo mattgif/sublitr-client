@@ -34,16 +34,19 @@ export class DocViewer extends React.Component {
 
     render() {
         if (!this.props.submission || this.props.loadingSubmissions) {
-            return (
-                <CubicLoadingSpinner/>
-            )
+            return (<CubicLoadingSpinner/>)
+        }
+
+        if (!Object.keys(this.props.submission).includes('reviewerInfo')) {
+          //  user is not a reviewer for document at this link
+          return (<div className="docviewer__error"><Icon name="ban" size="huge"/>Sorry, you are not authorized to review this document</div>)
         }
 
         let documentPreview;
         if (!this.props.document && this.props.fetching) {
             documentPreview = <CubicLoadingSpinner/>
         } else if (!this.props.document && !this.props.fetching) {
-            documentPreview = <div>Sorry, there was an error retrieving the document</div>
+            documentPreview = <div className="docviewer__error"><Icon size="huge" name="frown"/> Sorry, there was an error retrieving the document</div>
         } else {
             documentPreview = <embed width="100%" height="100%" className="docviewer__iframe" type="application/pdf" title={this.props.submission.title}
                                       src={this.props.document} frameBorder="0"/>
