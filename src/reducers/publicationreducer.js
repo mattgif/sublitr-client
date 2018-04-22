@@ -12,15 +12,15 @@ const initialState = {
             return {text: publication.title, value: publication.abbr, icon: publication.icon, key: publication.abbr}
         })
     },
-    myPublications: function(id) {
-        // returns array of titles that list user as editor
-        return Object.keys(this.publications).map(key => {
-            const publication = this.publications[key]
-            const editors = publication.editors;
-            if (editors && Object.keys(editors).includes(id)){
-                return publication.title
-            } else { return ''}
-        })
+    publicationsAbbrHash: function() {
+        // some items (e.g. form elements) need sanitized values, so we need a way of looking up publications by abbr instead of title
+        const _publications = {};
+        Object.keys(this.publications).forEach(title => {
+            const pub = this.publications[title];
+            const abbr = pub.abbr;
+            _publications[abbr] = pub
+        });
+        return _publications
     },
     loading: false,
     error: undefined,

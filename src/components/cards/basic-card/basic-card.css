@@ -23,6 +23,13 @@ div.card__basic {
     padding: 20px;
     width: 100%;
     margin: 15px;
+    word-wrap: break-word;
+}
+
+@media screen and (max-width: 450px) {
+    div.card__basic {
+        flex-wrap: wrap;
+    }
 }
 
 div.card__basic > div {

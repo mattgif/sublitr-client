@@ -22,12 +22,23 @@ export class ReviewPane extends React.Component {
     updateFilter = data => {
         this.setState({[data.id]: data.value})};
 
+    updatePublicationFilter = data => {
+        // Dropdown needs sanitized values, so we need to use a re-hashed dic
+        let value = data.value;
+        if (value !== 'all') {
+            value = this.props.publicationsAbbrHash[data.value].title;
+        }
+        this.setState({publicationFilter: value})
+    };
+
     matchesField = (targetField, filterValue) => {
         return targetField === filterValue || filterValue === "all"
     };
 
     filteredSubmissions = (submissionList, state) => Object.keys(submissionList).reduce((hash, key) => {
         const submission = submissionList[key];
+        console.log('filter:', state.publicationFilter);
+        console.log('submission.publication', submission.publication);
         if (Object.keys(submission).includes('reviewerInfo') &&
             this.matchesField(submission.publication, state.publicationFilter) &&
             this.matchesField(submission.reviewerInfo.decision, state.decisionFilter) &&
@@ -43,14 +54,14 @@ export class ReviewPane extends React.Component {
             <li key={submission.id}>
                 <CardReview submission={submission}/>
             </li>
-    )});
+        )});
 
     render() {
         const filteredSubmissions = this.filteredSubmissions(this.props.submissions, this.state);
         let submissionList;
         if (this.props.loading) {
             submissionList = <CubicLoadingSpinner/>
-        } else if (!filteredSubmissions.length) {
+        } else if (!Object.keys(filteredSubmissions).length) {
             submissionList = <div className="Not found"><h2>No submissions found for review</h2></div>
         } else {
             submissionList = <ul className="submissionList">{this.formattedSubmissions(filteredSubmissions)}</ul>
@@ -91,7 +102,7 @@ export class ReviewPane extends React.Component {
                                       id="publicationFilter"
                                       placeholder="Publication"
                                       options={pubOptions}
-                                      onChange={(e, data) => this.updateFilter(data)}
+                                      onChange={(e, data) => this.updatePublicationFilter(data)}
                             />
                         </li>
                     </ul>
@@ -105,6 +116,7 @@ export class ReviewPane extends React.Component {
 
 const mapStateToProps = state => ({
     publications: state.publications.publicationsOptions(),
+    publicationsAbbrHash: state.publications.publicationsAbbrHash(),
     filterValues: state.sublitr.filterValues,
     statusLists: state.sublitr.statusLists,
     submissions: state.submissions.submissionData,

@@ -8,6 +8,7 @@ div.card {
     flex-wrap: wrap;
     background-color: #fff;
     position: relative;
+    word-wrap: break-word;
 }
 
 div.card.expanded {
