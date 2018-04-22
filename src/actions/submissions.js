@@ -249,16 +249,19 @@ export const createSubmission = formData => (dispatch, getState) => {
         .then(res => res.json())
         .then(() => {dispatch(fetchSubmissions())})
         .catch(err => {
-            console.log(err);
             const {reason, message, location} = err;
-            if (reason === 'ValidationError') {
-                return new SubmissionError({
+            if (reason ==='ValidationError') {
+                return Promise.reject(
+                    new SubmissionError({
                         [location]: message
                     })
+                )
             } else {
-                return new SubmissionError({
+                return Promise.reject(
+                    new SubmissionError({
                         _error: message
-                    });
+                    })
+                )
             }
         })
 };

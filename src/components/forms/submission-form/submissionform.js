@@ -30,10 +30,7 @@ export class SubmissionForm extends React.Component {
 
     handleUpload(e) { this.setState({ uploadedFile: e.target.files[0]}); }
 
-    handleCustomFileButtonClick() {
-        console.log('click')
-        document.getElementById('doc').click();
-    }
+    handleCustomFileButtonClick() {document.getElementById('doc').click();}
 
     handleCancel() {
         return this.props.dispatch(toggleSubmissionForm())
@@ -41,13 +38,12 @@ export class SubmissionForm extends React.Component {
 
     onSubmit(values) {
         const data = new FormData();
-        data.append('publication', values.publication);
+        data.append('publication', this.props.publications[values.publication]);
         data.append('title', values.title);
         data.append('doc', this.state.uploadedFile);
         if (this.state.coverLetter) {
             data.append('coverLetter', this.state.coverLetter);
         }
-        console.log(data);
         return this.props
             .dispatch(createSubmission(data))
             .then(() => this.props.dispatch(showDashboardMessage({
@@ -60,17 +56,8 @@ export class SubmissionForm extends React.Component {
     }
 
     render() {
-        let successMessage;
-        if (this.props.submitSucceeded) {
-            successMessage = (
-                // TODO: redirect to submission
-                <Message><Message.Header>Successfully submitted</Message.Header></Message>
-            )
-        }
-
         let errorMessage;
         if (this.props.submitFailed) {
-            console.log(this.props);
             errorMessage = (
                 <Message negative><Message.Header>Submission error</Message.Header><p>{this.props.error}</p></Message>
             )
@@ -81,13 +68,12 @@ export class SubmissionForm extends React.Component {
                 <header className="submission__form">
                     <h3>New submission</h3>
                 </header>
-                {successMessage}
                 {errorMessage}
                 <fieldset>
                     <legend>Submission Info</legend>
                     <Field name="title" placeholder="Submission title" type="text" component={Input} validate={[required, nonEmpty]} id="title__input" />
                     <label htmlFor="publication">Submit to which publication?</label>
-                    <Field name="publication" options={this.props.publications} component={ReduxValidatedDropdown} validate={[required, nonEmpty]} id="pub_select" />
+                    <Field name="publication" options={this.props.pubOptions} component={ReduxValidatedDropdown} validate={[required, nonEmpty]} id="pub_select" />
                 </fieldset>
                 <fieldset>
                     <legend>Cover letter</legend>
@@ -109,7 +95,8 @@ export class SubmissionForm extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    publications: state.sublitr.publications
+    publications: state.publications.publications,
+    pubOptions: state.publications.publicationsOptions()
 });
 
 SubmissionForm = connect(mapStateToProps)(SubmissionForm);

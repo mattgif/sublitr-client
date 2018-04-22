@@ -42,13 +42,15 @@
     padding-left: 0;
 }
 
-ul.submissionList.user {
-    display: flex;
-    wrap: flex-wrap;
+@media screen and (max-width: 900px) {
+    .submissionList li {
+        width: 100%;
+    }
 }
 
-.submissionList li {
-    width: 100%;
+ul.submissionList.user {
+    display: flex;
+    flex-wrap: wrap;
 }
 
 .new-submission-button {

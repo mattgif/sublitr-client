@@ -1,0 +1,63 @@
+div.publication__card {
+    display: flex;
+    flex-wrap: wrap;
+    background-color: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.25);
+    border-radius: 3px;
+    padding: 20px;
+    margin: 15px;
+}
+
+div.publication__card section.image__wrapper {
+    width: 150px;
+}
+
+div.publication__card section.image__wrapper img {
+    width: 100%;
+}
+
+div.publication__card ul {
+    list-style: none;
+    padding: 0;
+}
+
+div.publication__card .name {
+    font-weight: 700;
+}
+
+div.publication__card .email {
+    color: rgba(0, 0, 0, .5);
+}
+
+div.publication__card .button__wrapper {
+    text-align: right;
+    width: 100%;
+}
+
+div.publication__card .button__wrapper * {
+    display: inline-block;
+}
+
+div.publication__card button.delete {
+    color: #d9534f;
+}
+
+div.publication__card button.edit {
+    color: rgba(0, 0, 0, .5)
+}
+
+div.publication__card button.edit:hover {
+    color: #333;
+}
+
+div.publication__card button.delete:hover {
+    color: #9b1810;
+}
+
+div.publication__card button {
+    background-color: transparent;
+    border: none;
+    transition: .15s ease-in;
+    padding: 0;
+    margin-left: 25px;
+}

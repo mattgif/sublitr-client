@@ -7,8 +7,13 @@ import Landing from "./components/landing-screen/landing";
 import Dashboard from "./components/dashboard/dashboard";
 import DocViewer from "./components/document-viewer/docviewer";
 import { Dimmer, Loader, Segment } from 'semantic-ui-react'
+import {fetchPublications} from "./actions/publications";
 
 export class App extends React.Component {
+    componentDidMount() {
+        return this.props.dispatch(fetchPublications());
+    }
+
     render() {
         if (this.props.user) {
             return (

@@ -1,0 +1,22 @@
+.publication__form {
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 3px;
+    margin: 4px;
+}
+
+.publication__form fieldset {
+    border-radius: 3px;
+    padding: 20px;
+    margin-bottom: 25px;
+}
+
+.publication__form__header {
+    margin: 20px;
+}
+
+@media screen and (max-width: 600px) {
+    #image {
+        display: none;
+    }
+}

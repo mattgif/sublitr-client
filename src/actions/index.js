@@ -3,6 +3,11 @@ export const toggleSubmissionForm = () => ({
     type: TOGGLE_SUBMISSION_FORM
 });
 
+export const TOGGLE_PUBLICATION_FORM = 'TOGGLE_PUBLICATION_FORM';
+export const togglePublicationForm = () => ({
+    type: TOGGLE_PUBLICATION_FORM
+});
+
 export const SHOW_DASHBOARD_MESSAGE = 'SHOW_DASHBOARD_MESSAGE';
 export const showDashboardMessage = message => ({
     type: SHOW_DASHBOARD_MESSAGE,
@@ -33,3 +38,4 @@ export const CLEAR_APP_STATE = 'CLEAR_APP_STATE';
 export const clearAppState = () => ({
     type: CLEAR_APP_STATE
 });
+

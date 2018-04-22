@@ -6,6 +6,7 @@ import authReducer from './reducers/authreducer';
 import {submissionReducer} from './reducers/submissionreducer'
 import {sublitrReducer} from './reducers/sublitrreducer';
 import {userReducer} from "./reducers/userreducer";
+import {publicationReducer} from "./reducers/publicationreducer";
 import {loadAuthToken} from "./localstorage";
 import {refreshAuthToken, setAuthToken} from "./actions/auth";
 
@@ -15,7 +16,8 @@ const store = createStore(
         auth: authReducer,
         users: userReducer,
         submissions: submissionReducer,
-        sublitr: sublitrReducer
+        sublitr: sublitrReducer,
+        publications: publicationReducer
     }),
     applyMiddleware(thunk)
 );

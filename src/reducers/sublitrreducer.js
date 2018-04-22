@@ -2,7 +2,7 @@ import {
     CLEAR_APP_STATE,
     CLEAR_DASHBOARD_MESSAGE,
     DOCVIEWER_ACTIVE, DOCVIEWER_INACTIVE,
-    SHOW_DASHBOARD_MESSAGE, TOGGLE_DOCVIEWER_SIDEBAR,
+    SHOW_DASHBOARD_MESSAGE, TOGGLE_DOCVIEWER_SIDEBAR, TOGGLE_PUBLICATION_FORM,
     TOGGLE_SUBMISSION_FORM
 } from "../actions";
 
@@ -24,14 +24,6 @@ const initialState = {
             {text: 'Decline', value: 'decline', key:'decline'}
         ]
     },
-    publications:[
-        {text: 'Jellyfish Magazine', value: 'Jellyfish Magazine', key: 'jfm'},
-        {text: 'Journal of Poetry', value: 'Journal of Poetry', key: 'jop'},
-        {text: 'Literature Review', value: 'Literature Review', key: 'litrev'},
-        {text: 'Jubilat', value: 'Jubilat', key: 'jublat'},
-        {text: 'Writer\'s Digest', value: 'Writer\'s Digest', key: 'wd'},
-        {text: 'Prose Studies', value:'Prose Studies', key: 'prosestudies'}
-    ],
     filterValues: {
         recommendationFilter: ["all"],
         publicationFilter: "all",
@@ -42,10 +34,13 @@ const initialState = {
     allowedFileTypes: ["application/pdf"],
     showNewSubmissionForm: false,
     dashboardMessage: undefined,
-    displayMenuButton: false
+    displayMenuButton: false,
+    showNewPublicationForm: false
 };
 
 export const sublitrReducer = (state = initialState, action) => {
+    // reducer for APP state properties (e.g. whether certain panels are shown)
+
     if (action.type === TOGGLE_SUBMISSION_FORM) {
         return Object.assign({}, state, {
             showNewSubmissionForm: !state.showNewSubmissionForm
@@ -84,6 +79,12 @@ export const sublitrReducer = (state = initialState, action) => {
 
     else if (action.type === CLEAR_APP_STATE) {
         return Object.assign({}, state, initialState)
+    }
+
+    else if (action.type === TOGGLE_PUBLICATION_FORM) {
+        return Object.assign({}, state, {
+            showNewPublicationForm: !state.showNewPublicationForm
+        })
     }
 
     return state;

@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import CardReview from "../../submission-cards/review-card/index";
+import CardReview from "../../cards/review-card/index";
 import {fetchSubmissions} from "../../../actions/submissions";
 import CubicLoadingSpinner from "../../loading-animations/cubic-loading-spinner";
 import { Dropdown, Icon } from 'semantic-ui-react';
@@ -54,7 +54,8 @@ export class TabReview extends React.Component {
 
         const decisionOptions = [{text: 'Any decision', value: 'all', key: 'all'}, ...this.props.statusLists.decision];
         const recOptions = [{text: 'Any recommendation', value: 'all', key: 'all'}, ...this.props.statusLists.recommendation]
-        const pubOptions = [{text: 'Any publication', value: 'all', key: 'all'}, ...this.props.publications];
+
+        const pubOptions = [{text: 'Any publication', value: 'all', key: 'all'}, ...this.props.publications]
         return (
             <section className={this.props.hidden ? "pane hidden" : "pane"}>
                 <h2>Review submissions</h2>
@@ -99,7 +100,7 @@ export class TabReview extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    publications: state.sublitr.publications,
+    publications: state.publications.publicationsOptions(),
     filterValues: state.sublitr.filterValues,
     statusLists: state.sublitr.statusLists,
     submissions: state.submissions.submissionData,

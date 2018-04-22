@@ -1,50 +1,57 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {Route, Switch} from 'react-router-dom';
-
+import { Message } from 'semantic-ui-react';
 import TabList from "./tabs/tablist";
-import TabReview from "./review-pane/index";
-import TabUsers from "./user-pane/user-pane";
-import TabSubmissions from "./submission-pane/submission-pane";
+import ReviewPane from "./review-pane/index";
+import UserPane from "./user-pane/user-pane";
+import SubmissionsPane from "./submission-pane/submission-pane";
+import PublicationPane from "./publication-pane"
 
 import './dashboard.css';
+import {clearDashboardMessage} from "../../actions";
 
 export function Dashboard(props) {
-    let name;
-    if (props.user) {
-        name = props.user.firstName + ' ' + props.user.lastName;
+    const {firstName, lastName, admin, editor} = props.user;
+    let message, reviewPane, userPane, publicationPane;
+    const name = `${firstName} ${lastName}`;
+
+    const handleMessageDismiss = () => { props.dispatch(clearDashboardMessage()) };
+
+    if (props.message) {
+        message = <Message style={{margin: '0 15px'}} error={props.message.error} onDismiss={handleMessageDismiss} positive={props.message.positive}><Message.Header>{props.message.header}</Message.Header>{props.message.text}</Message>
     }
 
-    if (props.user.admin || props.user.editor) {
-        return (
-            <div className="dashboard">
-                <header className="dashboard__header">
-                    <h1>{name}</h1>
-                </header>
-                <TabList active={props.active}/>
-                <Switch>
-                    <Route exact path='/dashboard/review' component={TabReview}/>
-                    <Route exact path='/dashboard/users' component={TabUsers}/>
-                    <Route path='/' component={TabSubmissions}/>
-                </Switch>
-            </div>
-        )
+    if (admin || editor) {
+        reviewPane = <Route exact path='/dashboard/review' component={ReviewPane}/>
+    }
+
+    if (admin) {
+        userPane = <Route exact path='/dashboard/users' component={UserPane}/>;
+        publicationPane = <Route exact path='/dashboard/publications' component={PublicationPane}/>
     }
 
     return (
         <div className="dashboard">
             <header className="dashboard__header">
-                <h1>My dashboard</h1>
+                <h1>{name}</h1>
+                {message}
             </header>
-            <TabSubmissions/>
+            <TabList active={props.active} admin={admin} editor={editor}/>
+            <Switch>
+                {reviewPane}
+                {userPane}
+                {publicationPane}
+                <Route path='/' component={SubmissionsPane}/>
+            </Switch>
         </div>
     )
-
 }
 
 const mapStateToProps = (state, ownProps) => ({
     active: ownProps.match.params.activeTab || 'submissions',
-    user: state.auth.currentUser
+    user: state.auth.currentUser,
+    message: state.sublitr.dashboardMessage
 });
 
 export default connect(mapStateToProps)(Dashboard);
