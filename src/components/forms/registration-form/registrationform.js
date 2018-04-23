@@ -41,12 +41,6 @@ export class RegistrationForm extends React.Component {
                     placeholder="Last name"
                     validate={[required, nonEmpty]}/>
                 <Field
-                    name="email"
-                    type="email"
-                    component={Input}
-                    placeholder="Email"
-                    validate={[required, nonEmpty, emailFormat]}/>
-                <Field
                     name="password"
                     type="password"
                     component={Input}
@@ -59,6 +53,12 @@ export class RegistrationForm extends React.Component {
                     placeholder="Confirm password"
                     validate={[required, nonEmpty, passwordMatch]}
                 />
+                <Field
+                    name="email"
+                    type="email"
+                    component={Input}
+                    placeholder="Email"
+                    validate={[required, nonEmpty, emailFormat]}/>
                 <div className="submit__wrapper">
                     <button className="submit__button" type="submit" disabled={this.props.pristine || this.props.submitting}>Join</button>
                 </div>
