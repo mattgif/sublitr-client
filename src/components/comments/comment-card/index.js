@@ -4,6 +4,7 @@ import DeleteCommentConfirm from './delete-comment-confirm';
 import CircleLoadingSpinner from '../../loading-animations/circle-loading-spinner/index';
 import './commentcard.css';
 import {formatDate} from "../../../actions/utils";
+import SimpleAvatar from "../../simple-avatar";
 
 
 export function CommentCard(props) {
@@ -20,11 +21,11 @@ export function CommentCard(props) {
                 <DeleteCommentConfirm submissionId={props.submissionId} commentId={props.comment._id}/>
             )
         }
-    }    
+    }
 
     return (
         <li className="comments__card">
-            <section className="commenter__avatar"/>
+            <section className="commenter__avatar"><SimpleAvatar name={name}/></section>
             <div>
                 <section className="comments__name__date">
                     <div className="comments__name">{name}</div>
