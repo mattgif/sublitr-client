@@ -7,7 +7,8 @@ import {emailFormat, required} from "../../validators";
 import {login} from "../../actions/auth";
 import CircleSpinner from '../loading-animations/circle-loading-spinner';
 import './login-modal.css';
-import loginImage from './eule.svg'
+
+const loginImage = 'https://s3.amazonaws.com/sublitr-images/eule.svg';
 
 class Login extends React.Component {
     onSubmit(values) {
