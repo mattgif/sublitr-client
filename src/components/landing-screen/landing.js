@@ -3,9 +3,10 @@ import {BrowserRouter as Router} from 'react-router-dom';
 import RegistrationForm from "../forms/registration-form/registrationform";
 import Navbar from "../navbar/index";
 import "./landing.css";
-import previewImage from './assets/preview_placeholder.png'
+import previewImage from '../../static/images/preview_placeholder.png'
 
-const submitterInfoImage = 'https://s3.amazonaws.com/sublitr-images/letter_cat.png';
+const submitterInfoImage = 'https://s3.amazonaws.com/sublitr-images/cat_with_box.png';
+const decideImage = 'https://s3.amazonaws.com/sublitr-images/letter_cat.png';
 const editorInfoImage = 'https://s3.amazonaws.com/sublitr-images/cat_writing.png';
 
 export default function Landing() {
@@ -45,7 +46,6 @@ export default function Landing() {
                                 <ul>
                                     <li>Review documents on the cloud</li>
                                     <li>Add comments and recommendations</li>
-                                    <li>We'll let submitters know when you've made a decision</li>
                                 </ul>
                             </div>
                             <div className="editor-info__image">
@@ -53,15 +53,25 @@ export default function Landing() {
                             </div>
                         </div>
                     </section>
-                    <section className="app-preview">
-                        <div className="app-preview__wrapper">
-                            <h2>Submission info at a glance</h2>
-                            <p>Access your submission info any time from your Mac, PC, tablet or phone.</p>
-                            <div className="app-preview__image">
-                                <img src={previewImage} alt="sublitr app on phone, pc, and tablet"/>
+                    <section className="decide-info">
+                        <div className="decide-info__wrapper">
+                            <div className="decide-info__body">
+                                <h3>Decide</h3>
+                                <p>We'll automatically notify submitters when you've made your final decision.</p>
+                            </div>
+                            <div className="decide-info__image">
+                                <img src={decideImage} alt="owl and cat in rowboat"/>
                             </div>
                         </div>
                     </section>
+                </section>
+                <section className='app-preview'>
+                    <div className='app-preview__wrapper'>
+                        <h3>Your submissions, on any device</h3>
+                        <div className="app-preview__image">
+                            <img src={previewImage} alt="sublitr app on phone, pc, and tablet"/>
+                        </div>
+                    </div>
                 </section>
                 <section id="signup" className="signup">
                     <div className="signup__wrapper">

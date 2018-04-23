@@ -47,6 +47,33 @@ button.landing__hero__scroll__button {
     cursor: pointer;
 }
 
+.app-preview {
+    background-color: #49274A;
+    color: #F8EEE7;
+}
+
+.app-preview h3 {
+    font-weight: normal;
+    font-size: 25px;
+}
+
+.app-preview__image {
+    width: 100%;
+}
+
+.app-preview__image img {
+    width: 100%;
+}
+
+.app-preview__wrapper {
+    max-width: 950px;
+    margin-left: auto;
+    margin-right:auto;
+    text-align: center;
+    color: #F8EEE7;
+    padding: 25px;
+}
+
 button.landing__hero__scroll__signup {
     border: 2px solid #F8EEE7;
 }
@@ -102,12 +129,13 @@ section.info li {
     text-align: center;
 }
 
+.decide-info__image img,
 .submitter-info__image img,
 .editor-info__image img {
     height: 100%;
 }
 
-.app-preview {
+.decide-info {
     text-align: center;
     background-color: #F4DECB;
     padding: 30px;
@@ -120,10 +148,6 @@ section.info li {
     color: #333;
 }
 
-.app-preview__image img {
-    width: 100%;
-}
-
 .signup {
     background-color: rgb(148, 104, 174);
     padding: 30px;
@@ -131,7 +155,7 @@ section.info li {
 
 .signup__wrapper,
 .editor-info__wrapper,
-.app-preview__wrapper,
+.decide-info__wrapper,
 .submitter-info__wrapper {
     width: 100%;
     max-width: 900px;
@@ -191,16 +215,36 @@ div.wrapper {
         flex-wrap: nowrap;
     }
 
+
     .editor-info__image {
         height: 300px;
         margin: 0;
         order: -1;
     }
+
+    div.decide-info__wrapper,
+    .submitter-info__wrapper {
+        display: flex;
+        text-align: left;
+    }
+
+    div.decide-info__wrapper p {
+        text-align: left;
+    }
+
+    .decide-info__image {
+        margin-left: 15px;
+    }
+
+    .decide-info__image,
+    .submitter-info__image {
+        height: 300px;
+    }
 }
 
 @media screen and (min-width: 950px) {
     .editor-info,
-    .app-preview,
+    .decide-info,
     .submitter- {
         width: 40%;
         min-width: 34%;
@@ -212,15 +256,13 @@ div.wrapper {
         display: flex;
     }
 
+    .decide-info__image,
     .editor-info__image {
         height: 120px;
         margin-left: auto;
         margin-right: auto;
     }
 
-    .editor-info__image img {
-        height: 100%;
-    }
 
     header.landing__hero {
         height: 60%;

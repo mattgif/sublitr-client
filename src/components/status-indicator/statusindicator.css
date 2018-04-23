@@ -1,23 +1,128 @@
-.circle {
+.indicator {
+    text-align: center;
+}
+
+.indicator.circle {
     border-radius: 50%;
     width: 30px;
     height: 30px;
     text-align: center;
     line-height: 30px;
+    padding-left: 3px;
 }
 
-.declined {
+.indicator.declined {
     background-color: firebrick;
+    color: #fff;
 }
 
-.accepted {
+.indicator.accepted {
     background-color: green;
 }
 
-.pending {
-    background-color: dimgray;
+.indicator.pending {
+    background-color: #8f8f8f;
+    color: #333;
 }
 
-.revise {
+.indicator.revise {
     background-color: moccasin;
+}
+
+.indicator.ribbon {
+    position: relative;
+    background: green;
+    height: 30px;
+    width: 30px;
+    -moz-border-radius:    33px;
+    -webkit-border-radius: 33px;
+    border-radius:         33px;
+}
+
+.indicator.ribbon:before,
+.indicator.ribbon:after {
+    content: '';
+    position: absolute;
+    border-bottom: 23px solid green;
+    border-left: 13px solid transparent;
+    border-right: 13px solid transparent;
+    top: 20px;
+
+}
+
+.indicator.ribbon:before {
+    left: -5px;
+    border-bottom: 23px solid green;
+    border-left: 13px solid transparent;
+    border-right: 13px solid transparent;
+    -webkit-transform: rotate(-140deg);
+    -moz-transform:    rotate(-140deg);
+    -ms-transform:     rotate(-140deg);
+    -o-transform:      rotate(-140deg);
+}
+
+.indicator.ribbon:after {
+    left: auto;
+    right: -5px;
+    -webkit-transform: rotate(140deg);
+    -moz-transform:    rotate(140deg);
+    -ms-transform:     rotate(140deg);
+    -o-transform:      rotate(140deg);
+}
+
+
+.indicator.flag {
+    width: 30px;
+    height: 16px;
+    padding-top: 15px;
+    position: relative;
+    background: moccasin;
+    color: white;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.indicator.flag:after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0;
+    height: 0;
+    border-bottom: 4px solid #eee;
+    border-left: 16px solid transparent;
+    border-right: 16px solid transparent;
+}
+
+.indicator.pointer {
+    margin-top: 3px;
+    width: 30px;
+    height: 16px;
+    position: relative;
+    background: #ff9f00;
+}
+.indicator.pointer:after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 1px;
+    width: 0;
+    height: 0;
+    border-left: 6px solid white;
+    border-top: 8px solid transparent;
+    border-bottom: 6px solid transparent;
+}
+
+.indicator.pointer:before {
+    content: "";
+    position: absolute;
+    right: -9px;
+    bottom: 0;
+    width: 0;
+    height: 0;
+    border-left: 10px solid #ff9f00;
+    border-top: 8px solid transparent;
+    border-bottom: 8px solid transparent;
 }
