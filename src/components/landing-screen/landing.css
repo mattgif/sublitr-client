@@ -62,7 +62,7 @@ button.landing__hero__scroll__more {
     top: 10px;
     height: 90%;
     width: 50%;
-    background: url("./assets/stolasPurp.png") no-repeat center right;
+    background: url("https://s3.amazonaws.com/sublitr-images/stolasPurp.png") no-repeat center right;
     background-size: contain;
 }
 
@@ -73,34 +73,36 @@ button.landing__hero__scroll__more {
     font-family: Montserrat, sans-serif;
 }
 
-.editor-info__body h3 {
+section.info h3 {
     font-size: 25px;
 }
 
-.editor-info__body li {
+section.info p {
     font-size: 16px;
     margin-bottom: 10px;
+    text-align: center;
+    font-family: Montserrat, sans-serif
 }
 
-.editor-info__wrapper {
-    width: 100%;
-    max-width: 900px;
-    margin-left: auto;
-    margin-right: auto;
-    display: flex;
-    flex-wrap: wrap;
+section.info li {
+    text-align: left;
+    font-size: 16px;
+    margin-bottom: 10px;
 }
 
 .editor-info__body {
     width: 100%;
 }
 
+.submitter-info__image,
 .editor-info__image {
     height: 150px;
     margin-left: auto;
     margin-right: auto;
+    text-align: center;
 }
 
+.submitter-info__image img,
 .editor-info__image img {
     height: 100%;
 }
@@ -112,11 +114,10 @@ button.landing__hero__scroll__more {
     color: #333;
 }
 
-.app-preview__wrapper {
-    width: 100%;
-    max-width: 900px;
-    margin-left: auto;
-    margin-right: auto;
+.submitter-info {
+    background-color: #f4e7d8;
+    padding: 30px;
+    color: #333;
 }
 
 .app-preview__image img {
@@ -128,11 +129,19 @@ button.landing__hero__scroll__more {
     padding: 30px;
 }
 
-.signup__wrapper {
+.signup__wrapper,
+.editor-info__wrapper,
+.app-preview__wrapper,
+.submitter-info__wrapper {
     width: 100%;
     max-width: 900px;
     margin-left: auto;
     margin-right: auto;
+}
+
+.editor-info__wrapper {
+    display: flex;
+    flex-wrap: wrap;
 }
 
 .signup__wrapper h3 {
@@ -143,6 +152,12 @@ button.landing__hero__scroll__more {
     font-size: 30px;
     padding-bottom: 12px;
     border-bottom: 2px dotted #F8EEE7;
+}
+
+div.wrapper {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 @media screen and (min-width: 450px) {
@@ -159,12 +174,14 @@ button.landing__hero__scroll__more {
         font-size: 18px;
     }
 
-    button.landing__hero__scroll__button {
+    button.landing__hero__scroll__more {
         display: none;
     }
+
+
 }
 
-@media screen and (min-width: 650px) {
+@media screen and (min-width: 650px) and (max-width: 949px) {
     .editor-info__body {
         margin-left: 30px;
         width: 600px;
@@ -178,5 +195,48 @@ button.landing__hero__scroll__more {
         height: 300px;
         margin: 0;
         order: -1;
+    }
+}
+
+@media screen and (min-width: 950px) {
+    .editor-info,
+    .app-preview,
+    .submitter- {
+        width: 40%;
+        min-width: 34%;
+        margin: 0;
+    }
+
+    #info {
+        width: 100%;
+        display: flex;
+    }
+
+    .editor-info__image {
+        height: 120px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .editor-info__image img {
+        height: 100%;
+    }
+
+    header.landing__hero {
+        height: 60%;
+    }
+
+    #info {
+        height: 40%;
+    }
+
+    section.info h3 {
+        font-size: 25px;
+        text-align: center;
+    }
+
+    section.info li {
+        font-size: 16px;
+        margin-bottom: 10px;
     }
 }
