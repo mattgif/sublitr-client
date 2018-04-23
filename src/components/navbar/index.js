@@ -5,7 +5,7 @@ import './navbar.css';
 import Login from '../modals/login';
 import {clearAuth} from "../../actions/auth";
 import {clearAuthToken} from "../../localstorage";
-import owlLogo from '../../static/images/logo.svg'
+import owlLogo from '../../static/images/logo_purp.svg'
 import {clearSubmissions} from "../../actions/submissions";
 import MobileMenuToggle from "./mobilemenutoggle";
 import {clearAppState, toggleDocViewerSidebar} from "../../actions";
