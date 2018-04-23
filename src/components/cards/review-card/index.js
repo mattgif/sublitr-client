@@ -4,7 +4,7 @@ import {connect} from "react-redux";
 
 import {updateStatus} from "../../../actions/submissions";
 
-import { Message, Icon } from 'semantic-ui-react';
+import { Message } from 'semantic-ui-react';
 import StatusIndicator from "../../status-indicator/statusindicator";
 
 import '../card.css';

@@ -9,7 +9,7 @@ const initialState = {
         // formats publication data for use in semantic dropdowns
         return Object.keys(this.publications).map(key => {
             const publication = this.publications[key];
-            return {text: publication.title, value: publication.abbr, icon: publication.icon, key: publication.abbr}
+            return {text: publication.title, value: publication.abbr, icon: publication.icon, key: publication.abbr, image: publication.image, title: publication.title}
         })
     },
     publicationsAbbrHash: function() {

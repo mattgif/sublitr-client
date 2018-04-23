@@ -12,12 +12,16 @@ export class ReviewPane extends React.Component {
             recommendationFilter: "all",
             decisionFilter: "all",
             publicationFilter: "all",
-        }
+            search: ''
+        };
+        this.updateSearch = this.updateSearch.bind(this);
     };
 
     componentDidMount() {
         this.props.dispatch(fetchSubmissions())
     }
+
+    updateSearch = e => this.setState({ search: e.target.value });
 
     updateFilter = data => {
         this.setState({[data.id]: data.value})};
@@ -37,9 +41,14 @@ export class ReviewPane extends React.Component {
 
     filteredSubmissions = (submissionList, state) => Object.keys(submissionList).reduce((hash, key) => {
         const submission = submissionList[key];
-        console.log('filter:', state.publicationFilter);
-        console.log('submission.publication', submission.publication);
+        let matches = true;
+        if (this.state.search) {
+            const string = `${submission.title} ${submission.author}`.toLowerCase();
+            matches = string.includes(this.state.search.toLowerCase())
+        }
+
         if (Object.keys(submission).includes('reviewerInfo') &&
+            matches &&
             this.matchesField(submission.publication, state.publicationFilter) &&
             this.matchesField(submission.reviewerInfo.decision, state.decisionFilter) &&
             this.matchesField(submission.reviewerInfo.recommendation, state.recommendationFilter)) {
@@ -57,6 +66,7 @@ export class ReviewPane extends React.Component {
         )});
 
     render() {
+        const search = this.state.search;
         const filteredSubmissions = this.filteredSubmissions(this.props.submissions, this.state);
         let submissionList;
         if (this.props.loading) {
@@ -106,7 +116,10 @@ export class ReviewPane extends React.Component {
                             />
                         </li>
                     </ul>
-
+                    <div className="search__filter__wrapper">
+                        <input placeholder='Search by title or author' className="search__filter" type='text' value={search} onChange={e => this.updateSearch(e)}/>
+                        <Icon name="search"/>
+                    </div>
                 </div>
                 {submissionList}
             </section>

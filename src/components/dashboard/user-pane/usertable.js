@@ -28,11 +28,22 @@ export class UserTable extends React.Component {
         this.props.dispatch(userSortBy(key));
     }
 
-    filterUsers(usersArray, filterValue) {
-        if (filterValue === 'all') {
-            return usersArray
+    filterUsers(usersArray, filterValue, search) {
+        let _usersArray = usersArray.slice();
+        if (filterValue !== 'all') {
+            _usersArray = _usersArray.filter(user => user.editor === (filterValue === 'editor'));
         }
-        return usersArray.filter(user => user.editor === (filterValue === 'editor'));
+
+        if (search !== '') {
+            const term = search.toLowerCase();
+            // check if first last, last first, or email in any combination appear
+            _usersArray = _usersArray.filter(user => {
+                let string = `${user.lastName} ${user.firstName} ${user.lastName} ${user.email}`.toLowerCase();
+                return string.includes(term);
+            })
+        }
+
+        return _usersArray
     }
 
     toggleEditor = (id, isEditor) => {
@@ -50,7 +61,7 @@ export class UserTable extends React.Component {
         return <Table.HeaderCell key={header.key}
                                  onClick={() => this.sortTable(header.key)}>
             {header.label} {sortIcon}
-            </Table.HeaderCell>
+        </Table.HeaderCell>
     });
 
     formattedUserRows(usersArray) {
@@ -80,7 +91,7 @@ export class UserTable extends React.Component {
         if (!this.props.users) {
             return <h4>No user data found</h4>
         }
-        const userRows = this.filterUsers(this.props.users, this.props.filter);
+        const userRows = this.filterUsers(this.props.users, this.props.filter, this.props.search);
         const tableData = this.formattedUserRows(userRows);
 
         return (

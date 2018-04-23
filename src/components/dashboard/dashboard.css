@@ -151,3 +151,27 @@ section.submission__form__wrapper {
     overflow: hidden;
     transition: 1000ms ease-in;
 }
+
+input.search__filter {
+    height: 30px;
+    border-radius: 500rem;
+    border: 1px solid rgba(0, 0, 0, .2);
+    padding-right: 20px;
+    padding-left: 20px;
+    width: 100%;
+}
+
+input.search__filter label {
+    margin-right: 15px;
+}
+
+div.search__filter__wrapper {
+    position: relative;
+}
+
+div.search__filter__wrapper i {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+}
+

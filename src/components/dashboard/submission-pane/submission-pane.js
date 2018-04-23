@@ -11,7 +11,8 @@ export class SubmissionsPane extends React.Component {
     constructor (props) {
         super(props);
         this.state = {
-            filter: 'all'
+            filter: 'all',
+            search: ''
         }
     };
 
@@ -24,10 +25,12 @@ export class SubmissionsPane extends React.Component {
         this.setState({filter: val})
     };
 
+    updateSearch = e => this.setState({ search: e.target.value });
+
     render() {
         const options = [{text:'All Submissions', value: 'all', key: 'all'}, ...this.props.decisions];
         const {publications, loading, showNewSubmissionForm, submissions, hidden, dispatch} = this.props;
-        const {filter} = this.state;
+        const {filter, search} = this.state;
 
         let submissionForm;
         let newSubmissionButton = <Button primary onClick={() => dispatch(toggleSubmissionForm())}><Icon name="plus"/> New submission</Button>;
@@ -45,7 +48,9 @@ export class SubmissionsPane extends React.Component {
             const submissionCards = Object.keys(submissions).map(key => {
                 const submission = submissions[key];
                 const image = publications[submission.publication] ? publications[submission.publication].image : 'https://s3.amazonaws.com/sublitr-images/logo.svg';
-                if (filter === "all" || submission.status === filter) {
+                const statusMatch = filter === "all" || submission.status === filter;
+                const searchMatch = submission.title.toLowerCase().includes(search.toLowerCase());
+                if (statusMatch && searchMatch) {
                     return(
                         <li key={submission.id}>
                             <CardSubmission
@@ -65,8 +70,12 @@ export class SubmissionsPane extends React.Component {
             contentSection =
                 <section>
                     <div>
-                        <h4>Filter by:</h4>
-                        <Dropdown placeholder='Submission status' options={options} onChange={(e, data) => this.filterList(data)}/>
+                        <h4 style={{display: 'inline-block', marginRight: '10px'}}>Filter by:</h4>
+                        <Dropdown style={{display: 'inline-block', marginBottom: '10px'}} placeholder='Submission status' options={options} onChange={(e, data) => this.filterList(data)}/>
+                        <div className="search__filter__wrapper">
+                            <input placeholder='Search by title' className="search__filter" type='text' value={search} onChange={e => this.updateSearch(e)}/>
+                            <Icon name="search"/>
+                        </div>
                     </div>
                     <ul className="user submissionList">
                         {submissionCards}
