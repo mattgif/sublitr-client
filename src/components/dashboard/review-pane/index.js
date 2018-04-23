@@ -67,9 +67,13 @@ export class ReviewPane extends React.Component {
 
     render() {
         const search = this.state.search;
-        const filteredSubmissions = this.filteredSubmissions(this.props.submissions, this.state);
+        const { submissions, loading, statusLists, publications } = this.props;
+        const filteredSubmissions = this.filteredSubmissions(submissions, this.state);
+        const pendingDecisionCount = Object.keys(filteredSubmissions).filter(submission => filteredSubmissions[submission].reviewerInfo.decision === 'pending').length;
+        const pendingDecisionCounter = <div><Icon name="hourglass empty"/> {`${pendingDecisionCount} matching submission${pendingDecisionCount > 1 ? 's' : ''} pending decision`}</div>;
+
         let submissionList;
-        if (this.props.loading) {
+        if (loading) {
             submissionList = <CubicLoadingSpinner/>
         } else if (!Object.keys(filteredSubmissions).length) {
             submissionList = <div className="Not found"><h2>No submissions found for review</h2></div>
@@ -77,10 +81,10 @@ export class ReviewPane extends React.Component {
             submissionList = <ul className="submissionList">{this.formattedSubmissions(filteredSubmissions)}</ul>
         }
 
-        const decisionOptions = [{text: 'Any decision', value: 'all', key: 'all'}, ...this.props.statusLists.decision];
-        const recOptions = [{text: 'Any recommendation', value: 'all', key: 'all'}, ...this.props.statusLists.recommendation];
+        const decisionOptions = [{text: 'Any decision', value: 'all', key: 'all'}, ...statusLists.decision];
+        const recOptions = [{text: 'Any recommendation', value: 'all', key: 'all'}, ...statusLists.recommendation];
 
-        const pubOptions = [{text: 'Any publication', value: 'all', key: 'all'}, ...this.props.publications];
+        const pubOptions = [{text: 'Any publication', value: 'all', key: 'all'}, ...publications];
         return (
             <section className={this.props.hidden ? "pane hidden" : "pane"}>
                 <h2>Review submissions</h2>
@@ -116,6 +120,7 @@ export class ReviewPane extends React.Component {
                             />
                         </li>
                     </ul>
+                    {pendingDecisionCounter}
                     <div className="search__filter__wrapper">
                         <input placeholder='Search by title or author' className="search__filter" type='text' value={search} onChange={e => this.updateSearch(e)}/>
                         <Icon name="search"/>

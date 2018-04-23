@@ -4,7 +4,7 @@ import {connect} from "react-redux";
 
 import {updateStatus} from "../../../actions/submissions";
 
-import { Message } from 'semantic-ui-react';
+import { Message, Icon } from 'semantic-ui-react';
 import StatusIndicator from "../../status-indicator/statusindicator";
 
 import '../card.css';
@@ -48,13 +48,18 @@ export class ReviewCard extends React.Component {
         const {expanded} = this.state;
         const { publication, title, author, submitted, id } = this.props.submission;
         const {pubImage} = this.props;
-        const { lastAction, decision, recommendation } = this.props.submission.reviewerInfo;
+        const { lastAction, decision, recommendation, comments } = this.props.submission.reviewerInfo;
         const lastActionDate = formatDate(lastAction);
         const submittedDate = formatDate(submitted);
 
         let message;
         if (this.state.message) {
             message = <Message positive header={this.state.message} onDismiss={this.handleDismissMessage}/>
+        }
+
+        let commentCounter;
+        if (comments.length) {
+            commentCounter = <li>{comments.length} <Icon name="comments"/></li>
         }
 
         return (
@@ -71,6 +76,7 @@ export class ReviewCard extends React.Component {
                             <li className='publication'>{publication}</li>
                             <li className='status'>Decision: {decision}</li>
                             <li className='last-action'>Last reviewer action: <time dateTime={lastAction}>{lastActionDate}</time></li>
+                            {commentCounter}
                         </ul>
                         <div className='image'><img src={pubImage} alt={`${publication} logo`}/></div>
                     </div>
