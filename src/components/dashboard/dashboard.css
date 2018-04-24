@@ -167,6 +167,7 @@ input.search__filter label {
 
 div.search__filter__wrapper {
     position: relative;
+    margin-top: 20px;
 }
 
 div.search__filter__wrapper i {

@@ -76,24 +76,25 @@ export class ReviewCard extends React.Component {
 
         return (
             <div className="card review">
-                <StatusIndicator status={decision}/>
-                <div>
-                    <ul className="card__list">
+                <StatusIndicator className="indicator" status={decision}/>
+                <section>
+                    <ul>
                         <li className='title'>{title}</li>
                         <li className='author'>{author}</li>
                         <li className='date'><time dateTime={submitted}>{submittedDate}</time></li>
                     </ul>
                     <div className='publication__wrapper'>
-                        <ul className="card__list publication">
+                        <div className='image'><img src={pubImage} alt={`${publication} logo`}/></div>
+                        <ul className="publication">
                             <li className='publication'>{publication}</li>
                             <li className='status'>Decision: {decision}</li>
                             <li className='last-action'>Last reviewer action: <time dateTime={lastAction}>{lastActionDate}</time></li>
                             {commentCounter}
                             {commentList}
                         </ul>
-                        <div className='image'><img src={pubImage} alt={`${publication} logo`}/></div>
+
                     </div>
-                </div>
+                </section>
                 <Link className="view-submission-button" to={`/submission/${id}`}>View submission</Link>
                 <div className={expanded ? "additional reviewer visible" : "hidden additional reviewer"}>
                     {message}

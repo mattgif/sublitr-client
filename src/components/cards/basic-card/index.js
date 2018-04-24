@@ -10,19 +10,19 @@ export default class CardSubmission extends React.Component {
         const { pubImage, status, publication, title, id, submissionDate } = this.props;
         const date = formatDate(submissionDate);
         return (
-            <div className="card__basic">
-                <StatusIndicator status={status}/>
+            <div className="card basic">
+                <StatusIndicator className="indicator" status={status}/>
                 <section>
                     <ul>
                         <li className='title'>{title}</li>
                         <li className='submitted'>Submitted <time>{date}</time></li>
                     </ul>
                     <div className='publication__wrapper'>
-                        <ul>
+                        <div className='image'><img src={pubImage} alt={`${publication} logo`}/></div>
+                        <ul className='publication'>
                             <li className='publication'>{publication}</li>
                             <li className='status__item'>Status: {status}</li>
                         </ul>
-                        <div className='image'><img src={pubImage} alt={`${publication} logo`}/></div>
                     </div>
                     <DeleteSubmissionConfirm className="delete__wrapper" title={title} id={id}/>
                 </section>

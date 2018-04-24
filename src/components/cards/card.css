@@ -1,14 +1,18 @@
 div.card {
-    border: 1px solid rgba(0, 0, 0, 0.5);
     border-radius: 3px;
     margin-bottom: 10px;
-    padding: 5px 10px;
     display: flex;
     align-items: flex-start;
     flex-wrap: wrap;
     background-color: #fff;
     position: relative;
     word-wrap: break-word;
+    padding: 30px 30px 30px 70px;
+}
+
+div.card .indicator {
+    position: absolute;
+    left: 20px;
 }
 
 div.card.expanded {
@@ -55,16 +59,17 @@ div.card li.publication {
     align-items: flex-start;
 }
 
-div.card.review div.publication__wrapper {
+div.card div.publication__wrapper {
     display: flex;
 }
 
-div.card.review div.publication__wrapper div.image {
+div.card div.publication__wrapper div.image {
     width: 75px;
     height: 75px;
+    margin-right: 20px;
 }
 
-div.card.review div.publication__wrapper div.image img {
+div.card div.publication__wrapper div.image img {
     height: 100%;
 }
 
@@ -73,23 +78,18 @@ div.card.review div.publication__wrapper div.image img {
     font-style: italic;
 }
 
-.card__list {
+div.card ul {
     list-style: none;
     margin-right: 35px;
     margin-bottom: 15px;
+    padding-left: 0;
 }
 
-@media screen and (max-width: 450px) {
-    .card__list {
-        margin-top: 30px;
-    }
+ul.publication {
+    width: 325px;
 }
 
-ul.card__list.publication {
-    width: 100%;
-}
-
-ul.card__list li.title {
+div.card ul li.title {
     font-size: 18px;
     margin-top: 5px;
     margin-bottom: 8px;
@@ -97,14 +97,14 @@ ul.card__list li.title {
 }
 
 
-ul.card__list li.author,
-ul.card__list li.date {
+div.card ul li.author,
+div.card ul li.date {
     display: inline-block;
     width: auto;
     margin-right: 8px;
 }
 
-ul.card__list li.date {
+div.card ul li.date {
     text-transform: lowercase;
     color: rgba(0, 0, 0, .4)
 }
@@ -156,17 +156,13 @@ ul.card__list li.date {
     padding: 2px 10px;
     border-radius: 4px;
     transition: .25s ease-in;
-    position: absolute;
-    right: 10px;
-    top: 3px;
+    margin-left: auto;
 }
 
 .view-submission-button:hover {
     color: #fff;
     background-color: #008CBA;
 }
-
-
 
 #newDecision, #newRecommendation {
     margin-right: 15px;
@@ -180,6 +176,51 @@ ul.card__list li.date {
     cursor: pointer;
 }
 
+@media screen and (max-width: 600px) {
+    div.card {
+        padding-bottom: 75px;
+    }
 
+    div.card {
 
+    }
 
+    div.card div.publication__wrapper {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    div.card div.publication__wrapper div.image {
+        order: 2;
+    }
+
+    div.card ul.publication {
+        width: 100%;
+    }
+
+    .view-submission-button {
+        position: absolute;
+        bottom: 15px;
+        left: 20px;
+    }
+}
+
+div.card .delete__wrapper button {
+    color: #d9534f;
+    background-color: transparent;
+    border: none;
+    transition: .15s ease-in;
+    padding: 0;
+    margin-left: auto;
+    position: absolute;
+    bottom: 15px;
+    right: 20px;
+}
+
+div.card__basic .delete__wrapper {
+    text-align: right;
+}
+
+div.card .delete__wrapper button:hover {
+    color: #9b1810;
+}

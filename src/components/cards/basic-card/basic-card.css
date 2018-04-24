@@ -1,4 +1,4 @@
-div.card__basic button {
+div.card .delete__wrapper button {
     color: #d9534f;
     background-color: transparent;
     border: none;
@@ -11,69 +11,6 @@ div.card__basic .delete__wrapper {
     text-align: right;
 }
 
-div.card__basic button:hover {
+div.card .delete__wrapper button:hover {
     color: #9b1810;
-}
-
-div.card__basic {
-    display: flex;
-    background-color: #fff;
-    border: 1px solid rgba(0, 0, 0, 0.25);
-    border-radius: 3px;
-    padding: 20px;
-    width: 100%;
-    margin: 15px;
-    word-wrap: break-word;
-}
-
-@media screen and (max-width: 450px) {
-    div.card__basic {
-        flex-wrap: wrap;
-    }
-}
-
-div.card__basic > div {
-    margin-right: 15px;
-    min-width: 30px;
-}
-
-div.card__basic section {
-    width: 100%;
-}
-
-div.card__basic ul {
-    padding: 0;
-    list-style: none;
-}
-
-div.card__basic li {
-    margin-bottom: 8px;
-}
-
-div.card__basic li.title {
-    font-weight: bold;
-    font-size: 18px;
-}
-
-div.card__basic li.submitted {
-    font-size: 12px;
-    width: 100%;
-}
-
-div.card__basic li.submitted time {
-    text-transform: lowercase;
-}
-
-div.card__basic div.publication__wrapper {
-    display: flex;
-}
-
-div.card__basic div.publication__wrapper div.image {
-    width: 50px;
-    height: 50px;
-    margin-left: 25px;
-}
-
-div.card__basic div.publication__wrapper div.image img {
-    width: 100%;
 }
