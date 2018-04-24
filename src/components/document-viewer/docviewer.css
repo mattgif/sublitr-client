@@ -1,11 +1,15 @@
 .docviewer {
-    height: 100%;
-    min-height: 2000px;
+    min-height: 100%;
+    width: 100%;
 }
 
 .docviewer__wrapper {
-    height: 100%;
-    padding: 30px;
+    height: 1000px;
+    min-height: 2000px;
+    width:100%;
+    max-width: 950px;
+    padding: 30px 30px 300px;
+    margin-bottom: 300px;
 }
 
 iframe.docviewer__iframe {
@@ -24,6 +28,25 @@ iframe.docviewer__iframe {
 
 .pusher {
     height: 100%;
+}
+
+button.headerbutton {
+    border: none;
+    background: none;
+    color: rgba(0, 0, 0, 0.3);
+    margin-bottom: 10px;
+}
+
+button.headerbutton:hover {
+    color: #333
+}
+
+button.headerbutton.open {
+    color: firebrick;
+}
+
+button.headerbutton.open:hover {
+    color: #661717;
 }
 
 div.docviewer .docviewer__header {
@@ -89,4 +112,11 @@ div.docviewer__error {
     justify-content: center;
     font-size: 25px;
     height: 100%;
+}
+
+main.docviewer__preview {
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 300px;
 }

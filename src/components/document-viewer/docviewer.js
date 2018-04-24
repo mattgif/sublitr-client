@@ -6,14 +6,17 @@ import PushableLeftSidebar from "./sidebar";
 import {fetchDocument, getSubmissionsAndFetchDocument} from "../../actions/submissions";
 import {docviewerActive, docviewerInactive} from "../../actions";
 import {formatDate} from "../../actions/utils";
-import {Icon} from 'semantic-ui-react';
+import {Icon, Message} from 'semantic-ui-react';
 
 export class DocViewer extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            showCoverLetter: false
-        }
+            showCoverLetter: false,
+            showMenuMessage: true,
+            showHeader: true,
+        };
+        this.dismissMenuMessage = this.dismissMenuMessage.bind(this);
     }
     componentDidMount() {
         this.props.dispatch(docviewerActive());
@@ -24,8 +27,15 @@ export class DocViewer extends React.Component {
         }
     }
 
+    dismissMenuMessage() {
+        this.setState({showMenuMessage: false})
+    }
     toggleCoverLetter() {
         this.setState({showCoverLetter: !this.state.showCoverLetter})
+    }
+
+    toggleHeader() {
+        this.setState({showHeader: !this.state.showHeader})
     }
 
     componentWillUnmount() {
@@ -34,7 +44,7 @@ export class DocViewer extends React.Component {
 
     render() {
         const {submission, loadingSubmissions, fetching, document, sidebarOpen} = this.props;
-        const {showCoverLetter} = this.state;
+        const {showCoverLetter, showMenuMessage, showHeader} = this.state;
         if (!submission || loadingSubmissions) {
             return (<CubicLoadingSpinner/>)
         }
@@ -64,23 +74,38 @@ export class DocViewer extends React.Component {
 
         }
 
+        let menuMessage;
+        if (!sidebarOpen) {
+            if (showMenuMessage) {
+                menuMessage = <Message onDismiss={this.dismissMenuMessage}><Message.Header><Icon name="arrow up"/> Select the menu button to add comments and update the status</Message.Header></Message>
+            }
+        }
+
+        let header;
+        if (showHeader) {
+            header = (
+                <header className="docviewer__header">
+                    <h1>{submission.title}</h1>
+                    <dl>
+                        <dt>Author</dt>
+                        <dd>{submission.author}</dd>
+                        <dt>Submitted</dt>
+                        <dd><time dateTime={submission.submitted}>{formatDate(this.props.submission.submitted)}</time></dd>
+                        <dt>Publication</dt>
+                        <dd>{submission.publication}</dd>
+                    </dl>
+                    {coverLetterSection}
+                </header>
+            )
+        }
 
         return (
             <div className={`docviewer ${sidebarOpen ? 'sidebaropen' : ''}`}>
                 <PushableLeftSidebar submission={submission}>
                     <div className="docviewer__wrapper">
-                        <header className="docviewer__header">
-                            <h1>{submission.title}</h1>
-                            <dl>
-                                <dt>Author</dt>
-                                <dd>{submission.author}</dd>
-                                <dt>Submitted</dt>
-                                <dd><time dateTime={submission.submitted}>{formatDate(this.props.submission.submitted)}</time></dd>
-                                <dt>Publication</dt>
-                                <dd>{submission.publication}</dd>
-                            </dl>
-                        </header>
-                        {coverLetterSection}
+                        {menuMessage}
+                        {header}
+                        <button className={`headerbutton ${showHeader ? 'open' : 'closed'}`} onClick={() => this.toggleHeader()}>{showHeader ? 'Hide header' : 'View header'}</button>
                         <main className="docviewer__preview">
                             {documentPreview}
                         </main>
