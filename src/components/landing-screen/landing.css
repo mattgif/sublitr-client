@@ -270,7 +270,11 @@ div.wrapper {
     }
 
     #info {
-        height: 40%;
+        min-height: 40%;
+    }
+
+    #info * {
+        overflow: hidden;
     }
 
     section.info h3 {
