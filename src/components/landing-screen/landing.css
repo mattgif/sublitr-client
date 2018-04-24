@@ -121,6 +121,7 @@ section.info li {
     width: 100%;
 }
 
+.decide-info__image,
 .submitter-info__image,
 .editor-info__image {
     height: 150px;
