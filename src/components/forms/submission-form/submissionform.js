@@ -73,7 +73,7 @@ export class SubmissionForm extends React.Component {
                     <legend>Submission Info</legend>
                     <Field name="title" placeholder="Submission title" type="text" component={Input} validate={[required, nonEmpty]} id="title__input" />
                     <label htmlFor="publication">Submit to which publication?</label>
-                    <Field name="publication" options={this.props.pubOptions} component={ReduxValidatedDropdown} validate={[required, nonEmpty]} id="pub_select" />
+                    <Field style={{width: '100%'}} name="publication" options={this.props.pubOptions} component={ReduxValidatedDropdown} validate={[required, nonEmpty]} id="pub_select" />
                 </fieldset>
                 <fieldset>
                     <legend>Cover letter</legend>
