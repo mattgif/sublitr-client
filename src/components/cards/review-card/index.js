@@ -10,6 +10,7 @@ import StatusIndicator from "../../status-indicator/statusindicator";
 import '../card.css';
 import {formatDate} from "../../../actions/utils";
 import ConfirmableDropdown from "../../confirmable-dropdown";
+import {CommentList} from "../../comments/comment-list";
 
 export class ReviewCard extends React.Component {
     // CollapsableCard for Reviewer pane
@@ -18,13 +19,19 @@ export class ReviewCard extends React.Component {
         super(props);
         this.state = {
             message: undefined,
-            expanded: false
+            expanded: false,
+            showComments: false
         };
 
         this.handleDecisionChange = this.handleDecisionChange.bind(this);
         this.handleRecommendationChange = this.handleRecommendationChange.bind(this);
         this.handleDismissMessage = this.handleDismissMessage.bind(this);
+        this.toggleComments = this.toggleComments.bind(this);
     }
+
+    toggleComments = () => {
+        this.setState({ showComments: !this.state.showComments})
+    };
 
     toggleExpand = () => {
         this.setState({ expanded: !this.state.expanded});
@@ -45,7 +52,7 @@ export class ReviewCard extends React.Component {
     }
 
     render() {
-        const {expanded} = this.state;
+        const { expanded, showComments } = this.state;
         const { publication, title, author, submitted, id } = this.props.submission;
         const {pubImage} = this.props;
         const { lastAction, decision, recommendation, comments } = this.props.submission.reviewerInfo;
@@ -59,7 +66,12 @@ export class ReviewCard extends React.Component {
 
         let commentCounter;
         if (comments.length) {
-            commentCounter = <li>{comments.length} <Icon name="comments"/></li>
+            commentCounter = <li className="comment__counter" onClick={() => this.toggleComments()}>{comments.length} <Icon name="comments"/></li>
+        }
+
+        let commentList;
+        if (showComments) {
+            commentList = <CommentList comments={comments} submissionId={id} />
         }
 
         return (
@@ -77,6 +89,7 @@ export class ReviewCard extends React.Component {
                             <li className='status'>Decision: {decision}</li>
                             <li className='last-action'>Last reviewer action: <time dateTime={lastAction}>{lastActionDate}</time></li>
                             {commentCounter}
+                            {commentList}
                         </ul>
                         <div className='image'><img src={pubImage} alt={`${publication} logo`}/></div>
                     </div>

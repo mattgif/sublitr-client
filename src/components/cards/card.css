@@ -176,6 +176,9 @@ ul.card__list li.date {
     margin-bottom: 20px;
 }
 
+.comment__counter:hover {
+    cursor: pointer;
+}
 
 
 
