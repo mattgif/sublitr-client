@@ -3,11 +3,11 @@ import {BrowserRouter as Router} from 'react-router-dom';
 import RegistrationForm from "../forms/registration-form/registrationform";
 import Navbar from "../navbar/index";
 import "./landing.css";
-import previewImage from '../../static/images/preview_placeholder.png'
 
 const submitterInfoImage = 'https://s3.amazonaws.com/sublitr-images/cat_with_box.png';
 const decideImage = 'https://s3.amazonaws.com/sublitr-images/letter_cat.png';
 const editorInfoImage = 'https://s3.amazonaws.com/sublitr-images/cat_writing.png';
+const previewImage = 'https://s3.amazonaws.com/sublitr-images/preview.png';
 
 export default function Landing() {
     const scrollTo = sectionId => {

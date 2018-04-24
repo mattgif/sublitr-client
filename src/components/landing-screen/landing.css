@@ -252,6 +252,12 @@ div.wrapper {
         margin: 0;
     }
 
+    .submitter-info__body,
+    .editor-info__body,
+    .decide-info__body {
+        height: 150px;
+    }
+
     #info {
         width: 100%;
         display: flex;
