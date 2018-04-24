@@ -39,7 +39,7 @@
 
 
 a.navbar__brand  {
-    color: #F5DECB;
+    color: #fff;
     transition: color .15s ease-in;
     font-family: "Open Sans", sans-serif;
     text-decoration: none;
@@ -51,7 +51,7 @@ a.navbar__brand:hover {
 
 a.navbar__brand i {
     color: #49274A;
-    background-color: #F4DECB;
+    background-color: #fff;
     border-radius: 50%;
 }
 
@@ -59,7 +59,7 @@ a.navbar__brand i {
     box-sizing: border-box;
     border: none;
     border-bottom: 3px solid transparent;
-    color: #F4DECB;
+    color: #fff;
     background-color: transparent;
     height: 50px;
     width: 100px;

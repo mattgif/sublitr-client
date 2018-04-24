@@ -24,7 +24,7 @@ export class PushableLeftSidebar extends React.Component {
         return (
             <div className="sidebar">
                 <Sidebar.Pushable as={Segment}>
-                    <Sidebar as={Menu} animation='uncover' width='wide' visible={visible} icon='labeled' vertical>
+                    <Sidebar as={Menu} animation='overlay' width='wide' visible={visible} icon='labeled' vertical>
                         <StatusSection submission={this.props.submission}/>
                         <Menu.Item>
                             <CommentForm submissionID={this.props.submission.id}/>
