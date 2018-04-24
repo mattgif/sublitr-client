@@ -1,8 +1,8 @@
 # sublitr-client
 Streamlined submission manager
 
-Site: https://www.sublitr.com
-Main repo: https://github.com/mattgif/sublitr
+* Site: https://www.sublitr.com
+* Main repo: https://github.com/mattgif/sublitr
 
 sublitr's client is built with React Redux. Users can create submission and upload documents, and editors can view, comment on, and manage submission statuses. 
 
