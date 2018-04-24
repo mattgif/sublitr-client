@@ -6,12 +6,13 @@ import { Icon, Dropdown, Button } from 'semantic-ui-react';
 import SubmissionForm from "../../forms/submission-form/submissionform";
 import { toggleSubmissionForm} from "../../../actions";
 import CubicLoadingSpinner from "../../loading-animations/cubic-loading-spinner";
+import SubmissionTable from "./submission-table";
 
 export class SubmissionsPane extends React.Component {
     constructor (props) {
         super(props);
         this.state = {
-            filter: 'all',
+            decisionFilter: 'all',
             search: ''
         }
     };
@@ -27,10 +28,11 @@ export class SubmissionsPane extends React.Component {
 
     updateSearch = e => this.setState({ search: e.target.value });
 
+
     render() {
         const options = [{text:'All Submissions', value: 'all', key: 'all'}, ...this.props.decisions];
         const {publications, loading, showNewSubmissionForm, submissions, hidden, dispatch} = this.props;
-        const {filter, search} = this.state;
+        const {decisionFilter, search} = this.state;
 
         let submissionForm;
         let newSubmissionButton = <Button primary onClick={() => dispatch(toggleSubmissionForm())}><Icon name="plus"/> New submission</Button>;
@@ -45,42 +47,7 @@ export class SubmissionsPane extends React.Component {
         } else if (!Object.keys(submissions).length) {
             contentSection = <section className="submission_empty"><h2>No submissions yet...</h2><p>Click New Submission to get started!</p></section>
         } else {
-            const submissionCards = Object.keys(submissions).map(key => {
-                const submission = submissions[key];
-                const image = publications[submission.publication] ? publications[submission.publication].image : 'https://s3.amazonaws.com/sublitr-images/logo.svg';
-                const statusMatch = filter === "all" || submission.status === filter;
-                const searchMatch = submission.title.toLowerCase().includes(search.toLowerCase());
-                if (statusMatch && searchMatch) {
-                    return(
-                        <li key={submission.id}>
-                            <CardSubmission
-                                status={submission.status}
-                                publication={submission.publication}
-                                title={submission.title}
-                                submissionDate={submission.submitted}
-                                id={submission.id}
-                                pubImage={image}
-                            />
-                        </li>
-                    );
-                }
-                return ''
-            });
-
-            contentSection =
-                <section>
-                    <div>
-                        <h4 style={{display: 'inline-block', marginRight: '10px'}}>Filter by:</h4>
-                        <Dropdown style={{display: 'inline-block', marginBottom: '10px'}} placeholder='Submission status' options={options} onChange={(e, data) => this.filterList(data)}/>
-                        <div className="search__filter__wrapper">
-                            <input placeholder='Search by title' className="search__filter" type='text' value={search} onChange={e => this.updateSearch(e)}/>
-                            <Icon name="search"/>
-                        </div>
-                    </div>
-                    <ul className="user submissionList">
-                        {submissionCards}
-                    </ul>
-                </section>
+            contentSection = <SubmissionTable filters={{'decision': decisionFilter}} search={search}/>
         }
 
         return(
@@ -90,6 +57,14 @@ export class SubmissionsPane extends React.Component {
                     {newSubmissionButton}
                 </header>
                 {submissionForm}
+                <div>
+                    <h4 style={{display: 'inline-block', marginRight: '10px'}}>Filter by:</h4>
+                    <Dropdown style={{display: 'inline-block', marginBottom: '10px'}} placeholder='Submission status' options={options} onChange={(e, data) => this.filterList(data)}/>
+                    <div className="search__filter__wrapper">
+                        <input placeholder='Search by title' className="search__filter" type='text' value={search} onChange={e => this.updateSearch(e)}/>
+                        <Icon name="search"/>
+                    </div>
+                </div>
                 {contentSection}
             </main>
         )

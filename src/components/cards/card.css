@@ -224,3 +224,15 @@ div.card__basic .delete__wrapper {
 div.card .delete__wrapper button:hover {
     color: #9b1810;
 }
+
+button.delete {
+    color: #d9534f;
+    background-color: transparent;
+    border: none;
+    transition: .15s ease-in;
+    padding: 0;
+}
+
+button.delete:hover {
+    color: #9b1810;
+}

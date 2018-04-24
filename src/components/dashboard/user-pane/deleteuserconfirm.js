@@ -19,7 +19,7 @@ class DeleteUserConfirm extends React.Component {
     render() {
         return (
             <div className="user__delete__wrapper">
-                <button className="user__delete" onClick={() => this.show()}>Delete</button>
+                <button className="delete" onClick={() => this.show()}>Delete</button>
                 <Confirm
                     open={this.state.open}
                     onCancel={this.handleCancel}
