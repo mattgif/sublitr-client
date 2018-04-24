@@ -8,7 +8,7 @@ export default function ReduxValidatedDropdown ({ input, type, label, placeholde
 
     return  (
         <Form.Field>
-            <As search selection options={options} {...props} {...input} value={input.value} type={type} label={label} placeholder={placeholder} error={touched && !!error} onChange={handleChange} />
+            <As search fluid selection options={options} {...props} {...input} value={input.value} type={type} label={label} placeholder={placeholder} error={touched && !!error} onChange={handleChange} />
             <div className="semantic__form__error-field">{touched && ((error && <span><i>{error}</i></span>) || (warning && <span><i>{warning}</i></span>))}</div>
         </Form.Field>
     )
