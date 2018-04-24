@@ -33,47 +33,51 @@ export class DocViewer extends React.Component {
     }
 
     render() {
-        if (!this.props.submission || this.props.loadingSubmissions) {
+        const {submission, loadingSubmissions, fetching, document, sidebarOpen} = this.props;
+        const {showCoverLetter} = this.state;
+        if (!submission || loadingSubmissions) {
             return (<CubicLoadingSpinner/>)
         }
 
-        if (!Object.keys(this.props.submission).includes('reviewerInfo')) {
+        if (!Object.keys(submission).includes('reviewerInfo')) {
           //  user is not a reviewer for document at this link
           return (<div className="docviewer__error"><Icon name="ban" size="huge"/>Sorry, you are not authorized to review this document</div>)
         }
 
         let documentPreview;
-        if (!this.props.document && this.props.fetching) {
+        if (!document && fetching) {
             documentPreview = <CubicLoadingSpinner/>
-        } else if (!this.props.document && !this.props.fetching) {
+        } else if (!document) {
             documentPreview = <div className="docviewer__error"><Icon size="huge" name="frown"/> Sorry, there was an error retrieving the document</div>
         } else {
             documentPreview = <embed width="100%" height="100%" className="docviewer__iframe" type="application/pdf" title={this.props.submission.title}
-                                      src={this.props.document} frameBorder="0"/>
+                                      src={document} frameBorder="0"/>
         }
 
         let coverLetterSection;
-        if (this.props.submission.coverLetter) {
+        if (submission.coverLetter) {
             coverLetterSection =
                 <section className="docviewer__coverletter__wrapper">
-                    <div className={`docviewer__coverletter ${this.state.showCoverLetter ? 'open' : 'closed'}`}>{this.props.submission.coverLetter}</div>
-                    <button className={this.state.showCoverLetter ? 'open' : 'closed'} onClick={() => this.toggleCoverLetter()}><Icon name={`chevron ${this.state.showCoverLetter ? 'up' : 'down'}`}/> {this.state.showCoverLetter ? 'Hide cover letter' : 'View cover letter'}</button>
+                    <div className={`docviewer__coverletter ${showCoverLetter ? 'open' : 'closed'}`}>{submission.coverLetter}</div>
+                    <button className={showCoverLetter ? 'open' : 'closed'} onClick={() => this.toggleCoverLetter()}><Icon name={`chevron ${showCoverLetter ? 'up' : 'down'}`}/> {showCoverLetter ? 'Hide cover letter' : 'View cover letter'}</button>
                 </section>
 
         }
+
+
         return (
-            <div className="docviewer">
-                <PushableLeftSidebar submission={this.props.submission}>
+            <div className={`docviewer ${sidebarOpen ? 'sidebaropen' : ''}`}>
+                <PushableLeftSidebar submission={submission}>
                     <div className="docviewer__wrapper">
                         <header className="docviewer__header">
-                            <h1>{this.props.submission.title}</h1>
+                            <h1>{submission.title}</h1>
                             <dl>
                                 <dt>Author</dt>
-                                <dd>{this.props.submission.author}</dd>
+                                <dd>{submission.author}</dd>
                                 <dt>Submitted</dt>
-                                <dd><time dateTime={this.props.submission.submitted}>{formatDate(this.props.submission.submitted)}</time></dd>
+                                <dd><time dateTime={submission.submitted}>{formatDate(this.props.submission.submitted)}</time></dd>
                                 <dt>Publication</dt>
-                                <dd>{this.props.submission.publication}</dd>
+                                <dd>{submission.publication}</dd>
                             </dl>
                         </header>
                         {coverLetterSection}
@@ -94,7 +98,8 @@ const mapStateToProps = (state, ownProps) => ({
     document: state.submissions.loadedFiles[ownProps.match.params.submissionID],
     fetching: state.submissions.fetchingDocument,
     error: state.submissions.error,
-    allLoaded: state.submissions.loadedFiles
+    allLoaded: state.submissions.loadedFiles,
+    sidebarOpen: state.sublitr.showSidebar
 });
 
 export default connect(mapStateToProps)(DocViewer);

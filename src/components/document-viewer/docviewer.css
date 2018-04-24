@@ -1,5 +1,6 @@
 .docviewer {
     height: 100%;
+    min-height: 2000px;
 }
 
 .docviewer__wrapper {
