@@ -1,5 +1,5 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import {connect} from 'react-redux';
 import './navbar.css';
 import Login from '../modals/login';
@@ -16,6 +16,7 @@ export function Navbar(props) {
         props.dispatch(clearSubmissions());
         props.dispatch(clearAppState());
         clearAuthToken();
+        props.history.push('/');
     };
 
     function toggleVisibility() {
@@ -55,4 +56,4 @@ const mapStateToProps = state => ({
     menuOpen: state.sublitr.showSidebar
 });
 
-export default connect(mapStateToProps)(Navbar)
+export default withRouter(connect(mapStateToProps)(Navbar))
