@@ -6,7 +6,6 @@ import './review-table.css'
 import ConfirmableDropdown from "../../confirmable-dropdown";
 import {updateStatus} from "../../../actions/submissions";
 import { Message, Icon } from 'semantic-ui-react';
-import StatusIndicator from "../../status-indicator/statusindicator";
 import {CommentList} from "../../comments/comment-list";
 
 export class ReviewRow extends React.Component {
@@ -44,6 +43,14 @@ export class ReviewRow extends React.Component {
         const {expanded} = this.state;
         const publication = publications[submission.publication];
         const image = publications[publication] ? publications[publication].image : 'https://s3.amazonaws.com/sublitr-images/logo.svg';
+        const formatRecommendation = {
+            none: 'Not reviewed',
+            underReview: 'Under review',
+            accept: 'Accept',
+            revise: 'Revise & Resubmit',
+            consider: 'Consider',
+            decline: 'Decline'
+        };
 
         let message;
         if (this.state.message) {
@@ -58,20 +65,17 @@ export class ReviewRow extends React.Component {
         let commentList = <CommentList comments={comments} submissionId={submission.id} />;
         return (
             <tbody>
-            <tr onClick={() => this.setState({expanded: !expanded})} className={`${expanded ? '' : 'bottom'}`}>
+            <tr onClick={() => this.setState({expanded: !expanded})} className={`bottom ${expanded ? 'dotted' : ''}`}>
                 <td className="image"><div className="image"><img src={image} alt={publication.title + " logo"}/></div></td>
                 <td className="publication">{publication.title}</td>
                 <td className="author">{submission.author}</td>
                 <td className="title">{submission.title}</td>
-                <td className="recommendation">{recommendation}</td>
+                <td className="recommendation">{formatRecommendation[recommendation]}</td>
                 <td className="view" onClick={e => e.stopPropagation()}>
                     <Link className="view-submission-button" to={`/submission/${submission.id}`}>View submission</Link>
                 </td>
             </tr>
-            {/*<tr className={`counters ${expanded ? '' : 'bottom'}`} onClick={() => this.setState({expanded: !expanded})}>*/}
-                {/*<td colSpan={6}>{commentCounter}</td>*/}
-            {/*</tr>*/}
-            <tr className={expanded ? 'bottom' : ''}><td colSpan={6} className={expanded ? 'expanded' : 'collapsed'}>
+            <tr className={expanded ? 'expanded bottom' : ''}><td colSpan={6} className={expanded ? 'expanded' : 'collapsed'}>
                 {message}
                 <div>
                     <dl>
@@ -96,13 +100,12 @@ export class ReviewRow extends React.Component {
                                              value={recommendation}
                         />
                         <p className="date">Submitted {formatDate(submission.submitted).toLowerCase()}</p>
-                        <p>Last updated {formatDate(submission.reviewerInfo.lastAction).toLowerCase()}</p>
+                        <p>Last updated {formatDate(lastAction).toLowerCase()}</p>
                     </dl>
-                    <div>
-                        <h4>Comments</h4>
+                    <div className="comments">
+                        {commentCounter}
                         {commentList}
                     </div>
-
                 </div>
             </td></tr>
             </tbody>

@@ -4,61 +4,66 @@ import ReviewRow from "./review-table-row";
 import CubicLoadingSpinner from "../../loading-animations/cubic-loading-spinner";
 
 export class ReviewTable extends React.Component {
-    // matchesField = (targetField, filterValue) => {
-    //     return targetField === filterValue || filterValue === "all"
-    // };
-
-    // filteredSubmissions = (submissionList, state) => Object.keys(submissionList).reduce((hash, key) => {
-    //     const submission = submissionList[key];
-    //     let matches = true;
-    //     if (this.state.search) {
-    //         const string = `${submission.title} ${submission.author}`.toLowerCase();
-    //         matches = string.includes(this.state.search.toLowerCase())
-    //     }
-    //
-    //     if (Object.keys(submission).includes('reviewerInfo') &&
-    //         matches &&
-    //         this.matchesField(submission.publication, state.publicationFilter) &&
-    //         this.matchesField(submission.reviewerInfo.decision, state.decisionFilter) &&
-    //         this.matchesField(submission.reviewerInfo.recommendation, state.recommendationFilter)) {
-    //         hash[key] = submission;
-    //     }
-    //     return hash;
-    // }, {});
-    //
-    // formattedSubmissions = submissionList => Object.keys(submissionList).map(key => {
-    //     const submission = submissionList[key];
-    //     return (
-    //         <li key={submission.id}>
-    //             <CardReview submission={submission}/>
-    //         </li>
-    //     )});
-
     render() {
         // const {searchTerm, filters} = this.props;
-        const { submissions, loading, publications } = this.props;
-        // const filteredSubmissions = this.filteredSubmissions(submissions, this.state);
-
-        let matchingSubmissions;
+        const { submissions, loading, filters, searchTerm } = this.props;
         if (loading) {
-            matchingSubmissions = <CubicLoadingSpinner/>
-        } else {
-            matchingSubmissions = submissions;
+            return <CubicLoadingSpinner/>
         }
-        const rows = Object.keys(matchingSubmissions).map(sub =>
-            <ReviewRow submission={submissions[sub]}/>);
+
+        function filterMatch(submission, filters) {
+            // filters is an object with filter name as key, and value as value
+            let match = true;
+            Object.keys(filters).forEach(name => {
+                // if filter is not 'all' and the values don't match, then return false
+                const submissionInfo = {
+                    publication: submission.publication,
+                    decision: submission.reviewerInfo.decision,
+                    recommendation: submission.reviewerInfo.recommendation
+                };
+                if (filters[name] !== "all" && (submissionInfo[name] !== filters[name])) {
+                    console.log(name, 'does not match. Filter value:', filters[name], 'Sub value:', submissionInfo[name])
+                    match = false;
+                }
+            });
+            return match;
+        }
+
+        function searchMatch(submission, searchTerm) {
+            // string should contain both firstName lastName & lastName firstName
+            const string = `${submission.title.toLowerCase()} ${submission.author.toLowerCase()} ${submission.author.toLowerCase()}`
+            return string.includes(searchTerm.toLowerCase());
+        }
+
+        function filterSubmissions(submissions, filters, searchTerm) {
+            return Object.keys(submissions).filter(sub =>
+                (
+                    Object.keys(submissions[sub]).includes('reviewerInfo') // rules out listing user's own submissions
+                    && filterMatch(submissions[sub], filters)
+                    && searchMatch(submissions[sub], searchTerm)
+                ))
+
+        }
+
+        const matchingSubmissions = filterSubmissions(submissions, filters, searchTerm).map(sub =>
+            <ReviewRow key={sub} submission={submissions[sub]}/>);
+
+        if (!matchingSubmissions.length) {
+            return <div className="Not found"><h2>No submissions found for review</h2></div>
+        }
+
         return (
             <table cellSpacing={0} className="review__table">
                 <thead>
-                    <tr>
-                        <th colSpan={2}>Publication</th>
-                        <th>Submitter</th>
-                        <th>Title</th>
-                        <th>Recommendation</th>
-                        <th/>
-                    </tr>
+                <tr>
+                    <th colSpan={2}>Publication</th>
+                    <th>Submitter</th>
+                    <th>Title</th>
+                    <th>Recommendation</th>
+                    <th/>
+                </tr>
                 </thead>
-                {rows}
+                {matchingSubmissions}
             </table>
         )
     }
@@ -66,10 +71,6 @@ export class ReviewTable extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    publications: state.publications.publicationsOptions(),
-    publicationsAbbrHash: state.publications.publicationsAbbrHash(),
-    filterValues: state.sublitr.filterValues,
-    statusLists: state.sublitr.statusLists,
     submissions: state.submissions.submissionData,
     loading: state.submissions.loading,
     editorId: state.auth.currentUser.id
