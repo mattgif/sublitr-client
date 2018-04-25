@@ -1,20 +1,31 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import '../expandable-table.css'
-import DeletePublicationConfirm from './deletepublicationonfirm';
+import '../expandable-table.css';
+import {Confirm} from 'semantic-ui-react';
 import EditPublicationForm from "../../forms/publication-form/edit-publication-form";
+import {deletePublication} from "../../../actions/publications";
 
 export class PublicationTableRow extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             expanded: false,
-            message: undefined
+            message: undefined,
+            deleteModalOpen: false,
         }
     }
 
     toggleExpanded = () => {
         this.setState({expanded: !this.state.expanded});
+    };
+
+    showDeleteConfirmation = (e) => {this.setState({ deleteModalOpen: true });};
+
+    handleDeleteCancel = () => this.setState({ open: false });
+
+    handleDeleteConfirm = () => {
+        return this.props.dispatch(deletePublication(this.props.publication.title, this.props.publication.id))
+        .then(() => this.setState({ deleteModalOpen: false }))
     };
 
     render() {
@@ -41,7 +52,17 @@ export class PublicationTableRow extends React.Component {
                 <td className="publication">{title}</td>
                 <td className="editors"><ul>{editorItems}</ul></td>
                 <td className="delete" onClick={e => e.stopPropagation()}>
-                    <DeletePublicationConfirm className="delete" title={title} id={id}/>
+                    <div>
+                        <button className="delete" onClick={(e) => this.showDeleteConfirmation(e)}>Delete</button>
+                        <Confirm
+                            open={this.state.deleteModalOpen}
+                            onCancel={this.handleDeleteCancel}
+                            onConfirm={this.handleDeleteConfirm}
+                            content={`Delete ${title}?`}
+                            confirmButton='Delete publication'
+                            size='tiny'
+                        />
+                    </div>
                 </td>
             </tr>
             <tr className={expanded ? 'expanded bottom' : ''}><td colSpan={6} className={expanded ? 'expanded' : 'collapsed'}>
