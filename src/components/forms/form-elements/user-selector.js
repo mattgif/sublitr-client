@@ -10,7 +10,13 @@ export class UserSelector extends React.Component {
             isFetching: false,
             searchQuery: null,
             value: [],
-            userOptions: null
+            userOptions: this.props.users.map(user => {
+                return {
+                    key: user.id,
+                    text:`${user.firstName} ${user.lastName} (${user.email})`,
+                    value: user.id
+                }
+            })
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSearchChange = this.handleSearchChange.bind(this);
@@ -21,21 +27,6 @@ export class UserSelector extends React.Component {
         this.setState({value})
     };
     handleSearchChange = (e, {searchQuery}) => this.setState({searchQuery});
-
-    componentDidMount() {
-        // fetch users, format users into hash so we can submit complex object as form value, then set fetching to false and add users as options to state
-        this.setState({ isFetching: true });
-        return this.props.dispatch(fetchUserList()).then(() => {
-            const userOptions = this.props.users.map(user => {
-                return {
-                    key: user.id,
-                    text:`${user.firstName} ${user.lastName} (${user.email})`,
-                    value: user.id
-                }
-            });
-            this.setState({ isFetching: false, userOptions})
-        });
-    }
 
     render() {
         const {isFetching, value, userOptions} = this.state;

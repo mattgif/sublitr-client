@@ -5,6 +5,7 @@ import PublicationForm from "../../forms/publication-form/new-publication-form";
 import {togglePublicationForm} from "../../../actions";
 import {fetchPublications} from "../../../actions/publications";
 import PublicationTable from "./publication-table";
+import {fetchUserList} from "../../../actions/users";
 
 export class PublicationPane extends React.Component {
     constructor (props) {
@@ -16,9 +17,12 @@ export class PublicationPane extends React.Component {
     };
 
     componentDidMount() {
-        if (!this.props.loading && Object.keys(this.props.publications).length === 0) {
-            return this.props.dispatch(fetchPublications())
-        }
+        return this.props.dispatch(fetchUserList())
+            .then(() => {
+                if (!this.props.loading && Object.keys(this.props.publications).length === 0) {
+                    return this.props.dispatch(fetchPublications())
+                }
+            })
     }
 
     updateSearch = e => this.setState({ searchTerm: e.target.value });
