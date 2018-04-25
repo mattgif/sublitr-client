@@ -1,34 +1,24 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import DeleteSubmissionConfirm from '../../cards/basic-card/deletesubmissionconfirm';
-import { Table, Icon } from 'semantic-ui-react';
+import { Table } from 'semantic-ui-react';
 import {formatDate} from "../../../actions/utils";
 import StatusIndicator from "../../status-indicator/statusindicator";
 
 export class SubmissionTable extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            headers: [
-                {label:'Title', key:'title'},
-                {label:'Submission date', key:'submitted'},
-                {label:'Publication', key:'publication'}
-            ]
-        }
-    }
-
     render() {
         const {submissions, filters, search, publications} = this.props;
 
-        function filterMatch(filters, submission) {
+        function filterMatch(submission, filters) {
             // filters is an object with filter name as key, and value as value
+            let match = true;
             Object.keys(filters).forEach(name => {
                 // if filter is not 'all' and the values don't match, then return false
                 if (filters[name] !== "all" && (submission[name] !== filters[name])) {
-                    return false;
+                    match = false;
                 }
             });
-            return true;
+            return match;
         }
 
         function searchMatch(submission, searchTerm) {
@@ -36,9 +26,10 @@ export class SubmissionTable extends React.Component {
         }
 
         function filterSubmissions(submissions, filters, searchTerm) {
-            return Object.keys(submissions).filter(sub =>
-                (filterMatch(submissions[sub], filters)
-                    && searchMatch(submissions[sub], searchTerm)))
+                return Object.keys(submissions).filter(sub =>
+                    (filterMatch(submissions[sub], filters)
+                        && searchMatch(submissions[sub], searchTerm)))
+
         }
 
         const matchingSubmissions = filterSubmissions(submissions, filters, search);

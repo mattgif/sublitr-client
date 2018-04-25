@@ -1,6 +1,5 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import CardSubmission from "../../cards/basic-card/index";
 import {fetchSubmissions} from "../../../actions/submissions";
 import { Icon, Dropdown, Button } from 'semantic-ui-react';
 import SubmissionForm from "../../forms/submission-form/submissionform";
@@ -12,7 +11,7 @@ export class SubmissionsPane extends React.Component {
     constructor (props) {
         super(props);
         this.state = {
-            decisionFilter: 'all',
+            statusFilter: 'all',
             search: ''
         }
     };
@@ -21,9 +20,9 @@ export class SubmissionsPane extends React.Component {
         this.props.dispatch(fetchSubmissions())
     }
 
-    filterList = (data) => {
+    updateStatusFilter = (data) => {
         const val = data.value;
-        this.setState({filter: val})
+        this.setState({statusFilter: val})
     };
 
     updateSearch = e => this.setState({ search: e.target.value });
@@ -31,8 +30,8 @@ export class SubmissionsPane extends React.Component {
 
     render() {
         const options = [{text:'All Submissions', value: 'all', key: 'all'}, ...this.props.decisions];
-        const {publications, loading, showNewSubmissionForm, submissions, hidden, dispatch} = this.props;
-        const {decisionFilter, search} = this.state;
+        const {loading, showNewSubmissionForm, submissions, hidden, dispatch} = this.props;
+        const {statusFilter, search} = this.state;
 
         let submissionForm;
         let newSubmissionButton = <Button primary onClick={() => dispatch(toggleSubmissionForm())}><Icon name="plus"/> New submission</Button>;
@@ -47,7 +46,7 @@ export class SubmissionsPane extends React.Component {
         } else if (!Object.keys(submissions).length) {
             contentSection = <section className="submission_empty"><h2>No submissions yet...</h2><p>Click New Submission to get started!</p></section>
         } else {
-            contentSection = <SubmissionTable filters={{'decision': decisionFilter}} search={search}/>
+            contentSection = <SubmissionTable filters={{'status': statusFilter}} search={search}/>
         }
 
         return(
@@ -59,7 +58,10 @@ export class SubmissionsPane extends React.Component {
                 {submissionForm}
                 <div>
                     <h4 style={{display: 'inline-block', marginRight: '10px'}}>Filter by:</h4>
-                    <Dropdown style={{display: 'inline-block', marginBottom: '10px'}} placeholder='Submission status' options={options} onChange={(e, data) => this.filterList(data)}/>
+                    <Dropdown style={{display: 'inline-block', marginBottom: '10px'}}
+                              placeholder='Submission status'
+                              options={options}
+                              onChange={(e, data) => this.updateStatusFilter(data)}/>
                     <div className="search__filter__wrapper">
                         <input placeholder='Search by title' className="search__filter" type='text' value={search} onChange={e => this.updateSearch(e)}/>
                         <Icon name="search"/>

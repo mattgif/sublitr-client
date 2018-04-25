@@ -4,6 +4,7 @@ import CardReview from "../../cards/review-card/index";
 import {fetchSubmissions} from "../../../actions/submissions";
 import CubicLoadingSpinner from "../../loading-animations/cubic-loading-spinner";
 import { Dropdown, Icon } from 'semantic-ui-react';
+import ReviewTable from "./review-table";
 
 export class ReviewPane extends React.Component {
     constructor (props) {
@@ -57,14 +58,6 @@ export class ReviewPane extends React.Component {
         return hash;
     }, {});
 
-    formattedSubmissions = submissionList => Object.keys(submissionList).map(key => {
-        const submission = submissionList[key];
-        return (
-            <li key={submission.id}>
-                <CardReview submission={submission}/>
-            </li>
-        )});
-
     render() {
         const search = this.state.search;
         const { submissions, loading, statusLists, publications } = this.props;
@@ -78,7 +71,7 @@ export class ReviewPane extends React.Component {
         } else if (!Object.keys(filteredSubmissions).length) {
             submissionList = <div className="Not found"><h2>No submissions found for review</h2></div>
         } else {
-            submissionList = <ul className="submissionList">{this.formattedSubmissions(filteredSubmissions)}</ul>
+            submissionList = <ReviewTable searchTerm={this.state.search} filters={{recommendation: this.state.recommendationFilter, decision: this.state.decisionFilter, publication: this.state.publicationFilter}}/>
         }
 
         const decisionOptions = [{text: 'Any decision', value: 'all', key: 'all'}, ...statusLists.decision];
@@ -88,7 +81,7 @@ export class ReviewPane extends React.Component {
         return (
             <section className={this.props.hidden ? "pane hidden" : "pane"}>
                 <h2>Review submissions</h2>
-                <p>Select 'edit' to quickly update a submission's recommendation or status, or select 'view submission' for all editor options, including adding comments</p>
+                <p>You can expand a submission in the table by selecting it to update the recommendation or status, or view comments.</p>
                 <div className="filter__section">
                     <h4>Filter by:</h4>
                     <ul className="filter__list">
