@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Dropdown} from 'semantic-ui-react';
-import {fetchUserList} from "../../../actions/users";
 
 export class UserSelector extends React.Component {
     constructor(props) {
