@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Icon, Button } from 'semantic-ui-react';
-import PublicationForm from "../../forms/publication-form/publication-form";
+import PublicationForm from "../../forms/publication-form/new-publication-form";
 import {togglePublicationForm} from "../../../actions";
 import {fetchPublications} from "../../../actions/publications";
 import PublicationTable from "./publication-table";

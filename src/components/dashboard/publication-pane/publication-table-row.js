@@ -12,7 +12,8 @@ export class PublicationTableRow extends React.Component {
             expanded: false,
             message: undefined,
             deleteModalOpen: false,
-        }
+        };
+        this.toggleExpanded = this.toggleExpanded.bind(this);
     }
 
     toggleExpanded = () => {

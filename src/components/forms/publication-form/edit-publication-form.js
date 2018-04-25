@@ -52,7 +52,7 @@ export class EditPublicationForm extends React.Component {
     }
 
     render() {
-        const currentEditors = this.props.editors;
+        const globalEditors = this.props.editors; // editors in reducer
         let errorMessage;
         if (this.props.submitFailed) {
             errorMessage = (
@@ -61,15 +61,15 @@ export class EditPublicationForm extends React.Component {
         }
 
         let editorItems;
-        if (currentEditors) {
-            editorItems = Object.keys(currentEditors).map(editor => {
+        if (globalEditors) {
+            editorItems = Object.keys(globalEditors).map(editor => {
                 let style = {};
                 if (!Object.keys(this.state.editors).includes(editor)) {
                     style = {textDecoration: 'line-through'}
                 }
                 return (
                 <li key={editor}>
-                    <span style={style}>{currentEditors[editor].email}</span>  <button onClick={() => this.removeEditor(editor)} className="remove">remove</button>
+                    <span style={style}>{globalEditors[editor].email}</span>  <button onClick={() => this.removeEditor(editor)} className="remove">remove</button>
                 </li>
             )});
         }
