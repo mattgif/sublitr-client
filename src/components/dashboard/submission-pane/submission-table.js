@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import DeleteSubmissionConfirm from '../../cards/basic-card/deletesubmissionconfirm';
+import DeleteSubmissionConfirm from './deletesubmissionconfirm';
 import { Table } from 'semantic-ui-react';
 import {formatDate} from "../../../actions/utils";
 import StatusIndicator from "../../status-indicator/statusindicator";

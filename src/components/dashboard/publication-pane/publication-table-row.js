@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import '../review-pane/review-table.css'
-import DeletePublicationConfirm from '../../cards/publication-card/deletepublicationonfirm';
+import DeletePublicationConfirm from './deletepublicationonfirm';
 import EditPublicationForm from "../../forms/publication-form/edit-publication-form";
 
 export class PublicationTableRow extends React.Component {
