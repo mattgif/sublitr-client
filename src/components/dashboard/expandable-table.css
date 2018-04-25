@@ -1,16 +1,10 @@
-:root {
-    --table-border: 1px solid rgba(0, 0, 0, 0.2);
-    --light-gray: #f9fafb;
-    --backgrond-color: #F8EEE7;
-}
-
 table.expandable__table thead {
-    background-color: var(--light-gray);
-    border-bottom: var(--table-border);
+    background-color: #f9fafb;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 }
 
 table.expandable__table thead th {
-    border-right: var(--table-border);
+    border-right: 1px solid rgba(0, 0, 0, 0.2);
     height: 3rem;
     padding: 0;
     margin: 0;
@@ -26,7 +20,7 @@ table.expandable__table .image {
 }
 
 table.expandable__table .bottom {
-    border-bottom: var(--table-border);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 }
 
 table.expandable__table .bottom.dotted {
@@ -54,8 +48,8 @@ table.expandable__table td.editors {
 table.expandable__table {
     width: 100%;
     margin-left: 0;
-    border-top: var(--table-border);
-    border-bottom: var(--table-border);
+    border-top: 1px solid rgba(0, 0, 0, 0.2);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
     background-color: #fff;
     border-collapse: collapse;
 }
@@ -65,7 +59,7 @@ table.expandable__table tbody tr td:last-child {
 }
 
 table.expandable__table td {
-    border-right: var(--table-border);
+    border-right: 1px solid rgba(0, 0, 0, 0.2);
     cursor: pointer;
     margin: 0;
 }
@@ -90,11 +84,10 @@ table.expandable__table tr td.expanded {
     padding: 30px;
     text-align: left;
     border-radius: 4px;
-
 }
 
 table.expandable__table tr.expanded {
-    border-bottom: 30px solid var(--backgrond-color);
+    border-bottom: 30px solid #F8EEE7;
 }
 
 table.expandable__table tr td.expanded > div {
@@ -193,7 +186,7 @@ table.expandable__table td.delete button {
    table.expandable__table tr {
        display: flex;
        flex-wrap: wrap;
-       border-right: var(--table-border);
+       border-right: 1px solid rgba(0, 0, 0, 0.2);
        padding: 25px;
    }
 

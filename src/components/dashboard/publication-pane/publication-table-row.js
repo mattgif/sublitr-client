@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import '../review-pane/review-table.css'
+import '../expandable-table.css'
 import DeletePublicationConfirm from './deletepublicationonfirm';
 import EditPublicationForm from "../../forms/publication-form/edit-publication-form";
 

@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from "react-redux";
 import {Link} from 'react-router-dom';
 import {formatDate} from "../../../actions/utils";
-import './review-table.css'
+import '../expandable-table.css'
 import ConfirmableDropdown from "../../confirmable-dropdown";
 import {updateStatus} from "../../../actions/submissions";
 import { Message, Icon } from 'semantic-ui-react';
