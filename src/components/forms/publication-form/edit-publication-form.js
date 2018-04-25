@@ -11,8 +11,11 @@ export class EditPublicationForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            currentEditors: this.props.editors || {},
-            newEditors: []
+            newEditors: [],
+            editors: {...this.props.editors},
+            clear: false,
+            actuallySubmit: false, //redux form bug submitting on change - this is a workaround,
+            changed: false
         };
         this.handleCancel = this.handleCancel.bind(this);
         this.setEditors = this.setEditors.bind(this);
@@ -21,18 +24,19 @@ export class EditPublicationForm extends React.Component {
    handleCancel() {this.props.cancel()}
 
    removeEditor(id) {
-        const currentEditors = Object.assign({}, this.state.currentEditors);
+        const currentEditors = Object.assign({}, this.state.editors);
         delete currentEditors[id];
-        this.setState({currentEditors})
+        this.setState({editors: currentEditors, changed: true})
    }
 
     setEditors(idArray) {
         const newEditors = idArray.map(id => this.props.userHash[id]);
-        return this.setState({newEditors})
+        this.setState({changed: true, editors: {...this.state.editors, ...newEditors}})
     }
 
     onSubmit(values) {
-        const editors = Object.assign({}, this.state.currentEditors);
+        if (!this.state.actuallySubmit) return;
+        const editors = Object.assign({}, this.state.editors);
         this.state.newEditors.forEach(e => {editors[e.id] = e});
         let data = {'editors':editors};
         data = JSON.stringify(data);
@@ -44,12 +48,11 @@ export class EditPublicationForm extends React.Component {
                     error: false,
                     positive: true
                 }));
-                this.handleCancel();
             })
     }
 
     render() {
-        const currentEditors = this.state.currentEditors;
+        const currentEditors = this.props.editors;
         let errorMessage;
         if (this.props.submitFailed) {
             errorMessage = (
@@ -59,11 +62,21 @@ export class EditPublicationForm extends React.Component {
 
         let editorItems;
         if (currentEditors) {
-            editorItems = Object.keys(currentEditors).map(editor => { return (
+            editorItems = Object.keys(currentEditors).map(editor => {
+                let style = {};
+                if (!Object.keys(this.state.editors).includes(editor)) {
+                    style = {textDecoration: 'line-through'}
+                }
+                return (
                 <li key={editor}>
-                    {currentEditors[editor].email}  <button onClick={() => this.removeEditor(editor)} className="remove">remove</button>
+                    <span style={style}>{currentEditors[editor].email}</span>  <button onClick={() => this.removeEditor(editor)} className="remove">remove</button>
                 </li>
             )});
+        }
+
+        let hideButtons;
+        if (!this.state.changed) {
+            hideButtons = {display: 'none'}
         }
 
         return (
@@ -71,26 +84,27 @@ export class EditPublicationForm extends React.Component {
                 {errorMessage}
                 <h3>{this.props.title}</h3>
 
-                <h4>Current editors</h4>
+                <h4>Editors</h4>
                 <ul>
                     {editorItems}
                 </ul>
                 <h4>Add editors</h4>
                 <UserSelector onChange={this.setEditors}/>
-                <Button.Group>
+                <Button.Group style={hideButtons}>
                     <Button type="button" onClick={() => this.handleCancel()}>Cancel</Button>
                     <Button.Or/>
-                    <Button primary type="submit" positive loading={this.props.submitting}>Confirm</Button>
+                    <Button primary onClick={() => this.setState({actuallySubmit: true})} type="submit" positive loading={this.props.submitting}>Confirm</Button>
                 </Button.Group>
             </form>
         )
     }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state, ownProps) => ({
     error: state.publications.error,
     loading: state.publications.loading,
     publications: state.publications.publications,
+    editors: state.publications.publications[ownProps.title].editors,
     pubOptions: state.publications.publicationsOptions(),
     userHash: state.users.users.reduce((accumulator, user) => {
         // hash users array for quick lookup

@@ -4,19 +4,19 @@
     --backgrond-color: #F8EEE7;
 }
 
-table.review__table thead {
+table.expandable__table thead {
     background-color: var(--light-gray);
     border-bottom: var(--table-border);
 }
 
-table.review__table thead th {
+table.expandable__table thead th {
     border-right: var(--table-border);
     height: 3rem;
     padding: 0;
     margin: 0;
 }
 
-table.review__table .image {
+table.expandable__table .image {
     width: 75px;
     height: 75px;
     padding: 10px;
@@ -25,28 +25,33 @@ table.review__table .image {
     margin-right: auto;
 }
 
-table.review__table .bottom {
+table.expandable__table .bottom {
     border-bottom: var(--table-border);
 }
 
-table.review__table .bottom.dotted {
+table.expandable__table .bottom.dotted {
     border-bottom: 2px dotted rgba(0, 0, 0, 0.2);
 }
 
-table.review__table .counters td div {
+table.expandable__table .counters td div {
     padding: 15px;
     cursor: pointer;
 }
 
-table.review__table td.image {
+table.expandable__table td.image {
     border-right: none;
 }
 
-table.review__table td.publication {
+table.expandable__table td.editors,
+table.expandable__table td.publication {
     text-align: left;
 }
 
-table.review__table {
+table.expandable__table td.editors {
+    padding-left: 15px;
+}
+
+table.expandable__table {
     width: 100%;
     margin-left: 0;
     border-top: var(--table-border);
@@ -55,31 +60,32 @@ table.review__table {
     border-collapse: collapse;
 }
 
-table.review__table tbody tr td:last-child {
+table.expandable__table tbody tr td:last-child {
     cursor: default;
 }
 
-table.review__table td {
+table.expandable__table td {
     border-right: var(--table-border);
     cursor: pointer;
     margin: 0;
 }
 
-table.review__table div.image img {
+table.expandable__table div.image img {
     width: 100%;
 }
 
-table.review__table td {
+table.expandable__table td.delete,
+table.expandable__table td {
     text-align: center;
 }
 
-table.review__table td.collapsed {
+table.expandable__table td.collapsed {
     width: 0;
     height: 0;
     display: none;
 }
 
-table.review__table tr td.expanded {
+table.expandable__table tr td.expanded {
     word-break: break-all;
     padding: 30px;
     text-align: left;
@@ -87,21 +93,21 @@ table.review__table tr td.expanded {
 
 }
 
-table.review__table tr.expanded {
+table.expandable__table tr.expanded {
     border-bottom: 30px solid var(--backgrond-color);
 }
 
-table.review__table tr td.expanded > div {
+table.expandable__table tr td.expanded > div {
     display: flex;
     justify-content: space-between;
 
 }
 
-table.review__table dt {
+table.expandable__table dt {
     margin-top: 20px;
 }
 
-table.review__table tr td.expanded p.date {
+table.expandable__table tr td.expanded p.date {
     margin-top: 35px;
 }
 
@@ -125,52 +131,111 @@ table.review__table tr td.expanded p.date {
     background-color: #008CBA;
 }
 
-table.review__table dl {
+table.expandable__table dl {
     margin-top: 0;
 }
 
+/*publication*/
+tbody.publication__row ul {
+    list-style: none;
+    padding: 0;
+}
+
+tbody.publication__row .name {
+    font-weight: 700;
+}
+
+tbody.publication__row .email {
+    color: rgba(0, 0, 0, .5);
+}
+
+tbody.publication__row .button__wrapper {
+    text-align: right;
+    width: 100%;
+}
+
+tbody.publication__row .button__wrapper * {
+    display: inline-block;
+}
+
+tbody.publication__row button.delete {
+    color: #d9534f;
+}
+
+tbody.publication__row button.edit {
+    color: rgba(0, 0, 0, .5)
+}
+
+tbody.publication__row button.edit:hover {
+    color: #333;
+}
+
+tbody.publication__row button.delete:hover {
+    color: #9b1810;
+}
+
+tbody.publication__row button {
+    background-color: transparent;
+    border: none;
+    transition: .15s ease-in;
+    padding: 0;
+    margin-left: 25px;
+}
+
+table.expandable__table td.delete button {
+    margin: 0;
+}
+
+
+/*media*/
+
 @media screen and (max-width: 768px) {
-   table.review__table tr {
+   table.expandable__table tr {
        display: flex;
        flex-wrap: wrap;
        border-right: var(--table-border);
        padding: 25px;
    }
 
-    table.review__table thead th,
-    table.review__table td {
+    table.expandable__table thead th,
+    table.expandable__table td {
         width: 100%;
         text-align: left;
         border-right: none;
         margin-bottom: 10px;
     }
 
-    table.review__table .image {
+    table.expandable__table .image {
         margin: 0 0 10px 0;
         text-align: left;
         padding: 0;
     }
 
-    table.review__table thead th {
+    table.expandable__table thead th {
         height: auto;
         margin: 8px;
     }
 
-    table.review__table tbody {
+    table.expandable__table tbody {
         height: auto;
     }
 
-    table.review__table div.image img {
+    table.expandable__table div.image img {
         width: 100%;
         margin-left: 0;
         margin-bottom: 15px;
     }
 
-    table.review__table tr td.expanded > div {
+    table.expandable__table tr td.expanded > div {
         flex-wrap: wrap;
     }
 
-    table.review__table tr td.expanded div.comments {
+    table.expandable__table tr td.expanded div.comments {
         width: 100%;
+    }
+
+    table.expandable__table td.delete > div {
+        width: 100%;
+        text-align: right;
     }
 }

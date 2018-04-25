@@ -53,7 +53,7 @@ export class ReviewTable extends React.Component {
         }
 
         return (
-            <table cellSpacing={0} className="review__table">
+            <table cellSpacing={0} className="expandable__table">
                 <thead>
                 <tr>
                     <th colSpan={2}>Publication</th>
