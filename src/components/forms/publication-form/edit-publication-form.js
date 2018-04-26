@@ -15,6 +15,7 @@ export class EditPublicationForm extends React.Component {
             changed: false,
             dropDownValue: [],
             searchQuery: null,
+            confirm: false,
             userOptions: this.props.users.map(user => {
                 return {
                     key: user.id,
@@ -45,11 +46,15 @@ export class EditPublicationForm extends React.Component {
     }
 
     addEditors(e, {value}) {
+        e.preventDefault();
         const newEditor = this.state.userHash[value];
         this.setState({changed: true, dropDownValue: value, editors: {...this.state.editors, [value]: newEditor}})
     }
 
-    handleSearchChange = (e, {searchQuery}) => this.setState({searchQuery});
+    handleSearchChange = (e, {searchQuery}) => {
+        e.preventDefault();
+        this.setState({searchQuery})
+    };
 
     onSubmit(e, values) {
         e.preventDefault();
