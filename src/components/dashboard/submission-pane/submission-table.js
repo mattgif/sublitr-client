@@ -56,8 +56,7 @@ export class SubmissionTable extends React.Component {
                         <Table.HeaderCell/>
                         <Table.HeaderCell>Title</Table.HeaderCell>
                         <Table.HeaderCell>Submission date</Table.HeaderCell>
-                        <Table.HeaderCell>Publication</Table.HeaderCell>
-                        <Table.HeaderCell/>
+                        <Table.HeaderCell colSpan={2}>Publication</Table.HeaderCell>
                         <Table.HeaderCell/>
                     </Table.Row>
                 </Table.Header>

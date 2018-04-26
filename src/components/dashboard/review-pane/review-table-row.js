@@ -42,7 +42,7 @@ export class ReviewRow extends React.Component {
         const {decision, recommendation, lastAction, comments} = submission.reviewerInfo;
         const {expanded} = this.state;
         const publication = publications[submission.publication];
-        const image = publications[publication] ? publications[publication].image : 'https://s3.amazonaws.com/sublitr-images/logo.svg';
+        const image = publications[publication.title] ? publications[publication.title].image : 'https://s3.amazonaws.com/sublitr-images/logo.svg';
         const formatRecommendation = {
             none: 'Not reviewed',
             underReview: 'Under review',

@@ -62,6 +62,7 @@ table.expandable__table td {
     border-right: 1px solid rgba(0, 0, 0, 0.2);
     cursor: pointer;
     margin: 0;
+    padding: 10px;
 }
 
 table.expandable__table div.image img {
