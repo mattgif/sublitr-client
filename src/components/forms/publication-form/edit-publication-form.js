@@ -15,7 +15,6 @@ export class EditPublicationForm extends React.Component {
             changed: false,
             dropDownValue: [],
             searchQuery: null,
-            confirm: false,
             userOptions: this.props.users.map(user => {
                 return {
                     key: user.id,
@@ -37,7 +36,10 @@ export class EditPublicationForm extends React.Component {
         this.addEditors = this.addEditors.bind(this);
     }
 
-    handleCancel() {this.props.cancel()}
+    handleCancel() {
+        this.setState({changed: false, newEditors: [], dropDownValue: [], searchQuery: null});
+        this.props.cancel();
+    }
 
     removeEditor(id) {
         const currentEditors = Object.assign({}, this.state.editors);
@@ -70,6 +72,7 @@ export class EditPublicationForm extends React.Component {
                     error: false,
                     positive: true
                 }));
+                this.setState({confirmSubmit: false, newEditors: [], dropDownValue: [], searchQuery: null, changed: false})
             })
     }
 
@@ -104,7 +107,7 @@ export class EditPublicationForm extends React.Component {
         }
 
         return (
-            <form>
+            <form onSubmit={(e) => e.preventDefault()}>
                 {errorMessage}
                 <h3>{this.props.title}</h3>
 
@@ -118,6 +121,7 @@ export class EditPublicationForm extends React.Component {
                 <Dropdown
                     selection
                     search
+                    multiple
                     options={userOptions}
                     value={dropDownValue}
                     placeholder='Add Users'
@@ -127,7 +131,7 @@ export class EditPublicationForm extends React.Component {
                 <Button.Group style={hideButtons}>
                     <Button type="button" onClick={() => this.handleCancel()}>Cancel</Button>
                     <Button.Or/>
-                    <Button primary onClick={(e, values) => this.onSubmit(e, values)} type="submit" positive loading={this.props.submitting}>Confirm</Button>
+                    <Button primary onClick={(e, values) =>  this.onSubmit(e, values)} type="submit" positive loading={this.props.submitting}>Confirm</Button>
                 </Button.Group>
             </form>
         )
