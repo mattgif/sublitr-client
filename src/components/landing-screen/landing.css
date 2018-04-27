@@ -1,6 +1,6 @@
 .landing__hero {
     background-color: rgb(148, 104, 174);
-    height: 100%;
+    height: 100vh;
 }
 
 .landing__hero__wrapper {
@@ -206,7 +206,7 @@ div.wrapper {
 
 }
 
-@media screen and (min-width: 650px) and (max-width: 949px) {
+@media screen and (min-width: 650px) and (max-width: 767px) {
     .editor-info__body {
         margin-left: 30px;
         width: 600px;
@@ -243,7 +243,7 @@ div.wrapper {
     }
 }
 
-@media screen and (min-width: 950px) {
+@media screen and (min-width: 768px) {
     .editor-info,
     .decide-info,
     .submitter- {
@@ -272,11 +272,11 @@ div.wrapper {
 
 
     header.landing__hero {
-        height: 60%;
+        height: 60vh;
     }
 
     #info {
-        min-height: 40%;
+        min-height: 40vh;
     }
 
     #info * {

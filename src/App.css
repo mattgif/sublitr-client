@@ -40,10 +40,6 @@ body {
     width: 100%;
 }
 
-.App {
-    height: 100%;
-}
-
 button:hover {
     cursor: pointer;
 }
