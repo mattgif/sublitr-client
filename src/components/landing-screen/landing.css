@@ -47,6 +47,22 @@ button.landing__hero__scroll__button {
     cursor: pointer;
 }
 
+section.demoInfo {
+    padding: 30px;
+    background-color: #49274A;
+    color: #fff;
+}
+section.demoInfo h4 {
+    text-align: center;
+}
+
+section.demoInfo ul {
+    padding: 15px;
+    list-style: none;
+    text-align: center;
+
+}
+
 .app-preview {
     background-color: #49274A;
     color: #F8EEE7;

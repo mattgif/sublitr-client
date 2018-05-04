@@ -27,6 +27,14 @@ export default function Landing() {
                         <div className="landing__hero__color__image"/>
                     </div>
                 </header>
+                <section className="demoInfo">
+                    <h4>Demo logins ( pw: <em>testpassword</em> ):</h4>
+                    <ul>
+                        <li>User account: demouser@example.com</li>
+                        <li>Editor account: demoeditor@example.com</li>
+                        <li>Admin account: demoadmin@example.com</li>
+                    </ul>
+                </section>
                 <section id="info" className="info">
                     <section className="submitter-info" id="submitter-info">
                         <div className="submitter-info__wrapper">
