@@ -24,7 +24,9 @@ table.expandable__table .bottom {
 }
 
 table.expandable__table .bottom.dotted {
-    border-bottom: 2px dotted rgba(0, 0, 0, 0.2);
+    border-bottom: none;
+    background: radial-gradient(circle at bottom, rgba(0, 0, 0, 0.2) 1px, transparent 1.5px) repeat-x bottom;
+    background-size: 5px 4px;
 }
 
 table.expandable__table .counters td div {
